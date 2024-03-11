@@ -9,3 +9,15 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+* {
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  @apply w-2 bg-transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-primary;
+}
