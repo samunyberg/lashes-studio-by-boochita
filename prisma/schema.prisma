@@ -12,3 +12,46 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Appointment {
+  id              Int      @id @default(autoincrement())
+  date            DateTime @db.Date
+  time            DateTime @db.Time()
+  serviceId       Int?
+  serviceOptionId Int?
+  clientName      String?  @db.VarChar(255)
+  clientEmail     String?  @db.VarChar(255)
+  clientPhone     String?  @db.VarChar(255)
+  comment         String?  @db.Text()
+  status          Status   @default(AVAILABLE)
+
+  service       Service?       @relation(fields: [serviceId], references: [id])
+  serviceOption ServiceOption? @relation(fields: [serviceOptionId], references: [id])
+}
+
+enum Status {
+  AVAILABLE
+  BOOKED
+  UNAVAILABLE
+}
+
+model Service {
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(255)
+  description String?
+  imageUrl    String?
+
+  serviceOptions ServiceOption[]
+  appointments   Appointment[]
+}
+
+model ServiceOption {
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(255)
+  price       Float
+  description String?
+  serviceId   Int
+
+  appointments Appointment[]
+  service      Service?      @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+}
