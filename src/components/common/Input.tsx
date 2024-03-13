@@ -5,17 +5,21 @@ interface Props {
   type: 'text' | 'password';
   placeholder: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 }
 
-const Input = ({ name, type, placeholder, onChange }: Props) => {
+const Input = ({ name, type, placeholder, onChange, error }: Props) => {
   return (
-    <input
-      className="rounded-sm p-2 focus:outline focus:outline-accent"
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      onChange={onChange}
-    />
+    <div className="flex flex-col gap-2">
+      <input
+        className={`rounded-sm p-2 transition-all focus:outline focus:outline-accent ${error ? 'outline outline-red-300' : ''}`}
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
+      {error && <div className="text-red-400">{error}</div>}
+    </div>
   );
 };
 

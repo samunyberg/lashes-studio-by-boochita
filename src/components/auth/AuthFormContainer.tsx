@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AuthFormContainer = ({ children }: PropsWithChildren) => {
   return (

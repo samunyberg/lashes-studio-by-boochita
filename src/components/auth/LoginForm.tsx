@@ -1,39 +1,31 @@
 'use client';
 
-import StrikeThroughText from '@/components/common/StrikeThroughText';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Button from '../common/Button';
+import FormButton from '../common/FormButton';
+import FormError from '../common/FormError';
 import Input from '../common/Input';
 import AuthFormContainer from './AuthFormContainer';
+import AuthFormHeader from './AuthFormHeader';
 
 const LoginForm = () => {
-  const [name, setName] = useState('');
-  const [passWord, setPassword] = useState('');
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
 
   const login = async () => {
     try {
       const result = await signIn('credentials', {
+        ...credentials,
         redirect: false,
-        email: name,
-        password: passWord,
       });
       if (result?.error) setError('Invalid email or password');
-      if (result?.ok) toast.success(`Signed in as ${name}`);
+      if (result?.ok) toast.success(`Signed in as ${credentials.email}`);
     } catch (error) {
       setError('Something went wrong. Please try again');
     }
   };
-
-  const ErrorMessage = () => (
-    <div className="mb-4 rounded-sm border-2 border-red-300 bg-bgSoft px-4 py-4 text-center">
-      {error}
-    </div>
-  );
 
   const Links = () => (
     <div className="flex flex-col gap-2">
@@ -57,25 +49,26 @@ const LoginForm = () => {
 
   return (
     <AuthFormContainer>
-      <h1 className="text-center text-xl uppercase lg:text-2xl">
-        Lashes Studio by Boochita
-      </h1>
-      <StrikeThroughText className="my-6">Login</StrikeThroughText>
-      {error && <ErrorMessage />}
+      <AuthFormHeader subtitle="Login" />
+      <FormError>{error}</FormError>
       <form className="mb-8 flex flex-col gap-6" action={login}>
         <Input
           type="text"
           name="email"
           placeholder="Email"
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) =>
+            setCredentials({ ...credentials, email: e.target.value })
+          }
         />
         <Input
           name="password"
           type="password"
           placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) =>
+            setCredentials({ ...credentials, password: e.target.value })
+          }
         />
-        <Button label="Login" type="submit" variant="accent" />
+        <FormButton label="Login" variant="accent" />
       </form>
       <Links />
     </AuthFormContainer>
