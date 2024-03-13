@@ -10,7 +10,11 @@ import Input from '../common/Input';
 import AuthFormContainer from './AuthFormContainer';
 import AuthFormHeader from './AuthFormHeader';
 
-const LoginForm = () => {
+const LoginForm = ({
+  registrationSuccess,
+}: {
+  registrationSuccess?: string;
+}) => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
 
@@ -49,6 +53,15 @@ const LoginForm = () => {
 
   return (
     <AuthFormContainer>
+      {registrationSuccess === 'true' && (
+        <div className="mb-8 flex flex-col items-center justify-center gap-2 rounded-sm border-2 border-green-400 bg-white px-4 py-4">
+          <p className="text-lg">Registration successful!</p>
+          <p className="text-balance">
+            Thank you for registering, please continue by signing in to your new
+            account.
+          </p>
+        </div>
+      )}
       <AuthFormHeader subtitle="Login" />
       <FormError>{error}</FormError>
       <form className="mb-8 flex flex-col gap-6" action={login}>

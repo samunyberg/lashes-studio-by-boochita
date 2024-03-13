@@ -1,10 +1,14 @@
 import AuthPage from '@/components/auth/AuthPage';
 import LoginForm from '@/components/auth/LoginForm';
 
-const LoginPage = () => {
+interface Props {
+  searchParams: { registrationSuccess: string };
+}
+
+const LoginPage = ({ searchParams: { registrationSuccess } }: Props) => {
   return (
     <AuthPage>
-      <LoginForm />
+      <LoginForm registrationSuccess={registrationSuccess} />
     </AuthPage>
   );
 };

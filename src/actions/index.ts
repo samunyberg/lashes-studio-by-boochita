@@ -1,6 +1,7 @@
 'use server';
 
 import bcrypt from 'bcrypt';
+import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import prisma from '../../prisma/client';
 
@@ -85,7 +86,5 @@ export async function register(
     else return { errors: { _form: ['An unexpected error occured.'] } };
   }
 
-  return {
-    errors: {},
-  };
+  redirect('/auth/login?registrationSuccess=true');
 }

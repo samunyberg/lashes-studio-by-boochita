@@ -13,7 +13,7 @@ const config: Config = {
         secondary: '#b080a2',
         accent: '#a87397',
         textPrimary: '#5e4256',
-        textSecondary: '#5e4256',
+        textSecondary: '#a87397',
         bgPrimary: 'rgb(255 255 255)',
         bgSoft: 'rgb(255 255 255 / 0.4)',
       },
