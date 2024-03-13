@@ -21,3 +21,7 @@ html {
 *::-webkit-scrollbar-thumb:hover {
   @apply rounded-full bg-primary;
 }
+
+input:focus {
+  @apply outline-none;
+}
