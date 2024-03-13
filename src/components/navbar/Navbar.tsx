@@ -5,8 +5,13 @@ import { FiMenu } from 'react-icons/fi';
 import NavLinks from './NavLinks';
 import NavLogo from './NavLogo';
 import Sidebar from './Sidebar';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import NavAuth from './NavAuth';
 
 const Navbar = () => {
+  const session = useSession();
+
   const [sidebarOpened, setSidebar] = useState(false);
   const [color, setColor] = useState('transparent');
   const [shadow, setShadow] = useState('none');
@@ -43,7 +48,7 @@ const Navbar = () => {
             <div className="hidden lg:inline">
               <NavLinks />
             </div>
-            {/* <ProfileMenu /> */}
+            <NavAuth />
           </div>
         </div>
       </nav>
