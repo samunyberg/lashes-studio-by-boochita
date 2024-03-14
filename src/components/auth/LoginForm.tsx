@@ -32,10 +32,10 @@ const LoginForm = ({
   };
 
   const Links = () => (
-    <div className="flex flex-col gap-2">
-      <span className="">
+    <div className='flex flex-col gap-2'>
+      <span className=''>
         Don&#39;t have an account? Register{' '}
-        <Link href={'/auth/register'} className="text-accent underline">
+        <Link href={'/auth/register'} className='text-accent underline'>
           here
         </Link>
       </span>
@@ -43,7 +43,7 @@ const LoginForm = ({
         Forgot your password? Click{' '}
         <Link
           href={'/auth/forgotten-password'}
-          className="text-accent underline"
+          className='text-accent underline'
         >
           here
         </Link>
@@ -54,34 +54,34 @@ const LoginForm = ({
   return (
     <AuthFormContainer>
       {registrationSuccess === 'true' && (
-        <div className="mb-8 flex flex-col items-center justify-center gap-2 rounded-sm border-2 border-green-400 bg-white px-4 py-4">
-          <p className="text-lg">Registration successful!</p>
-          <p className="text-balance">
+        <div className='mb-8 flex flex-col items-center justify-center gap-2 rounded-sm border-2 border-green-400 bg-white px-4 py-4'>
+          <p className='text-lg'>Registration successful!</p>
+          <p className='text-balance'>
             Thank you for registering, please continue by signing in to your new
             account.
           </p>
         </div>
       )}
-      <AuthFormHeader subtitle="Login" />
+      <AuthFormHeader subtitle='Login' />
       <FormError>{error}</FormError>
-      <form className="mb-8 flex flex-col gap-6" action={login}>
+      <form className='mb-8 flex flex-col gap-6' action={login}>
         <Input
-          type="text"
-          name="email"
-          placeholder="Email"
+          type='text'
+          name='email'
+          placeholder='Email'
           onChange={(e) =>
             setCredentials({ ...credentials, email: e.target.value })
           }
         />
         <Input
-          name="password"
-          type="password"
-          placeholder="Password"
+          name='password'
+          type='password'
+          placeholder='Password'
           onChange={(e) =>
             setCredentials({ ...credentials, password: e.target.value })
           }
         />
-        <FormButton label="Login" variant="accent" />
+        <FormButton label='Login' variant='accent' />
       </form>
       <Links />
     </AuthFormContainer>

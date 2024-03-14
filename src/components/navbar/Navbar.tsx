@@ -38,13 +38,13 @@ const Navbar = () => {
       <nav
         className={`sticky bg-${color} shadow-${shadow} inset-x-0 top-0 z-50 h-14 px-5 py-4 backdrop-blur-md transition-all ease-in xl:px-0`}
       >
-        <div className="container mx-auto flex justify-between">
-          <button className="lg:hidden" onClick={() => setSidebar(true)}>
+        <div className='container mx-auto flex justify-between'>
+          <button className='lg:hidden' onClick={() => setSidebar(true)}>
             <FiMenu size={30} />
           </button>
           <NavLogo />
-          <div className="flex flex-row items-center gap-5">
-            <div className="hidden lg:inline">
+          <div className='flex flex-row items-center gap-5'>
+            <div className='hidden lg:inline'>
               <NavLinks />
             </div>
             <NavAuth />

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const AdminHomePage = () => {
-  return (
-    <div>AdminHomePage</div>
-  )
-}
+  return <div>AdminHomePage</div>;
+};
 
-export default AdminHomePage
+export default AdminHomePage;

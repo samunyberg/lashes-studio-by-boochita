@@ -13,7 +13,7 @@ const CheckBox = ({ isChecked }: Props) => {
         isChecked && '!bg-accent'
       } flex size-5 cursor-pointer items-center justify-center rounded-sm border border-primary bg-white/50 transition-all`}
     >
-      {isChecked && <FaCheck className="scale-100 text-white" />}
+      {isChecked && <FaCheck className='scale-100 text-white' />}
     </div>
   );
 };

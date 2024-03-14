@@ -4,14 +4,14 @@ const passwdStrengthLabels = ['Weak', 'Low', 'Medium', 'Strong'];
 
 const PasswordStrength = ({ passwdStrength }: { passwdStrength: number }) => {
   return (
-    <div className="rounded-sm bg-bgSoft px-2 py-4 shadow-sm">
-      <p className="mb-2 text-sm">
+    <div className='rounded-sm bg-bgSoft px-2 py-4 shadow-sm'>
+      <p className='mb-2 text-sm'>
         Password strength:{' '}
-        <span className="font-semibold">
+        <span className='font-semibold'>
           {passwdStrengthLabels[passwdStrength]}
         </span>
       </p>
-      <div className="flex gap-2">
+      <div className='flex gap-2'>
         {Array.from({ length: passwdStrength + 1 }).map((i, index) => (
           <div
             key={index}

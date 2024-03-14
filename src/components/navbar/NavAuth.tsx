@@ -15,12 +15,12 @@ const NavAuth = () => {
   };
 
   return (
-    <div className="relative">
+    <div className='relative'>
       {status === 'loading' && (
-        <ThreeDots height="30" width="30" color="#a87397" visible={true} />
+        <ThreeDots height='30' width='30' color='#a87397' visible={true} />
       )}
       {status === 'unauthenticated' && (
-        <div className="flex cursor-pointer gap-1 rounded-sm bg-accent px-2 py-1 text-sm font-light text-white">
+        <div className='flex cursor-pointer gap-1 rounded-sm bg-accent px-2 py-1 text-sm font-light text-white'>
           <Link href={'/auth/login'}>Login</Link>
           <span>|</span>
           <Link href={'/auth/register'}>Register</Link>
@@ -29,10 +29,10 @@ const NavAuth = () => {
       {status === 'authenticated' && (
         <div>
           <div
-            className="flex cursor-pointer items-center justify-center rounded-full bg-accent p-2 text-sm text-white"
+            className='flex cursor-pointer items-center justify-center rounded-full bg-accent p-2 text-sm text-white'
             onClick={() => setMenuOpen(!isMenuOpen)}
           >
-            <span className="tracking-wider">
+            <span className='tracking-wider'>
               {clipName(session.user!.name)}
             </span>
           </div>

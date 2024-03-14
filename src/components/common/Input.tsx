@@ -10,7 +10,7 @@ interface Props {
 
 const Input = ({ name, type, placeholder, onChange, error }: Props) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className='flex flex-col gap-2'>
       <input
         className={`rounded-sm p-2 transition-all focus:outline focus:outline-accent ${error ? 'outline outline-red-300' : ''}`}
         type={type}
@@ -18,7 +18,7 @@ const Input = ({ name, type, placeholder, onChange, error }: Props) => {
         placeholder={placeholder}
         onChange={onChange}
       />
-      {error && <div className="text-red-400">{error}</div>}
+      {error && <div className='text-red-400'>{error}</div>}
     </div>
   );
 };

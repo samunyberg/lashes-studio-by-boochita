@@ -21,7 +21,7 @@ const Button = ({ label, type, variant, isLoading }: Props) => {
         }
       )}
     >
-      {isLoading ? <ThreeDots color="#fff" height={30} width={30} /> : label}
+      {isLoading ? <ThreeDots color='#fff' height={30} width={30} /> : label}
     </button>
   );
 };

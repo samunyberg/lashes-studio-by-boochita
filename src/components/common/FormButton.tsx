@@ -12,7 +12,7 @@ const FormButton = ({ label, variant }: Props) => {
   const { pending } = useFormStatus();
 
   return (
-    <Button label={label} variant={variant} type="submit" isLoading={pending} />
+    <Button label={label} variant={variant} type='submit' isLoading={pending} />
   );
 };
 

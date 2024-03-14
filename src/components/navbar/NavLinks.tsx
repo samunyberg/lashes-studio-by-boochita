@@ -14,7 +14,7 @@ const NavLinks = () => {
   const pathName = usePathname();
 
   return (
-    <div className="flex flex-col gap-8 whitespace-nowrap lg:flex-row lg:gap-4">
+    <div className='flex flex-col gap-8 whitespace-nowrap lg:flex-row lg:gap-4'>
       {links.map((link) => (
         <Link
           key={link.label}
