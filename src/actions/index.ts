@@ -88,3 +88,9 @@ export async function register(
 
   redirect('/auth/login?registrationSuccess=true');
 }
+
+export async function fetchAppointments() {
+  const appointments = await prisma.appointment.findMany();
+
+  return appointments;
+}
