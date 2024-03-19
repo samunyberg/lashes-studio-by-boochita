@@ -26,12 +26,12 @@ const CalendarDays = ({
   const lastMonthDays = [];
   const currentMonthDays = [];
 
-  // Days before the first day of the calendar month:
+  // Days before the first day of the current calendar month:
   for (let i = 0; i < firstDayOfMonth; i++) {
     lastMonthDays.push(i);
   }
 
-  // Days of the calendar month
+  // Days of the current calendar month:
   for (let i = 1; i <= daysInMonth; i++) {
     currentMonthDays.push(i);
   }
@@ -45,13 +45,11 @@ const CalendarDays = ({
         <CalendarDay
           key={day}
           index={day}
+          currentDate={currentDate}
+          selectedMonth={selectedMonth}
+          appointments={appointments}
           onSelect={setSelectedDate}
           expandDay={setShowExpandedDay}
-          currentYear={currentYear}
-          selectedMonth={selectedMonth}
-          currentMonth={currentMonth}
-          currentDate={currentDate}
-          appointments={appointments}
         />
       ))}
     </div>

@@ -5,32 +5,30 @@ import AvailabilityIndicator from './AvailabilityIndicator';
 
 interface Props {
   index: number;
+  currentDate: Date;
+  selectedMonth: number;
+  appointments: Appointment[];
   onSelect: Dispatch<SetStateAction<Date>>;
   expandDay: Dispatch<SetStateAction<boolean>>;
-  currentYear: number;
-  selectedMonth: number;
-  currentMonth: number;
-  currentDate: Date;
-  appointments: Appointment[];
 }
 
 const CalendarDay = ({
   index,
   onSelect,
   expandDay,
-  currentYear,
   selectedMonth,
-  currentMonth,
   currentDate,
   appointments,
 }: Props) => {
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const date = new Date(currentYear, selectedMonth, index);
+
   const isPassedDay =
     currentMonth === selectedMonth && currentDate.getDate() > index;
 
   const isCurrentDay =
     currentMonth === selectedMonth && currentDate.getDate() === index;
-
-  const date = new Date(currentYear, selectedMonth, index);
 
   const filteredAppointments = appointments.filter(
     (app) => app.date.toDateString() === date.toDateString()
@@ -61,7 +59,9 @@ const CalendarDay = ({
     >
       <div className='flex flex-col items-center justify-between gap-1 md:flex-row md:gap-0'>
         <span>{index}</span>
-        {dayHasAvailableAppointments() && <AvailabilityIndicator />}
+        {dayHasAvailableAppointments() && !isPassedDay && (
+          <AvailabilityIndicator />
+        )}
       </div>
     </div>
   );
