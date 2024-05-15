@@ -36,7 +36,6 @@ const Intro = () => {
           initial={{ x: '-50%', opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.3, ease: 'easeIn' }}
-          className='lg:self-start'
         >
           <button className='rounded-sm border-2 border-primary px-4 py-2 font-medium transition-all hover:bg-bgSoft'>
             <Link href='/book'>BOOK APPOINTMENT</Link>
