@@ -5,8 +5,8 @@ import { passwordStrength } from 'check-password-strength';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
+import Button from '../common/Button';
 import CheckBox from '../common/CheckBox';
-import FormButton from '../common/FormButton';
 import FormError from '../common/FormError';
 import Input from '../common/Input';
 import AuthFormContainer from './AuthFormContainer';
@@ -81,7 +81,7 @@ const RegisterForm = () => {
           placeholder='Phone'
           error={formState.errors.phone?.at(0)}
         />
-        <FormButton label='Login' variant='accent' />
+        <Button label='Login' variant='accent' />
       </form>
       <Links />
     </AuthFormContainer>

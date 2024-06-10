@@ -5,21 +5,20 @@ import { ThreeDots } from 'react-loader-spinner';
 
 interface Props {
   label: string;
-  type: 'button' | 'submit' | 'reset' | undefined;
   variant: 'primary' | 'accent';
   isLoading?: boolean;
 }
 
-const Button = ({ label, type, variant, isLoading }: Props) => {
+const Button = ({ label, variant, isLoading, ...rest }: Props) => {
   return (
     <button
-      type={type}
       className={cn(
         'flex h-10 items-center justify-center rounded-sm border-2 border-primary p-2 px-4 font-medium tracking-wide transition-all hover:bg-accent hover:text-white',
         {
           'bg-accent text-white': variant === 'accent',
         }
       )}
+      {...rest}
     >
       {isLoading ? <ThreeDots color='#fff' height={30} width={30} /> : label}
     </button>

@@ -4,7 +4,7 @@ import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import FormButton from '../common/FormButton';
+import Button from '../common/Button';
 import FormError from '../common/FormError';
 import Input from '../common/Input';
 import AuthFormContainer from './AuthFormContainer';
@@ -81,7 +81,7 @@ const LoginForm = ({
             setCredentials({ ...credentials, password: e.target.value })
           }
         />
-        <FormButton label='Login' variant='accent' />
+        <Button label='Login' variant='accent' />
       </form>
       <Links />
     </AuthFormContainer>
