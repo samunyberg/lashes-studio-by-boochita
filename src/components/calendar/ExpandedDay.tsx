@@ -21,7 +21,10 @@ const ExpandedDay = ({
   if (!showExpandedDay) return null;
 
   return (
-    <div className='absolute inset-0 flex items-center justify-center bg-white/20'>
+    <div
+      className='absolute inset-0 flex items-center justify-center bg-white/20'
+      onClick={() => setShowExpandedDay(false)}
+    >
       <MotionContainer
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
