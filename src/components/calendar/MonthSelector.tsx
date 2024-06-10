@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import MonthSelectorMonth from './MonthSelectorMonth';
 
 interface Props {
   currentDate: Date;
@@ -19,30 +20,20 @@ const MonthSelector = ({ currentDate, selectedMonth, onSelect }: Props) => {
         })}
       </h2>
       <div className='flex justify-between md:justify-normal md:gap-1'>
-        <span
-          className={`${selectedMonth === currentMonth ? 'bg-accent text-white' : ''} rounded-sm  px-2 py-1 text-sm transition-all`}
-          onClick={() => onSelect(currentMonth)}
-        >
-          {new Date(currentYear, currentMonth).toLocaleDateString('fi-FI', {
-            month: 'long',
-          })}
-        </span>
-        <span
-          className={`${selectedMonth === currentMonth + 1 ? 'bg-accent text-white' : ''} rounded-sm  px-2 py-1 text-sm transition-all`}
-          onClick={() => onSelect(currentMonth + 1)}
-        >
-          {new Date(currentYear, currentMonth + 1).toLocaleDateString('fi-FI', {
-            month: 'long',
-          })}
-        </span>
-        <span
-          className={`${selectedMonth === currentMonth + 2 ? 'bg-accent text-white' : ''} rounded-sm  px-2 py-1 text-sm transition-all`}
-          onClick={() => onSelect(currentMonth + 2)}
-        >
-          {new Date(currentYear, currentMonth + 2).toLocaleDateString('fi-FI', {
-            month: 'long',
-          })}
-        </span>
+        {[0, 1, 2].map((i) => (
+          <MonthSelectorMonth
+            key={i}
+            monthName={new Date(
+              currentYear,
+              currentMonth + i
+            ).toLocaleDateString('fi-FI', {
+              month: 'long',
+            })}
+            currentMonth={currentMonth + i}
+            selectedMonth={selectedMonth}
+            onSelect={onSelect}
+          />
+        ))}
       </div>
     </div>
   );

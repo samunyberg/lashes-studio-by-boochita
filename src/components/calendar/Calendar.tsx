@@ -24,6 +24,7 @@ export const Calendar = ({ appointments }: { appointments: Appointment[] }) => {
 
   return (
     <div className='relative'>
+      {/* TODO: Remove this when not needed for testing */}
       {selectedAppointmentId}
       <MonthSelector
         currentDate={currentDate}
