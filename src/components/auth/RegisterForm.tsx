@@ -25,9 +25,9 @@ const RegisterForm = () => {
   }, [password]);
 
   const Links = () => (
-    <span className=''>
+    <span>
       Already have an account? Login{' '}
-      <Link href={'/auth/login'} className='text-textSecondary underline'>
+      <Link href={'/auth/login'} className='text-accent underline'>
         here
       </Link>
     </span>
@@ -81,7 +81,7 @@ const RegisterForm = () => {
           placeholder='Phone'
           error={formState.errors.phone?.at(0)}
         />
-        <Button label='Login' variant='accent' />
+        <Button label='Register' variant='accent' />
       </form>
       <Links />
     </AuthFormContainer>
