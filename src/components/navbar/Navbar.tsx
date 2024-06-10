@@ -40,7 +40,7 @@ const Navbar = () => {
       >
         <div className='container mx-auto flex justify-between'>
           <button className='lg:hidden' onClick={() => setSidebar(true)}>
-            <FiMenu size={30} />
+            <FiMenu size={25} />
           </button>
           <NavLogo />
           <div className='flex flex-row items-center gap-5'>
