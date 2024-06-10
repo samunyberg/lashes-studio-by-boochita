@@ -10,8 +10,8 @@ const AppointmentStatusBadge = ({ status }: { status: Status }) => {
       className={cn(
         'flex w-28 items-center justify-center rounded-full border-2 py-1',
         {
-          'border-red-300': status === 'BOOKED',
-          'border-green-300': status === 'AVAILABLE',
+          'border-red-400': status === 'BOOKED',
+          'border-green-400': status === 'AVAILABLE',
           'border-orange-300': status === 'UNAVAILABLE',
         }
       )}
