@@ -18,7 +18,7 @@ export const Calendar = ({ appointments }: { appointments: Appointment[] }) => {
     number | null
   >(null);
 
-  const filteredAppointments = appointments.filter(
+  const appointmentsByDate = appointments.filter(
     (app) => app.date.toDateString() === selectedDate.toDateString()
   );
 
@@ -42,7 +42,7 @@ export const Calendar = ({ appointments }: { appointments: Appointment[] }) => {
       <Legend />
       <ExpandedDay
         selectedDate={selectedDate}
-        appointments={filteredAppointments}
+        appointments={appointmentsByDate}
         showExpandedDay={showExpandedDay}
         setShowExpandedDay={setShowExpandedDay}
         onSelectAppointmentId={setSelectedAppointmentId}
