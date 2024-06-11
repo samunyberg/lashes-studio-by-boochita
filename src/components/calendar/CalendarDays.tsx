@@ -18,7 +18,6 @@ const CalendarDays = ({
   appointments,
 }: Props) => {
   const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth();
 
   const daysInMonth = new Date(currentYear, selectedMonth + 1, 0).getDate();
   const firstDayOfMonth = new Date(currentYear, selectedMonth, 0).getDay();
@@ -37,7 +36,7 @@ const CalendarDays = ({
   }
 
   return (
-    <div className='grid grid-cols-7 gap-1'>
+    <div className='grid grid-cols-7 bg-bgSoft shadow'>
       {lastMonthDays.map((day) => (
         <div key={day} className='min-h-16 md:min-h-fit' />
       ))}

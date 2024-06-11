@@ -22,16 +22,16 @@ const ExpandedDay = ({
 
   return (
     <div
-      className='absolute inset-0 flex items-center justify-center bg-white/20'
+      className='absolute inset-0 flex items-center justify-center'
       onClick={() => setShowExpandedDay(false)}
     >
       <MotionContainer
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.1, ease: 'easeIn' }}
-        className='z-50 w-[80%] overflow-hidden rounded-sm bg-white shadow-md md:w-[300px]'
+        className='z-50 h-full w-[80%] overflow-hidden border-l-4 border-accent bg-white shadow-md md:w-[300px]'
       >
-        <div className='flex items-center justify-between bg-red-300 p-4 text-white'>
+        <div className='flex items-center justify-between p-4 text-primary'>
           <h1 className='text-lg font-medium uppercase'>
             {selectedDate.toLocaleDateString('fi-FI', {
               weekday: 'short',

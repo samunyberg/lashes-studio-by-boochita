@@ -46,9 +46,9 @@ const CalendarDay = ({
     <div
       key={index}
       className={cn(
-        'min-h-16 cursor-pointer rounded-sm bg-red-50 p-4 font-medium transition-all hover:bg-red-300 md:min-h-fit lg:p-6',
+        'min-h-16 cursor-pointer border border-white/30 p-4 font-medium transition-all hover:bg-secondary md:min-h-fit lg:p-6',
         {
-          'border-accent bg-red-200 font-bold': isCurrentDay,
+          'border-2 border-accent': isCurrentDay,
           'pointer-events-none text-gray-400': isPassedDay,
         }
       )}
@@ -57,11 +57,12 @@ const CalendarDay = ({
         expandDay(true);
       }}
     >
-      <div className='flex flex-col items-center justify-between gap-1 md:flex-row md:gap-0'>
+      <div className='flex flex-col items-center justify-between gap-1 text-xs md:flex-row md:gap-0'>
         <span>{index}</span>
-        {dayHasAvailableAppointments() && !isPassedDay && (
-          <AvailabilityIndicator />
-        )}
+        <AvailabilityIndicator
+          dayHasAvailableAppointments={dayHasAvailableAppointments()}
+          isPassedDay={isPassedDay}
+        />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ const CalendarHeaderRow = () => {
   const dayNames = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
   const renderedDays = dayNames.map((dayName) => (
-    <div key={dayName} className='p-4 font-medium tracking-wide'>
+    <div key={dayName} className='p-4 text-xs tracking-wide'>
       {dayName}
     </div>
   ));
