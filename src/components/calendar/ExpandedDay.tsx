@@ -1,7 +1,8 @@
 import { Appointment } from '@prisma/client';
 import { Dispatch, SetStateAction } from 'react';
-import AppointmentStatusBadge from '../common/AppointmentStatusBadge';
 import { MotionContainer } from '../common/MotionContainer';
+import ExpandedDayAppointment from './ExpandedDayAppointment';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
 
 interface Props {
   selectedDate: Date;
@@ -20,6 +21,32 @@ const ExpandedDay = ({
 }: Props) => {
   if (!showExpandedDay) return null;
 
+  const header = () => (
+    <div className='flex items-center justify-between p-4 text-primary'>
+      <h1 className='text-lg font-medium uppercase'>
+        {selectedDate.toLocaleDateString('fi-FI', {
+          weekday: 'short',
+        }) +
+          ' ' +
+          selectedDate.toLocaleDateString('fi-FI')}
+      </h1>
+      <span
+        className='text-lg font-medium'
+        onClick={() => setShowExpandedDay(false)}
+      >
+        <IoIosCloseCircleOutline className='size-6' />
+      </span>
+    </div>
+  );
+
+  const subHeader = () => (
+    <h2 className='mb-4'>
+      {appointments.length > 0
+        ? 'Click an appointment to select it.'
+        : 'No appointments for this day.'}
+    </h2>
+  );
+
   return (
     <div
       className='absolute inset-0 flex items-center justify-center'
@@ -31,45 +58,16 @@ const ExpandedDay = ({
         transition={{ duration: 0.1, ease: 'easeIn' }}
         className='z-50 h-full w-[80%] overflow-hidden border-l-4 border-accent bg-white shadow-md md:w-[300px]'
       >
-        <div className='flex items-center justify-between p-4 text-primary'>
-          <h1 className='text-lg font-medium uppercase'>
-            {selectedDate.toLocaleDateString('fi-FI', {
-              weekday: 'short',
-            }) +
-              ' ' +
-              selectedDate.toLocaleDateString('fi-FI')}
-          </h1>
-          <span
-            className='text-lg font-medium'
-            onClick={() => setShowExpandedDay(false)}
-          >
-            X
-          </span>
-        </div>
-        <div className='px-4 py-8'>
-          <h2 className='mb-4'>
-            {appointments.length > 0
-              ? 'Click an appointment to select it.'
-              : 'No appointments for this day.'}
-          </h2>
+        {header()}
+        <div className='px-3 py-5'>
+          {subHeader()}
           <div className='flex w-full flex-col gap-4 '>
             {appointments.map((app: Appointment) => (
-              <div
+              <ExpandedDayAppointment
                 key={app.id}
-                className={`${app.status !== 'AVAILABLE' ? 'pointer-events-none' : ''} flex h-14 w-full items-center justify-between border border-accent px-4 py-2`}
-                onClick={() => {
-                  if (app.status !== 'AVAILABLE') return;
-                  onSelectAppointmentId(app.id);
-                }}
-              >
-                <span className='text-lg'>
-                  {app.time.toLocaleTimeString('fi-FI', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                </span>
-                <AppointmentStatusBadge status={app.status} />
-              </div>
+                appointment={app}
+                onSelectAppointmentId={onSelectAppointmentId}
+              />
             ))}
           </div>
         </div>
