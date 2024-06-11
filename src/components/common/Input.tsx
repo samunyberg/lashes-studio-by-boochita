@@ -18,7 +18,7 @@ const Input = ({ name, type, placeholder, onChange, error }: Props) => {
         placeholder={placeholder}
         onChange={onChange}
       />
-      {error && <div className='text-red-400'>{error}</div>}
+      {error && <div className='text-sm text-red-400'>{error}</div>}
     </div>
   );
 };
