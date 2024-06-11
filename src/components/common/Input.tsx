@@ -12,7 +12,7 @@ const Input = ({ name, type, placeholder, onChange, error }: Props) => {
   return (
     <div className='flex flex-col gap-2'>
       <input
-        className={`rounded-sm p-2 transition-all focus:outline focus:outline-accent ${error ? 'outline outline-red-300' : ''}`}
+        className={`rounded-sm p-2 shadow placeholder:text-sm focus:outline-2 focus:outline-accent ${error ? 'outline outline-red-300' : ''}`}
         type={type}
         name={name}
         placeholder={placeholder}
