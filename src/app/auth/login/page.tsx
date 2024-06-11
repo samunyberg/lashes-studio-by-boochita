@@ -1,4 +1,3 @@
-import AuthPage from '@/components/auth/AuthPage';
 import LoginForm from '@/components/auth/LoginForm';
 
 interface Props {
@@ -6,11 +5,7 @@ interface Props {
 }
 
 const LoginPage = ({ searchParams: { registrationSuccess } }: Props) => {
-  return (
-    <AuthPage>
-      <LoginForm registrationSuccess={registrationSuccess} />
-    </AuthPage>
-  );
+  return <LoginForm registrationSuccess={registrationSuccess} />;
 };
 
 export default LoginPage;
