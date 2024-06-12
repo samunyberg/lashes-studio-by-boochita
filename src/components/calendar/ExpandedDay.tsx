@@ -1,8 +1,8 @@
 import { Appointment } from '@prisma/client';
 import { Dispatch, SetStateAction } from 'react';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { MotionContainer } from '../common/MotionContainer';
 import ExpandedDayAppointment from './ExpandedDayAppointment';
-import { IoIosCloseCircleOutline } from 'react-icons/io';
 
 interface Props {
   selectedDate: Date;
@@ -22,10 +22,10 @@ const ExpandedDay = ({
   if (!showExpandedDay) return null;
 
   const header = () => (
-    <div className='flex items-center justify-between p-4 text-primary'>
-      <h1 className='text-lg font-medium uppercase'>
+    <div className='flex items-center justify-between p-4'>
+      <h1 className='text-md rounded-sm bg-accent p-2 text-white shadow'>
         {selectedDate.toLocaleDateString('fi-FI', {
-          weekday: 'short',
+          weekday: 'long',
         }) +
           ' ' +
           selectedDate.toLocaleDateString('fi-FI')}
@@ -40,7 +40,7 @@ const ExpandedDay = ({
   );
 
   const subHeader = () => (
-    <h2 className='mb-4'>
+    <h2 className='mb-5'>
       {appointments.length > 0
         ? 'Click an appointment to select it.'
         : 'No appointments for this day.'}
@@ -56,10 +56,10 @@ const ExpandedDay = ({
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.1, ease: 'easeIn' }}
-        className='z-50 h-full w-[80%] overflow-hidden border-l-4 border-accent bg-white shadow-md md:w-[300px]'
+        className='z-50 h-full w-full overflow-hidden bg-white shadow md:w-[300px]'
       >
         {header()}
-        <div className='px-3 py-5'>
+        <div className='px-4 py-3'>
           {subHeader()}
           <div className='flex w-full flex-col gap-4 '>
             {appointments.map((app: Appointment) => (

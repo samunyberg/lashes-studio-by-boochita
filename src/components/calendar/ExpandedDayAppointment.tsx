@@ -13,7 +13,7 @@ const ExpandedDayAppointment = ({
   return (
     <div
       key={appointment.id}
-      className={`${appointment.status !== 'AVAILABLE' ? 'pointer-events-none' : ''} flex h-14 w-full items-center justify-between border border-accent px-4 py-2 shadow`}
+      className={`${appointment.status !== 'AVAILABLE' ? 'pointer-events-none' : ''} flex h-14 w-full items-center justify-between border-l-4 border-accent px-4 py-2 shadow`}
       onClick={() => {
         if (appointment.status !== 'AVAILABLE') return;
         onSelectAppointmentId(appointment.id);
