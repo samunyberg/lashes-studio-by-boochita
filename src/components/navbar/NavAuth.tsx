@@ -17,10 +17,10 @@ const NavAuth = () => {
   return (
     <div className='relative'>
       {status === 'loading' && (
-        <ThreeDots height='30' width='30' color='#a87397' visible={true} />
+        <ThreeDots height='30' width='30' color='#524237' visible={true} />
       )}
       {status === 'unauthenticated' && (
-        <div className='flex cursor-pointer gap-1 border-l-2 border-accent bg-bgSoft px-2 py-1 text-sm'>
+        <div className='flex cursor-pointer gap-1 border-l-2 border-accent bg-bgSoft px-2 py-1 text-sm shadow'>
           <Link href={'/auth/login'}>Login</Link>
           <span>|</span>
           <Link href={'/auth/register'}>Register</Link>

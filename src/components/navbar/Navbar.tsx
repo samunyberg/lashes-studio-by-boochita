@@ -36,9 +36,9 @@ const Navbar = () => {
     <>
       <Sidebar isOpen={sidebarOpened} toggleSidebar={setSidebar} />
       <nav
-        className={`sticky bg-${color} shadow-${shadow} inset-x-0 top-0 z-50 h-14 px-5 py-4 backdrop-blur-md transition-all ease-in xl:px-0`}
+        className={`sticky bg-${color} shadow-${shadow} inset-x-0 top-0 z-50 h-16 px-5 py-3 backdrop-blur-md transition-all ease-in xl:px-0`}
       >
-        <div className='container mx-auto flex justify-between'>
+        <div className='container mx-auto flex items-center justify-between'>
           <button className='lg:hidden' onClick={() => setSidebar(true)}>
             <FiMenu size={25} />
           </button>

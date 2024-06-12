@@ -2,16 +2,16 @@ import { cn } from 'clsx-tailwind-merge';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+const links = [
+  { href: '/book', label: 'Book' },
+  { href: '/services', label: 'Services' },
+  { href: '/hours', label: 'Business Hours' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+
 const NavLinks = () => {
   const pathName = usePathname();
-
-  const links = [
-    { href: '/book', label: 'Book' },
-    { href: '/services', label: 'Services' },
-    { href: '/hours', label: 'Business Hours' },
-    { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
-  ];
 
   const renderedLinks = links.map((link) => (
     <Link
