@@ -46,7 +46,7 @@ const CalendarDay = ({
     <div
       key={index}
       className={cn(
-        'min-h-16 cursor-pointer border border-white/30 p-4 font-medium transition-all hover:bg-secondary md:min-h-fit lg:p-6',
+        'hover:bg-bgSofter min-h-16 cursor-pointer border border-white/30 p-4 font-medium transition-all md:min-h-fit lg:p-6',
         {
           'border-2 border-accent': isCurrentDay,
           'pointer-events-none text-gray-400': isPassedDay,
