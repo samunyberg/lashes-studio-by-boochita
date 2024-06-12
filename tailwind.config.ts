@@ -13,6 +13,7 @@ const config: Config = {
         secondary: '#e8ad80',
         accent: '#c9a489',
         bgSoft: 'rgb(255 255 255 / 0.4)',
+        bgSofter: 'rgb(255 255 255 / 0.5)',
       },
     },
   },
