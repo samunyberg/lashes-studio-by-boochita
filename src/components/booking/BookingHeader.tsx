@@ -17,10 +17,10 @@ const BookingHeader = ({ steps, currentStep }: Props) => {
           <div key={step.stepNumber}>
             <span
               className={cn(
-                `flex items-center gap-1 px-1 text-sm text-primary text-opacity-60`,
+                `flex items-center gap-1 px-1 text-sm text-opacity-60`,
                 {
                   'text-opacity-90': step.stepNumber <= currentStep,
-                  'font-semibold text-opacity-100 underline':
+                  'font-bold text-opacity-100 underline':
                     step.stepNumber === currentStep,
                 }
               )}
