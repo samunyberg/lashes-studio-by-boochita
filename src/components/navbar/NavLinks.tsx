@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const links = [
+  { href: '/', label: 'Home' },
   { href: '/book', label: 'Book' },
   { href: '/services', label: 'Services' },
   { href: '/hours', label: 'Business Hours' },
@@ -27,6 +28,7 @@ const NavLinks = ({ onLinkClick }: Props) => {
         {
           'border-b border-primary font-medium opacity-100':
             pathName === link.href,
+          'lg:hidden': link.label === 'Home',
         }
       )}
     >
