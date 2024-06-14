@@ -10,13 +10,18 @@ const links = [
   { href: '/contact', label: 'Contact' },
 ];
 
-const NavLinks = () => {
+interface Props {
+  onLinkClick?: () => void;
+}
+
+const NavLinks = ({ onLinkClick }: Props) => {
   const pathName = usePathname();
 
   const renderedLinks = links.map((link) => (
     <Link
       key={link.label}
       href={link.href}
+      onClick={onLinkClick}
       className={cn(
         `cursor-pointer px-2 font-normal uppercase tracking-wide opacity-90 transition-all`,
         {

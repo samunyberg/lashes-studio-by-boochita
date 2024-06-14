@@ -9,9 +9,7 @@ import NavLogo from './NavLogo';
 import Sidebar from './Sidebar';
 
 const Navbar = () => {
-  const session = useSession();
-
-  const [sidebarOpened, setSidebar] = useState(false);
+  const [sidebarOpened, setSidebarOpened] = useState(false);
   const [color, setColor] = useState('transparent');
   const [shadow, setShadow] = useState('none');
 
@@ -32,14 +30,18 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleToggleSidebar = () => {
+    setSidebarOpened(!sidebarOpened);
+  };
+
   return (
     <>
-      <Sidebar isOpen={sidebarOpened} toggleSidebar={setSidebar} />
+      <Sidebar isOpen={sidebarOpened} onToggleSidebar={handleToggleSidebar} />
       <nav
         className={`sticky bg-${color} shadow-${shadow} inset-x-0 top-0 z-50 h-16 px-5 py-3 backdrop-blur-md transition-all ease-in xl:px-0`}
       >
         <div className='container mx-auto flex items-center justify-between'>
-          <button className='lg:hidden' onClick={() => setSidebar(true)}>
+          <button className='lg:hidden' onClick={() => setSidebarOpened(true)}>
             <FiMenu size={25} />
           </button>
           <NavLogo />

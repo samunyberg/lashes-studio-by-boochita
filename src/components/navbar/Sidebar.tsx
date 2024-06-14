@@ -1,13 +1,12 @@
-import { Dispatch, SetStateAction } from 'react';
 import { MdClose } from 'react-icons/md';
 import NavLinks from './NavLinks';
 
 interface Props {
   isOpen: boolean;
-  toggleSidebar: Dispatch<SetStateAction<boolean>>;
+  onToggleSidebar: () => void;
 }
 
-const Sidebar = ({ isOpen, toggleSidebar }: Props) => {
+const Sidebar = ({ isOpen, onToggleSidebar }: Props) => {
   return (
     <aside
       className={`${
@@ -15,12 +14,12 @@ const Sidebar = ({ isOpen, toggleSidebar }: Props) => {
       } fixed top-0 z-[999] flex h-screen flex-row transition-all duration-300 lg:hidden`}
     >
       <div className='bg-bgSoft px-5 py-4 shadow-md backdrop-blur-lg'>
-        <button onClick={() => toggleSidebar(false)} className='mb-8'>
+        <button onClick={() => onToggleSidebar()} className='mb-8'>
           <MdClose size={30} />
         </button>
-        <NavLinks />
+        <NavLinks onLinkClick={onToggleSidebar} />
       </div>
-      <div className='flex-1' onClick={() => toggleSidebar(false)}></div>
+      <div className='flex-1' onClick={() => onToggleSidebar()}></div>
     </aside>
   );
 };
