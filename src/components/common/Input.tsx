@@ -15,7 +15,7 @@ const Input = ({
   ...rest
 }: Props) => {
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-1'>
       {label && (
         <label htmlFor={id} className='text-sm'>
           {label}
