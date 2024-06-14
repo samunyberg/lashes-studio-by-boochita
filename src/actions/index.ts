@@ -3,7 +3,7 @@
 import bcrypt from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
-import prisma from '../../prisma/client';
+import prisma from '../prisma/client';
 
 interface RegisterFormState {
   errors: {
@@ -88,4 +88,3 @@ export async function register(
 
   redirect('/auth/login?registrationSuccess=true');
 }
-
