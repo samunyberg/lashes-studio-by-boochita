@@ -24,7 +24,7 @@ const RegisterForm = () => {
     setPasswdStrenth(strength.id);
   }, [password]);
 
-  const Links = () => (
+  const links = () => (
     <span>
       Already have an account? Login{' '}
       <Link href={'/auth/login'} className='text-accent underline'>
@@ -46,7 +46,7 @@ const RegisterForm = () => {
   return (
     <AuthFormContainer>
       <AuthFormHeader subtitle='Register' />
-      <FormError>{formState.errors._form?.at(0)}</FormError>
+      <FormError className='mb-4'>{formState.errors._form?.at(0)}</FormError>
       <form className='mb-8 flex flex-col gap-6' action={action}>
         <Input
           name='name'
@@ -74,7 +74,7 @@ const RegisterForm = () => {
           placeholder='Confirm password'
           error={formState.errors.confirmPassword?.at(0)}
         />
-        <ShowPasswordCheckBox />
+        {ShowPasswordCheckBox()}
         <Input
           name='phone'
           type='text'
@@ -83,7 +83,7 @@ const RegisterForm = () => {
         />
         <Button label='Register' variant='accent' />
       </form>
-      <Links />
+      {links()}
     </AuthFormContainer>
   );
 };

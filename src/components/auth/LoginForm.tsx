@@ -63,7 +63,7 @@ const LoginForm = ({
         </div>
       )}
       <AuthFormHeader subtitle='Login' />
-      <FormError>{error}</FormError>
+      <FormError className='mb-4'>{error}</FormError>
       <form className='mb-8 flex flex-col gap-6' action={login}>
         <Input
           type='text'
