@@ -24,7 +24,7 @@ const ServiceListItem = ({
         className='flex w-full items-center justify-between border-l-4 border-accent bg-bgSoft p-2 tracking-wide'
         onClick={() => onServiceSelect(service)}
       >
-        <h2 className={`${isExpanded ? 'font-semibold' : 'font-light'}`}>
+        <h2 className={`${isExpanded ? 'font-semibold' : 'font-medium'}`}>
           {service.name}
         </h2>
         {!isExpanded ? (
@@ -51,7 +51,7 @@ const ServiceListItem = ({
             >
               <div className='flex w-full flex-col gap-1 px-1'>
                 <div className='flex items-center justify-between'>
-                  <span className='w-fit rounded-sm bg-accent px-2 font-light tracking-wide text-white shadow'>
+                  <span className='w-fit rounded-sm bg-accent px-2 font-medium tracking-wide text-white shadow'>
                     {option.name}
                   </span>
                   <CheckBox
