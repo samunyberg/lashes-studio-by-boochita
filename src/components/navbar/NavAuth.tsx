@@ -29,7 +29,7 @@ const NavAuth = () => {
       {status === 'authenticated' && (
         <div>
           <div
-            className='flex cursor-pointer items-center justify-center rounded-full border-2 border-accent bg-bgSoft p-2 text-sm'
+            className={`cursor-pointer rounded-sm border-l-4 border-accent bg-bgSoft px-2 text-sm shadow ${isMenuOpen && 'bg-white'}`}
             onClick={() => setMenuOpen(!isMenuOpen)}
           >
             <span className='tracking-wider'>
