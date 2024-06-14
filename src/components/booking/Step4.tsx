@@ -10,7 +10,7 @@ const Step4 = () => {
   return (
     <>
       <div className='border-l-4 border-accent bg-bgSoft px-2 py-4 shadow'>
-        <p className='border-b border-accent border-opacity-30 px-2 pb-2 text-sm'>
+        <p className='border-b border-accent border-opacity-30 px-2 pb-2 tracking-wide'>
           Please check that the information is correct. You will receive a
           confirmation email to{' '}
           <span className='font-semibold'>{bookingData.formData.email}</span>{' '}
