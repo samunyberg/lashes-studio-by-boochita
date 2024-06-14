@@ -3,6 +3,7 @@
 import Button from '@/components/common/Button';
 import { MotionContainer } from '@/components/common/MotionContainer';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { BsCheckCircle } from 'react-icons/bs';
 
 interface Props {
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const ThankYouPage = ({ searchParams: { email } }: Props) => {
+  const router = useRouter();
+
   return (
     <div className='h-[calc(100vh-4rem)] px-6 pt-32'>
       <div className='flex flex-col items-center justify-center gap-4'>
@@ -28,7 +31,11 @@ const ThankYouPage = ({ searchParams: { email } }: Props) => {
           <span className='font-semibold'>{email}</span>.
         </p>
         <div className='flex w-full flex-col gap-4'>
-          <Button label='To Home Page' variant='accent' />
+          <Button
+            label='To Home Page'
+            variant='accent'
+            onClick={() => router.push('/')}
+          />
           <Button
             label='Logout'
             variant='primary'
