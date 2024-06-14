@@ -147,7 +147,7 @@ const BookingForm = ({ appointments, services }: Props) => {
       }}
     >
       <div className='pb-16 md:mx-auto md:max-w-[450px] lg:max-w-[650px]'>
-        <StrikeThroughText className='mb-6 mt-2'>
+        <StrikeThroughText className='pb-6 pt-5'>
           Book Appointment
         </StrikeThroughText>
         <BookingHeader steps={steps} currentStep={currentStep} />
