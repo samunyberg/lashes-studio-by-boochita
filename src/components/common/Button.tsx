@@ -5,11 +5,11 @@ import { ThreeDots } from 'react-loader-spinner';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
-  variant: 'primary' | 'accent';
+  variant?: 'primary' | 'accent';
   isLoading?: boolean;
 }
 
-const Button = ({ label, variant, isLoading, ...rest }: Props) => {
+const Button = ({ label, variant = 'primary', isLoading, ...rest }: Props) => {
   return (
     <button
       className={cn(
