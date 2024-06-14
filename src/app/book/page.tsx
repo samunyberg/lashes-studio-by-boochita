@@ -13,7 +13,7 @@ const BookingPage = async () => {
   });
 
   return (
-    <div className='min-h-[calc(100vh-4rem)]'>
+    <div className='min-h-[calc(100vh-55px)]'>
       <BookingForm appointments={appointments} services={services} />
     </div>
   );

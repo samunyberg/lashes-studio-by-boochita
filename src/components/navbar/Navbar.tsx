@@ -38,7 +38,7 @@ const Navbar = () => {
     <>
       <Sidebar isOpen={sidebarOpened} onToggleSidebar={handleToggleSidebar} />
       <nav
-        className={`sticky bg-${color} shadow-${shadow} inset-x-0 top-0 z-50 h-16 px-5 py-3 backdrop-blur-md transition-all ease-in xl:px-0`}
+        className={`sticky bg-${color} shadow-${shadow} inset-x-0 top-0 z-50 flex h-[55px] items-center px-5 py-3 backdrop-blur-md transition-all ease-in xl:px-0`}
       >
         <div className='container mx-auto flex items-center justify-between'>
           <button className='lg:hidden' onClick={() => setSidebarOpened(true)}>
