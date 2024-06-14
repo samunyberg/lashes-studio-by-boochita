@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { MotionContainer } from './common/MotionContainer';
+import Button from './common/Button';
 
 const Intro = () => {
   return (
@@ -21,13 +22,13 @@ const Intro = () => {
             />
           </div>
         </MotionContainer>
-        <div className='flex flex-col items-center gap-2 text-center text-4xl uppercase tracking-wide md:text-6xl lg:flex-row'>
+        <div className='flex flex-col items-center gap-2 text-center text-4xl uppercase tracking-wide text-primary md:text-6xl lg:flex-row'>
           <h1>Lashes Studio by</h1>
           <MotionContainer
             initial={{ y: '-50%', opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, ease: 'easeIn' }}
-            className='bg-gradient-to-tr from-accent to-pink-400 bg-clip-text text-transparent'
+            className='text-accent'
           >
             Boochita
           </MotionContainer>
@@ -37,9 +38,9 @@ const Intro = () => {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.3, ease: 'easeIn' }}
         >
-          <button className='rounded-sm border-2 border-primary px-4 py-2 font-medium transition-all hover:bg-bgSoft'>
-            <Link href='/book'>BOOK APPOINTMENT</Link>
-          </button>
+          <Link href='/book'>
+            <Button variant='primary' label='Book Appointment' />
+          </Link>
         </MotionContainer>
       </div>
     </div>
