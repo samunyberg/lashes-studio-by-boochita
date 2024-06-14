@@ -11,7 +11,9 @@ const StrikeThroughText = ({ children, className }: Props) => {
       <div className='flex flex-1 items-center'>
         <div className='h-[2px] w-full bg-accent'></div>
       </div>
-      <h1 className='text-xl uppercase'>{children}</h1>
+      <h1 className='text-xl font-medium uppercase tracking-wide'>
+        {children}
+      </h1>
       <div className='flex flex-1 items-center'>
         <div className='h-[2px] w-full bg-accent'></div>
       </div>
