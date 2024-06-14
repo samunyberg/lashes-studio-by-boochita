@@ -1,20 +1,19 @@
 import { Appointment } from '@prisma/client';
-import { Dispatch, SetStateAction } from 'react';
 import CalendarDay from './CalendarDay';
 
 interface Props {
   currentDate: Date;
   selectedMonth: number;
-  setSelectedDate: Dispatch<SetStateAction<Date>>;
-  setShowExpandedDay: Dispatch<SetStateAction<boolean>>;
+  onSelectedDate: (date: Date) => void;
+  onShowExpandedDay: () => void;
   appointments: Appointment[];
 }
 
 const CalendarDays = ({
   currentDate,
   selectedMonth,
-  setSelectedDate,
-  setShowExpandedDay,
+  onSelectedDate,
+  onShowExpandedDay,
   appointments,
 }: Props) => {
   const currentYear = currentDate.getFullYear();
@@ -47,8 +46,8 @@ const CalendarDays = ({
           currentDate={currentDate}
           selectedMonth={selectedMonth}
           appointments={appointments}
-          onSelect={setSelectedDate}
-          expandDay={setShowExpandedDay}
+          onSelectDate={onSelectedDate}
+          onShowExpandedDay={onShowExpandedDay}
         />
       ))}
     </div>

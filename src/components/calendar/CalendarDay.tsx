@@ -1,6 +1,5 @@
 import { Appointment } from '@prisma/client';
 import { cn } from 'clsx-tailwind-merge';
-import { Dispatch, SetStateAction } from 'react';
 import AvailabilityIndicator from './AvailabilityIndicator';
 
 interface Props {
@@ -8,14 +7,14 @@ interface Props {
   currentDate: Date;
   selectedMonth: number;
   appointments: Appointment[];
-  onSelect: Dispatch<SetStateAction<Date>>;
-  expandDay: Dispatch<SetStateAction<boolean>>;
+  onSelectDate: (date: Date) => void;
+  onShowExpandedDay: () => void;
 }
 
 const CalendarDay = ({
   index,
-  onSelect,
-  expandDay,
+  onSelectDate,
+  onShowExpandedDay,
   selectedMonth,
   currentDate,
   appointments,
@@ -46,15 +45,15 @@ const CalendarDay = ({
     <div
       key={index}
       className={cn(
-        'hover:bg-bgSofter min-h-16 cursor-pointer border border-white/30 p-4 font-medium transition-all md:min-h-fit lg:p-6',
+        'min-h-16 cursor-pointer border border-white/30 p-4 font-medium transition-all hover:bg-bgSofter md:min-h-fit lg:p-6',
         {
           'border-2 border-accent': isCurrentDay,
           'pointer-events-none text-gray-400': isPassedDay,
         }
       )}
       onClick={() => {
-        onSelect(new Date(currentYear, selectedMonth, index));
-        expandDay(true);
+        onSelectDate(new Date(currentYear, selectedMonth, index));
+        onShowExpandedDay();
       }}
     >
       <div className='flex flex-col items-center justify-between gap-1 text-xs md:flex-row md:gap-0'>

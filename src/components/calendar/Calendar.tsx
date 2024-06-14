@@ -8,24 +8,31 @@ import ExpandedDay from './ExpandedDay';
 import Legend from './Legend';
 import MonthSelector from './MonthSelector';
 
-export const Calendar = ({ appointments }: { appointments: Appointment[] }) => {
+interface Props {
+  appointments: Appointment[];
+}
+
+export const Calendar = ({ appointments }: Props) => {
   const currentDate = new Date();
 
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   const [showExpandedDay, setShowExpandedDay] = useState(false);
-  const [selectedAppointmentId, setSelectedAppointmentId] = useState<
-    number | null
-  >(null);
 
   const appointmentsByDate = appointments.filter(
     (app) => app.date.toDateString() === selectedDate.toDateString()
   );
 
+  const handleShowExpandedDay = () => {
+    setShowExpandedDay(!showExpandedDay);
+  };
+
+  const handleSelectDate = (date: Date) => {
+    setSelectedDate(date);
+  };
+
   return (
     <div className='relative'>
-      {/* TODO: Remove this when not needed for testing */}
-      {selectedAppointmentId}
       <MonthSelector
         currentDate={currentDate}
         selectedMonth={selectedMonth}
@@ -35,17 +42,16 @@ export const Calendar = ({ appointments }: { appointments: Appointment[] }) => {
       <CalendarDays
         currentDate={currentDate}
         selectedMonth={selectedMonth}
-        setSelectedDate={setSelectedDate}
+        onSelectedDate={handleSelectDate}
         appointments={appointments}
-        setShowExpandedDay={setShowExpandedDay}
+        onShowExpandedDay={handleShowExpandedDay}
       />
       <Legend />
       <ExpandedDay
         selectedDate={selectedDate}
         appointments={appointmentsByDate}
         showExpandedDay={showExpandedDay}
-        setShowExpandedDay={setShowExpandedDay}
-        onSelectAppointmentId={setSelectedAppointmentId}
+        onShowExpandedDay={handleShowExpandedDay}
       />
     </div>
   );

@@ -1,40 +1,36 @@
 import { Appointment } from '@prisma/client';
-import { Dispatch, SetStateAction } from 'react';
+import { FaRegCalendarCheck } from 'react-icons/fa';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { MotionContainer } from '../common/MotionContainer';
 import ExpandedDayAppointment from './ExpandedDayAppointment';
 
 interface Props {
+  appointments: Appointment[];
   selectedDate: Date;
   showExpandedDay: boolean;
-  setShowExpandedDay: Dispatch<SetStateAction<boolean>>;
-  onSelectAppointmentId: Dispatch<SetStateAction<number | null>>;
-  appointments: Appointment[];
+  onShowExpandedDay: () => void;
 }
 
 const ExpandedDay = ({
   selectedDate,
   showExpandedDay,
-  setShowExpandedDay,
-  onSelectAppointmentId,
+  onShowExpandedDay,
   appointments,
 }: Props) => {
   if (!showExpandedDay) return null;
 
   const header = () => (
     <div className='flex items-center justify-between p-4'>
-      <h1 className='text-md rounded-sm bg-accent p-2 text-white shadow'>
+      <h1 className='text-md flex items-center gap-2 rounded-sm bg-accent p-2 text-white shadow'>
+        <FaRegCalendarCheck className='size-5' />
         {selectedDate.toLocaleDateString('fi-FI', {
           weekday: 'long',
         }) +
           ' ' +
           selectedDate.toLocaleDateString('fi-FI')}
       </h1>
-      <span
-        className='text-lg font-medium'
-        onClick={() => setShowExpandedDay(false)}
-      >
-        <IoIosCloseCircleOutline className='size-6' />
+      <span className='text-lg font-medium' onClick={() => onShowExpandedDay()}>
+        <IoIosCloseCircleOutline className='size-7' />
       </span>
     </div>
   );
@@ -48,10 +44,7 @@ const ExpandedDay = ({
   );
 
   return (
-    <div
-      className='absolute inset-0 flex items-center justify-center'
-      onClick={() => setShowExpandedDay(false)}
-    >
+    <div className='absolute inset-0 flex items-center justify-center'>
       <MotionContainer
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -66,7 +59,7 @@ const ExpandedDay = ({
               <ExpandedDayAppointment
                 key={app.id}
                 appointment={app}
-                onSelectAppointmentId={onSelectAppointmentId}
+                onShowExpandedDay={onShowExpandedDay}
               />
             ))}
           </div>
