@@ -15,7 +15,7 @@ const Intro = () => {
           height={300}
           className='object-contain'
         />
-        <div className='flex flex-col items-center gap-2 text-center text-4xl uppercase tracking-wide text-primary md:text-6xl lg:flex-row'>
+        <div className='flex flex-col items-center gap-2 text-center text-4xl uppercase tracking-wide md:text-6xl lg:flex-row'>
           <h1>Lashes Studio by Boochita</h1>
         </div>
         <MotionContainer
