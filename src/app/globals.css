@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  @apply bg-gradient-to-br from-red-200 to-red-100 text-primary;
+  @apply bg-bgMain text-primary;
 }
 
 ::-webkit-scrollbar {
@@ -25,4 +25,3 @@ html {
 input:focus {
   @apply outline-none;
 }
-

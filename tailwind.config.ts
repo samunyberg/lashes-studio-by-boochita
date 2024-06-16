@@ -14,6 +14,7 @@ const config: Config = {
         accent: '#c9a489',
         bgSoft: 'rgb(255 255 255 / 0.4)',
         bgSofter: 'rgb(255 255 255 / 0.5)',
+        bgMain: 'rgba(251, 215, 199, 255)',
       },
     },
   },
