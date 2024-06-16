@@ -16,7 +16,7 @@ const ThankYouPage = ({ searchParams: { email } }: Props) => {
   const router = useRouter();
 
   return (
-    <div className='h-[calc(100vh-4rem)] px-6 pt-32'>
+    <div className='h-[calc(100vh-4rem)] pt-32'>
       <div className='flex flex-col items-center justify-center gap-4'>
         <MotionContainer
           initial={{ opacity: 0, scale: 0.5 }}
