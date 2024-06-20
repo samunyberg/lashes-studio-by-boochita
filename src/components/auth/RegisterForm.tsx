@@ -1,6 +1,6 @@
 'use client';
 
-import { register } from '@/actions';
+import registerUser from '@/actions/registerUser';
 import { passwordStrength } from 'check-password-strength';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ import AuthFormHeader from './AuthFormHeader';
 import PasswordStrength from './PasswordStrength';
 
 const RegisterForm = () => {
-  const [formState, action] = useFormState(register, { errors: {} });
+  const [formState, action] = useFormState(registerUser, { errors: {} });
   const [passwdStrength, setPasswdStrenth] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
@@ -24,7 +24,7 @@ const RegisterForm = () => {
     setPasswdStrenth(strength.id);
   }, [password]);
 
-  const links = () => (
+  const links = (
     <span>
       Already have an account? Login{' '}
       <Link href={'/auth/login'} className='text-accent underline'>
@@ -83,7 +83,7 @@ const RegisterForm = () => {
         />
         <Button label='Register' variant='accent' />
       </form>
-      {links()}
+      {links}
     </AuthFormContainer>
   );
 };

@@ -44,7 +44,7 @@ const registerFormSchema = z
     path: ['confirmPassword'],
   });
 
-export async function register(
+export default async function register(
   formState: RegisterFormState,
   formData: FormData
 ): Promise<RegisterFormState> {

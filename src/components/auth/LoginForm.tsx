@@ -39,7 +39,7 @@ const LoginForm = ({
     }
   };
 
-  const Links = () => (
+  const links = (
     <div className='flex flex-col gap-2'>
       <span className=''>
         Don&#39;t have an account? Register{' '}
@@ -91,7 +91,7 @@ const LoginForm = ({
         />
         <Button label='Login' variant='accent' />
       </form>
-      <Links />
+      {links}
     </AuthFormContainer>
   );
 };
