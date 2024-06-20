@@ -10,14 +10,12 @@ const AccessDeniedPage = () => {
           <MdBlock size={30} />
           <h1 className='text-2xl font-bold'>Restricted Area</h1>
         </div>
-        <h2 className='mb-12 text-xl font-medium'>
+        <h2 className='mb-12 text-center text-lg font-medium'>
           Sorry, looks you were trying to access a restricted page.
         </h2>
-        <div>
-          <Link href='/'>
-            <Button variant='accent' label='Back Home' />
-          </Link>
-        </div>
+        <Link href='/'>
+          <Button variant='accent' label='Back Home' />
+        </Link>
       </div>
     </div>
   );
