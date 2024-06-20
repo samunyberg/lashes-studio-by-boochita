@@ -5,8 +5,12 @@ import { ThreeDots } from 'react-loader-spinner';
 import ProfileMenu from './ProfileMenu';
 
 const NavAuth = () => {
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { status, data: session } = useSession();
+
+  const handleToggleProfileMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const clipName = (name: string) => {
     const firstName = name.split(' ')[0];
@@ -30,14 +34,20 @@ const NavAuth = () => {
         <div>
           <div
             className={`cursor-pointer rounded-sm border-l-4 border-accent bg-bgSoft px-2 py-1 text-sm shadow ${isMenuOpen && 'bg-white'}`}
-            onClick={() => setMenuOpen(!isMenuOpen)}
+            onClick={() => {
+              if (!isMenuOpen) setIsMenuOpen(true);
+              else return;
+            }}
           >
             <span className='tracking-wider'>
               {clipName(session.user!.name)}
             </span>
           </div>
           {isMenuOpen && (
-            <ProfileMenu user={session.user} setOpen={setMenuOpen} />
+            <ProfileMenu
+              user={session.user}
+              onClose={handleToggleProfileMenu}
+            />
           )}
         </div>
       )}

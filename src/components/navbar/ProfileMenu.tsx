@@ -1,6 +1,6 @@
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
-import { Dispatch, SetStateAction } from 'react';
+import { useEffect, useRef } from 'react';
 import { MdLogout } from 'react-icons/md';
 import { MotionContainer } from '../common/MotionContainer';
 
@@ -11,16 +11,33 @@ interface Props {
     phone: string;
     isAdmin: boolean;
   };
-  setOpen: Dispatch<SetStateAction<boolean>>;
+  onClose: () => void;
 }
 
-const ProfileMenu = ({ user, setOpen }: Props) => {
+const ProfileMenu = ({ user, onClose: onClick }: Props) => {
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        onClick();
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <MotionContainer
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      ref={menuRef}
+      initial={{ opacity: 0, right: -20 }}
+      animate={{ opacity: 1, right: 0 }}
       transition={{ duration: 0.2 }}
-      className='absolute right-0 top-6 z-50 w-56 py-2 text-sm'
+      className='absolute right-0 top-0 z-50 w-56 rounded-sm text-sm'
     >
       <div className='flex flex-col items-start justify-center gap-3 rounded-sm border-l-4 border-accent bg-white px-6 py-4 shadow'>
         <p>
@@ -31,11 +48,11 @@ const ProfileMenu = ({ user, setOpen }: Props) => {
         </p>
         <hr className='w-full border-accent' />
         {user.isAdmin && (
-          <Link href={'/admin'} onClick={() => setOpen(false)}>
+          <Link href={'/admin'} onClick={() => onClick()}>
             Admin Area
           </Link>
         )}
-        <Link href='/account' onClick={() => setOpen(false)}>
+        <Link href='/account' onClick={() => onClick()}>
           My Account
         </Link>
         <hr className='w-full border-accent' />
