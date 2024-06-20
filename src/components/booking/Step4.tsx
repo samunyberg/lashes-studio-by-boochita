@@ -19,7 +19,7 @@ const Step4 = () => {
         <div className='mt-3 flex flex-col gap-1 px-4'>
           <span className='flex items-center gap-2'>
             <FaRegCalendarCheck className='size-4' />
-            {bookingData.appointment?.date.toLocaleDateString('fi-FI', {
+            {bookingData.appointment?.dateTime.toLocaleDateString('fi-FI', {
               weekday: 'long',
               month: 'long',
               day: '2-digit',
@@ -27,7 +27,7 @@ const Step4 = () => {
           </span>
           <span className='flex items-center gap-2'>
             <FaRegClock className='size-4' />
-            {bookingData.appointment?.time.toLocaleTimeString('fi-FI', {
+            {bookingData.appointment?.dateTime.toLocaleTimeString('fi-FI', {
               hour: '2-digit',
               minute: '2-digit',
             })}

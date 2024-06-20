@@ -20,7 +20,7 @@ export const Calendar = ({ appointments }: Props) => {
   const [showExpandedDay, setShowExpandedDay] = useState(false);
 
   const appointmentsByDate = appointments.filter(
-    (app) => app.date.toDateString() === selectedDate.toDateString()
+    (app) => app.dateTime.toDateString() === selectedDate.toDateString()
   );
 
   const handleShowExpandedDay = () => {

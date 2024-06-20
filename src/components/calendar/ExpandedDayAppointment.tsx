@@ -32,7 +32,7 @@ const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
       <span className='flex items-center gap-2'>
         <FaRegClock className='size-4' />
         <span>
-          {appointment.time.toLocaleTimeString('fi-FI', {
+          {appointment.dateTime.toLocaleTimeString('fi-FI', {
             hour: '2-digit',
             minute: '2-digit',
           })}

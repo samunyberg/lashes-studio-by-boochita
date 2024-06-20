@@ -30,7 +30,7 @@ const CalendarDay = ({
     currentMonth === selectedMonth && currentDate.getDate() === index;
 
   const appointmentsByDate = appointments.filter(
-    (app) => app.date.toDateString() === date.toDateString()
+    (app) => app.dateTime.toDateString() === date.toDateString()
   );
 
   const dayHasAvailableAppointments = () => {
