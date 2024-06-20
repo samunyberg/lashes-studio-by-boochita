@@ -14,13 +14,13 @@ interface Props {
   onClose: () => void;
 }
 
-const ProfileMenu = ({ user, onClose: onClick }: Props) => {
+const ProfileMenu = ({ user, onClose }: Props) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        onClick();
+        onClose();
       }
     }
 
@@ -48,11 +48,11 @@ const ProfileMenu = ({ user, onClose: onClick }: Props) => {
         </p>
         <hr className='w-full border-accent' />
         {user.isAdmin && (
-          <Link href={'/admin'} onClick={() => onClick()}>
+          <Link href={'/admin'} onClick={() => onClose()}>
             Admin Area
           </Link>
         )}
-        <Link href='/account' onClick={() => onClick()}>
+        <Link href='/account' onClick={() => onClose()}>
           My Account
         </Link>
         <hr className='w-full border-accent' />
