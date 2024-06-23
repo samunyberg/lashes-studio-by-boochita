@@ -13,6 +13,16 @@ interface Props {
 const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
   const { bookingData, setBookingData } = useContext(BookingDataContext);
 
+  const isBookable = () => {
+    const currentTime = new Date();
+    const oneHourInMS = 3_600_000;
+
+    return (
+      appointment.status === 'AVAILABLE' &&
+      appointment.dateTime.getTime() - currentTime.getTime() >= oneHourInMS
+    );
+  };
+
   return (
     <div
       key={appointment.id}
@@ -20,11 +30,11 @@ const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
         `flex h-14 w-full items-center justify-between border-l-4 border-accent px-4 py-2 shadow`,
         {
           'pointer-events-none cursor-not-allowed opacity-70 shadow-none':
-            appointment.status !== 'AVAILABLE',
+            !isBookable(),
         }
       )}
       onClick={() => {
-        if (appointment.status !== 'AVAILABLE') return;
+        if (!isBookable()) return;
         setBookingData({ ...bookingData, appointment });
         onShowExpandedDay();
       }}

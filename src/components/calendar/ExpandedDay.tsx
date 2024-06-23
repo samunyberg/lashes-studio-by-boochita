@@ -38,7 +38,7 @@ const ExpandedDay = ({
   const subHeader = () => (
     <h2 className='mb-5'>
       {appointments.length > 0
-        ? 'Click an appointment to select it.'
+        ? 'Click an appointment to select it. Appointment must be booked at least one hour before start time.'
         : 'No appointments for this day.'}
     </h2>
   );
