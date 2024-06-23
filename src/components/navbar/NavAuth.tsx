@@ -12,12 +12,6 @@ const NavAuth = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const clipName = (name: string) => {
-    const firstName = name.split(' ')[0];
-    const lastName = name.split(' ')[1];
-    return (firstName.substring(0, 1) + lastName.substring(0, 1)).toUpperCase();
-  };
-
   return (
     <div className='relative'>
       {status === 'loading' && (
@@ -40,7 +34,8 @@ const NavAuth = () => {
             }}
           >
             <span className='tracking-wider'>
-              {clipName(session.user!.name)}
+              {session.user.firstName.substring(0, 1) +
+                session.user.lastName.substring(0, 1).toUpperCase()}
             </span>
           </div>
           {isMenuOpen && (

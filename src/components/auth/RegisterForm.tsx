@@ -49,10 +49,16 @@ const RegisterForm = () => {
       <FormError className='mb-4'>{formState.errors._form?.at(0)}</FormError>
       <form className='mb-8 flex flex-col gap-6' action={action}>
         <Input
-          name='name'
+          name='firstName'
           type='text'
-          placeholder='First and last name'
-          error={formState.errors.name?.at(0)}
+          placeholder='First name'
+          error={formState.errors.firstName?.at(0)}
+        />
+        <Input
+          name='lastName'
+          type='text'
+          placeholder='Last name'
+          error={formState.errors.lastName?.at(0)}
         />
         <Input
           type='text'

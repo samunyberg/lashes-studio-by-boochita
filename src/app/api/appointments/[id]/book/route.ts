@@ -3,25 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 export const appointmentSchema = z.object({
+  userId: z.string(),
   serviceId: z.number({ invalid_type_error: 'This field is required.' }),
   serviceOptionId: z.number({ invalid_type_error: 'This field is required.' }),
-  clientName: z
-    .string()
-    .min(3, 'Name should be at least 3 characters.')
-    .max(55, 'Name should not be longer than 55 characters.'),
-  clientEmail: z.string().email('Please give a valid email.'),
-  clientPhone: z
-    .string()
-    .min(
-      10,
-      'Please give a valid phone number. Do not include the country code.'
-    )
-    .max(10),
-  comment: z
-    .string()
-    .max(255, 'Comment should not be longer than 255 characters.')
-    .optional()
-    .nullable(),
 });
 
 interface Props {
@@ -54,11 +38,9 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     const bookedAppointment = await prisma.appointment.update({
       where: { id: appointment.id },
       data: {
+        userId: body.userId,
         serviceId: body.serviceId,
         serviceOptionId: body.serviceOptionId,
-        clientName: body.clientName,
-        clientEmail: body.clientEmail,
-        clientPhone: body.clientPhone,
         status: 'BOOKED',
       },
     });

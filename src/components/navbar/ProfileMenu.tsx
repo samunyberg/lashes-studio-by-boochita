@@ -6,9 +6,9 @@ import { MotionContainer } from '../common/MotionContainer';
 
 interface Props {
   user: {
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
-    phone: string;
     isAdmin: boolean;
   };
   onClose: () => void;
@@ -43,7 +43,7 @@ const ProfileMenu = ({ user, onClose }: Props) => {
         <p>
           Signed in as{' '}
           <span className='w-32 whitespace-normal font-medium'>
-            {user.name}
+            {user.email}
           </span>
         </p>
         <hr className='w-full border-accent' />

@@ -8,7 +8,8 @@ import prisma from '../prisma/client';
 interface RegisterFormState {
   errors: {
     _form?: string[];
-    name?: string[];
+    firstName?: string[];
+    lastName?: string[];
     email?: string[];
     password?: string[];
     confirmPassword?: string[];
@@ -28,10 +29,14 @@ const registerFormSchema = z
         'Password must contain at least one uppercase letter, one lowercase letter, and one digit.'
       ),
     confirmPassword: z.string(),
-    name: z
+    firstName: z
       .string()
-      .min(3, 'Name must be at least 3 characters long.')
-      .max(50, 'Name cannot be over 50 characters long.'),
+      .min(3, 'First name must be at least 3 characters long.')
+      .max(50, 'First name cannot be over 50 characters long.'),
+    lastName: z
+      .string()
+      .min(3, 'Last name must be at least 3 characters long.')
+      .max(50, 'Last name cannot be over 50 characters long.'),
     phone: z
       .string()
       .regex(
@@ -48,14 +53,16 @@ export default async function register(
   formState: RegisterFormState,
   formData: FormData
 ): Promise<RegisterFormState> {
-  const name = formData.get('name') as string;
+  const firstName = formData.get('firstName') as string;
+  const lastName = formData.get('lastName') as string;
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
   const confirmPassword = formData.get('confirmPassword') as string;
   const phone = formData.get('phone') as string;
 
   const result = registerFormSchema.safeParse({
-    name,
+    firstName,
+    lastName,
     email,
     password,
     confirmPassword,
@@ -77,7 +84,8 @@ export default async function register(
       data: {
         email,
         hashedPassword,
-        name,
+        firstName,
+        lastName,
         phone,
       },
     });

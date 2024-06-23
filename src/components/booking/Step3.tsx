@@ -1,102 +1,51 @@
-import { useEffect, useState } from 'react';
-import { z } from 'zod';
-import Input from '../common/Input';
+import BookingDataContext from '@/contexts/bookingDataContext';
+import { useContext } from 'react';
+import { FaCheck } from 'react-icons/fa';
+import { FaRegCalendarCheck, FaRegClock } from 'react-icons/fa';
+import FormError from '../common/FormError';
+import { useSession } from 'next-auth/react';
 
-export interface ContactInfoFormData {
-  name: string;
-  email: string;
-  phone: string;
-}
-
-interface FormErrors {
-  name?: string;
-  email?: string;
-  phone?: string;
-}
-
-interface Props {
-  data: ContactInfoFormData;
-  onChange: (data: ContactInfoFormData) => void;
-}
-
-export const formSchema = z.object({
-  name: z
-    .string()
-    .min(3, 'Name must be at least 3 characters long.')
-    .max(50, 'Name cannot be over 50 characters long.'),
-  email: z.string().email('Invalid email.'),
-  phone: z
-    .string()
-    .regex(
-      new RegExp('^\\d{10}$'),
-      'Please give a valid phone number without the country code.'
-    ),
-});
-
-const Step3 = ({ data: contactInfoFormData, onChange }: Props) => {
-  const [errors, setErrors] = useState<FormErrors>({});
-
-  useEffect(() => {
-    const result = formSchema.safeParse(contactInfoFormData);
-    if (!result.success) {
-      setErrors({
-        name: result.error.format().name?._errors[0],
-        email: result.error.format().email?._errors[0],
-        phone: result.error.format().phone?._errors[0],
-      });
-    } else setErrors({});
-  }, [contactInfoFormData]);
+const Step3 = () => {
+  const { data: session } = useSession();
+  const { bookingData, bookingError } = useContext(BookingDataContext);
 
   return (
-    <form className='flex flex-col gap-3'>
-      <Input
-        name='name'
-        label='Name'
-        placeholder='First and last name'
-        value={contactInfoFormData.name}
-        onChange={(event) =>
-          onChange({
-            ...contactInfoFormData,
-            name: event.target.value,
-          })
-        }
-        error={errors.name}
-      />
-      <Input
-        name='email'
-        label='Email'
-        placeholder='Email'
-        value={contactInfoFormData.email}
-        onChange={(event) =>
-          onChange({
-            ...contactInfoFormData,
-            email: event.target.value,
-          })
-        }
-        error={errors.email}
-      />
-      <Input
-        name='phone'
-        label='Phone'
-        placeholder='Phone number without country code'
-        value={contactInfoFormData.phone}
-        onChange={(event) =>
-          onChange({
-            ...contactInfoFormData,
-            phone: event.target.value,
-          })
-        }
-        error={errors.phone}
-      />
-      {/* <textarea
-        name='comment'
-        value={comment}
-        maxLength={250}
-        placeholder='Optional comment regarding your booking'
-        onChange={(event) => setComment(event.target.value)}
-        className={`h-24 rounded-sm p-2 shadow placeholder:text-sm focus:outline-2 focus:outline-accent`}
-      /> */}
-    </form>
+    <>
+      <div className='border-l-4 border-accent bg-bgSoft px-2 py-4 shadow'>
+        <p className='border-b border-accent border-opacity-30 px-2 pb-2 tracking-wide'>
+          Please check that the information is correct. You will receive a
+          confirmation email to{' '}
+          <span className='font-semibold'>{session?.user.email}</span> after
+          booking.
+        </p>
+        <div className='mt-3 flex flex-col gap-1 px-4'>
+          <span className='flex items-center gap-2'>
+            <FaRegCalendarCheck className='size-4' />
+            {bookingData.appointment?.dateTime.toLocaleDateString('fi-FI', {
+              weekday: 'long',
+              month: 'long',
+              day: '2-digit',
+            })}
+          </span>
+          <span className='flex items-center gap-2'>
+            <FaRegClock className='size-4' />
+            {bookingData.appointment?.dateTime.toLocaleTimeString('fi-FI', {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+          </span>
+          <span className='flex items-center gap-2'>
+            <FaCheck className='size-3' />
+            {bookingData.service?.name}
+          </span>
+          <span className='flex items-center gap-2'>
+            <FaCheck className='size-3' />
+            {bookingData.serviceOption?.name}
+          </span>
+        </div>
+      </div>
+      <FormError className='my-5 !text-left text-sm'>{bookingError}</FormError>
+    </>
   );
 };
 
