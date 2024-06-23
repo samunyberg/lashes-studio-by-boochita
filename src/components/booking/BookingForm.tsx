@@ -131,6 +131,7 @@ const BookingForm = ({ appointments, services }: Props) => {
               {currentStep === 3 && <Step3 />}
             </div>
             <BookingButtons
+              steps={steps}
               currentStep={currentStep}
               onBackClick={handleBack}
               onNextClick={handleNext}

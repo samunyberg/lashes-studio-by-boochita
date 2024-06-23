@@ -1,6 +1,8 @@
 import Button from '../common/Button';
+import { Step } from './BookingForm';
 
 interface Props {
+  steps: Step[],
   currentStep: number;
   onBackClick: () => void;
   onNextClick: () => void;
@@ -9,6 +11,7 @@ interface Props {
 }
 
 const BookingButtons = ({
+  steps,
   currentStep,
   onBackClick,
   onNextClick,
@@ -19,7 +22,7 @@ const BookingButtons = ({
     <div className='flex flex-col gap-5 md:flex-row-reverse md:justify-between'>
       <Button
         variant='accent'
-        label={currentStep === 4 ? 'Book this appointment' : 'Next'}
+        label={currentStep === steps.length ? 'Book this appointment' : 'Next'}
         onClick={onNextClick}
         disabled={isNextDisabled}
         isLoading={isSubmitting}
