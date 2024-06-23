@@ -42,6 +42,7 @@ export async function PATCH(request: NextRequest, { params }: Props) {
         serviceId: body.serviceId,
         serviceOptionId: body.serviceOptionId,
         status: 'BOOKED',
+        bookedAt: new Date(),
       },
     });
 

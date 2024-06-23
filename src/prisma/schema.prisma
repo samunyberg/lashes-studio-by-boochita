@@ -14,15 +14,17 @@ datasource db {
 }
 
 model Appointment {
-  id              Int            @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   dateTime        DateTime
-  client          User?          @relation(fields: [userId], references: [id])
+  client          User?    @relation(fields: [userId], references: [id])
   serviceId       Int?
   serviceOptionId Int?
-  status          Status         @default(AVAILABLE)
-  service         Service?       @relation(fields: [serviceId], references: [id])
-  serviceOption   ServiceOption? @relation(fields: [serviceOptionId], references: [id])
-  userId          String?
+  status          Status   @default(AVAILABLE)
+  bookedAt        DateTime?
+
+  service       Service?       @relation(fields: [serviceId], references: [id])
+  serviceOption ServiceOption? @relation(fields: [serviceOptionId], references: [id])
+  userId        String?
 }
 
 enum Status {
