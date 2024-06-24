@@ -24,6 +24,16 @@ export async function PATCH(request: NextRequest, { params }: Props) {
   if (!appointment)
     return NextResponse.json({ error: 'Invalid appointment' }, { status: 404 });
 
+  const currentTime = new Date();
+  const oneHourInMS = 3_600_000;
+  if (appointment.dateTime.getTime() - currentTime.getTime() < oneHourInMS)
+    return NextResponse.json(
+      {
+        error: 'Appointment must be booked at least one hour before start time',
+      },
+      { status: 403 }
+    );
+
   if (appointment.status === 'BOOKED')
     return NextResponse.json(
       { error: 'This appointment is already booked' },
