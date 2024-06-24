@@ -76,10 +76,15 @@ const BookingForm = ({ appointments, services }: Props) => {
       setIsSubmitting(false);
     } catch (error) {
       setIsSubmitting(false);
-      const errorMessage =
-        (error as AxiosError).response?.status === 409
-          ? 'Oh no! Looks like this appointment was booked just a moment ago. Please choose a different time.'
-          : 'Whoops! Something went wrong. Please try again.';
+      let errorMessage = '';
+      const err = error as AxiosError;
+      if (err.response?.status === 409)
+        errorMessage =
+          'Oh no! Looks like this appointment was booked just a moment ago. Please choose a different time.';
+      else if (err.response?.status === 403)
+        errorMessage =
+          'Appointment must be booked at least one hour before start time. Please choose a different appointment time.';
+      else errorMessage = 'Whoops! Something went wrong. Please try again.';
       setBookingError(errorMessage);
     }
   };
