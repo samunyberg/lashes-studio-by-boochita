@@ -16,6 +16,7 @@ interface Props {
 
 export async function PATCH(request: NextRequest, { params }: Props) {
   const body = await request.json();
+  const currentTime = new Date();
 
   const appointment = await prisma.appointment.findUnique({
     where: { id: parseInt(params.id) },
@@ -24,9 +25,12 @@ export async function PATCH(request: NextRequest, { params }: Props) {
   if (!appointment)
     return NextResponse.json({ error: 'Invalid appointment' }, { status: 404 });
 
-  const currentTime = new Date();
-  const oneHourInMS = 3_600_000;
-  if (appointment.dateTime.getTime() - currentTime.getTime() < oneHourInMS)
+  const startsInLessThanOneHour = () => {
+    const oneHourInMS = 3_600_000;
+    return appointment.dateTime.getTime() - currentTime.getTime() < oneHourInMS;
+  };
+
+  if (startsInLessThanOneHour())
     return NextResponse.json(
       {
         error: 'Appointment must be booked at least one hour before start time',
@@ -52,7 +56,7 @@ export async function PATCH(request: NextRequest, { params }: Props) {
         serviceId: body.serviceId,
         serviceOptionId: body.serviceOptionId,
         status: 'BOOKED',
-        bookedAt: new Date(),
+        bookedAt: currentTime,
       },
     });
 
