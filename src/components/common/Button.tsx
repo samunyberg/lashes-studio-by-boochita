@@ -1,17 +1,18 @@
 'use client';
 
 import { cn } from 'clsx-tailwind-merge';
+import { ReactNode } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  label: string;
+  children: ReactNode;
   variant?: 'primary' | 'accent';
   isLoading?: boolean;
   className?: string;
 }
 
 const Button = ({
-  label,
+  children,
   variant = 'primary',
   isLoading,
   className,
@@ -28,7 +29,7 @@ const Button = ({
       )}
       {...rest}
     >
-      {isLoading ? <ThreeDots color='#fff' height={30} width={30} /> : label}
+      {isLoading ? <ThreeDots color='#fff' height={30} width={30} /> : children}
     </button>
   );
 };
