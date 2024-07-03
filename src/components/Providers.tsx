@@ -7,7 +7,7 @@ import { PropsWithChildren } from 'react';
 const Providers = ({ children }: PropsWithChildren) => {
   return (
     <SessionProvider>
-      <LanguageProvider language='en'>{children}</LanguageProvider>
+      <LanguageProvider language='fi'>{children}</LanguageProvider>
     </SessionProvider>
   );
 };
