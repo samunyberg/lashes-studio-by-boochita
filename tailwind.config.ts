@@ -12,7 +12,7 @@ const config: Config = {
         primary: '#524237',
         secondary: '#e8ad80',
         accent: '#c9a489',
-        bgSoft: 'rgb(255 255 255 / 0.4)',
+        bgSoft: 'rgb(255 255 255 / 0.6)',
         bgSofter: 'rgb(255 255 255 / 0.5)',
         bgMain: 'rgba(251, 215, 199, 255)',
       },
