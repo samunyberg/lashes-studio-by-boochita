@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
+  children: ReactNode | string;
   variant?: 'primary' | 'accent';
   isLoading?: boolean;
   className?: string;

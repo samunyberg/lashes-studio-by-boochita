@@ -1,9 +1,11 @@
+import Label from '../common/Label';
+
 const CalendarHeaderRow = () => {
-  const dayNames = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  const dayNames = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
 
   const renderedDays = dayNames.map((dayName) => (
     <div key={dayName} className='p-4 text-xs tracking-wide'>
-      {dayName}
+      <Label labelId={dayName} />
     </div>
   ));
 

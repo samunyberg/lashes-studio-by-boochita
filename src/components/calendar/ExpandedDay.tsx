@@ -3,6 +3,7 @@ import { FaRegCalendarCheck } from 'react-icons/fa';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { MotionContainer } from '../common/MotionContainer';
 import ExpandedDayAppointment from './ExpandedDayAppointment';
+import useLanguage from '@/hooks/useLanguage';
 
 interface Props {
   appointments: Appointment[];
@@ -19,15 +20,18 @@ const ExpandedDay = ({
 }: Props) => {
   if (!showExpandedDay) return null;
 
+  const { currentLanguage } = useLanguage();
+  const locale = `${currentLanguage}-FI`;
+
   const header = () => (
     <div className='flex items-center justify-between p-4'>
       <h1 className='text-md flex items-center gap-2 rounded-sm bg-accent p-2 text-white shadow'>
         <FaRegCalendarCheck className='size-5' />
-        {selectedDate.toLocaleDateString('fi-FI', {
+        {selectedDate.toLocaleDateString(locale, {
           weekday: 'long',
         }) +
           ' ' +
-          selectedDate.toLocaleDateString('fi-FI')}
+          selectedDate.toLocaleDateString(locale)}
       </h1>
       <span className='text-lg font-medium' onClick={() => onShowExpandedDay()}>
         <IoIosCloseCircleOutline className='size-7' />

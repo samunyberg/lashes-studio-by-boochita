@@ -2,6 +2,7 @@ import type { ServiceWithServiceOptions } from '@/app/book/page';
 import type { Service, ServiceOption } from '@prisma/client';
 import { FaCircleChevronDown, FaCircleChevronRight } from 'react-icons/fa6';
 import CheckBox from '../common/CheckBox';
+import Label from '../common/Label';
 
 interface Props {
   service: ServiceWithServiceOptions;
@@ -29,12 +30,12 @@ const ServiceListItem = ({
         </h2>
         {!isExpanded ? (
           <div className='flex items-center gap-2 text-xs'>
-            <p>Select</p>
+            <Label labelId='select' />
             <FaCircleChevronRight />
           </div>
         ) : (
           <div className='flex items-center gap-2 text-xs'>
-            <p>Select option</p>
+            <Label labelId='select_option' />
             <FaCircleChevronDown />
           </div>
         )}

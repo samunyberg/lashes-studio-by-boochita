@@ -4,6 +4,7 @@ import { cn } from 'clsx-tailwind-merge';
 import { useContext } from 'react';
 import { FaRegClock } from 'react-icons/fa';
 import AppointmentStatusBadge from '../common/AppointmentStatusBadge';
+import useLanguage from '@/hooks/useLanguage';
 
 interface Props {
   appointment: Appointment;
@@ -11,7 +12,9 @@ interface Props {
 }
 
 const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
+  const { currentLanguage } = useLanguage();
   const { bookingData, setBookingData } = useContext(BookingDataContext);
+  const locale = `${currentLanguage}-FI`;
 
   const isBookable = () => {
     const currentTime = new Date();
@@ -42,7 +45,7 @@ const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
       <span className='flex items-center gap-2'>
         <FaRegClock className='size-4' />
         <span>
-          {appointment.dateTime.toLocaleTimeString('fi-FI', {
+          {appointment.dateTime.toLocaleTimeString(locale, {
             hour: '2-digit',
             minute: '2-digit',
           })}

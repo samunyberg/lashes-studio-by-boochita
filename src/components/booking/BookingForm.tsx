@@ -14,28 +14,25 @@ import BookingHeader from './BookingHeader';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
+import Label from '../common/Label';
 
 const steps = [
   {
     stepNumber: 1,
-    label: 'Date and Time',
-    description: 'Select appointment time',
+    description: 'select_appointment_time',
   },
   {
     stepNumber: 2,
-    label: 'Style',
-    description: 'Select Style',
+    description: 'select_style',
   },
   {
     stepNumber: 3,
-    label: 'Confirm',
-    description: 'Confirm Your Booking',
+    description: 'confirm_your_booking',
   },
 ];
 
 export interface Step {
   stepNumber: number;
-  label: string;
   description: string;
 }
 
@@ -121,7 +118,7 @@ const BookingForm = ({ appointments, services }: Props) => {
     >
       <div className='pb-16 md:mx-auto md:max-w-[450px] lg:max-w-[650px]'>
         <StrikeThroughText className='pb-6 pt-5'>
-          Book Appointment
+          <Label labelId='book_appointment' />
         </StrikeThroughText>
         <BookingHeader steps={steps} currentStep={currentStep} />
         {status === 'loading' ? (

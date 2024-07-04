@@ -1,6 +1,7 @@
 import { cn } from 'clsx-tailwind-merge';
 import { FaCheck } from 'react-icons/fa';
 import { Step } from './BookingForm';
+import Label from '../common/Label';
 
 interface Props {
   currentStep: number;
@@ -41,8 +42,8 @@ const ProgressSteps = ({ currentStep, steps }: Props) => {
           ))}
         </div>
       </div>
-      <div className='pb-2 font-semibold'>
-        {steps[currentStep - 1].description}
+      <div className='ml-4 pb-2 font-semibold'>
+        <Label labelId={steps[currentStep - 1].description} />
       </div>
     </>
   );

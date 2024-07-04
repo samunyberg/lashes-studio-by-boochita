@@ -4,24 +4,24 @@ import { FaCheck } from 'react-icons/fa';
 import { FaRegCalendarCheck, FaRegClock } from 'react-icons/fa';
 import FormError from '../common/FormError';
 import { useSession } from 'next-auth/react';
+import Label from '../common/Label';
+import useLanguage from '@/hooks/useLanguage';
 
 const Step3 = () => {
   const { data: session } = useSession();
+  const { currentLanguage } = useLanguage();
   const { bookingData, bookingError } = useContext(BookingDataContext);
+  const locale = `${currentLanguage}-FI`;
 
   return (
     <>
-      <div className='border-l-4 border-accent bg-bgSoft px-2 py-4 shadow'>
-        <p className='border-b border-accent border-opacity-30 px-2 pb-2 tracking-wide'>
-          Please check that the information is correct. You will receive a
-          confirmation email to{' '}
-          <span className='font-semibold'>{session?.user.email}</span> after
-          booking.
-        </p>
+      <div className='border-l-4 border-accent bg-bgSoft px-4 py-4 shadow'>
+        <Label labelId='please_check_information' />
+        <span className='font-semibold'> {session?.user.email}.</span>
         <div className='mt-3 flex flex-col gap-1 px-4'>
           <span className='flex items-center gap-2'>
             <FaRegCalendarCheck className='size-4' />
-            {bookingData.appointment?.dateTime.toLocaleDateString('fi-FI', {
+            {bookingData.appointment?.dateTime.toLocaleDateString(locale, {
               weekday: 'long',
               month: 'long',
               day: '2-digit',
@@ -29,7 +29,7 @@ const Step3 = () => {
           </span>
           <span className='flex items-center gap-2'>
             <FaRegClock className='size-4' />
-            {bookingData.appointment?.dateTime.toLocaleTimeString('fi-FI', {
+            {bookingData.appointment?.dateTime.toLocaleTimeString(locale, {
               hour: '2-digit',
               minute: '2-digit',
             })}
