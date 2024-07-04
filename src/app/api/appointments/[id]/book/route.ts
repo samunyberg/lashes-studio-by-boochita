@@ -61,23 +61,24 @@ export async function PATCH(request: NextRequest, { params }: Props) {
       },
     });
 
-    const [user, service, serviceOption] = await Promise.all([
-      prisma.user.findFirst({ where: { id: body.userId } }),
-      prisma.service.findFirst({ where: { id: body.serviceId } }),
-      prisma.serviceOption.findFirst({ where: { id: body.serviceOptionId } }),
-    ]);
+    // TODO: ENABLE EMAILS WHEN NEEDED:
+    // const [user, service, serviceOption] = await Promise.all([
+    //   prisma.user.findFirst({ where: { id: body.userId } }),
+    //   prisma.service.findFirst({ where: { id: body.serviceId } }),
+    //   prisma.serviceOption.findFirst({ where: { id: body.serviceOptionId } }),
+    // ]);
 
-    if (user && service && serviceOption)
-      await sendBookingConfirmationEmail({
-        to: user!.email,
-        date: appointment.dateTime.toLocaleDateString('fi-FI'),
-        time: appointment.dateTime.toLocaleTimeString('fi-FI', {
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
-        service: service!.name,
-        serviceOption: serviceOption!.name,
-      });
+    // if (user && service && serviceOption)
+    //   await sendBookingConfirmationEmail({
+    //     to: user!.email,
+    //     date: appointment.dateTime.toLocaleDateString('fi-FI'),
+    //     time: appointment.dateTime.toLocaleTimeString('fi-FI', {
+    //       hour: '2-digit',
+    //       minute: '2-digit',
+    //     }),
+    //     service: service!.name,
+    //     serviceOption: serviceOption!.name,
+    //   });
 
     return NextResponse.json(bookedAppointment);
   } catch (error) {

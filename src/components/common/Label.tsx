@@ -9,7 +9,7 @@ interface Props {
 const Label = ({ labelId }: Props) => {
   const { getLabel } = useLanguage();
 
-  return <p>{getLabel(labelId)}</p>;
+  return <span>{getLabel(labelId)}</span>;
 };
 
 export default Label;

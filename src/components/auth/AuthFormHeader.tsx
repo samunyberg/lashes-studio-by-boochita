@@ -1,6 +1,11 @@
+import { ReactNode } from 'react';
 import StrikeThroughText from '../common/StrikeThroughText';
 
-const AuthFormHeader = ({ subtitle }: { subtitle: string }) => {
+interface Props {
+  subtitle: ReactNode;
+}
+
+const AuthFormHeader = ({ subtitle }: Props) => {
   return (
     <>
       <h1 className='text-center text-xl uppercase lg:text-2xl'>

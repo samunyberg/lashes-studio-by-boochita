@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Button from './common/Button';
 import { MotionContainer } from './common/MotionContainer';
+import Label from './common/Label';
 
 const Intro = () => {
   return (
@@ -24,7 +25,9 @@ const Intro = () => {
           transition={{ duration: 0.3, ease: 'easeIn' }}
         >
           <Link href='/book'>
-            <Button variant='accent' label='Book Appointment' />
+            <Button variant='accent'>
+              <Label labelId='book_appointment' />
+            </Button>
           </Link>
         </MotionContainer>
       </div>

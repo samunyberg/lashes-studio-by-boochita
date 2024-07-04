@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 import ProfileMenu from './ProfileMenu';
+import Label from '../common/Label';
 
 const NavAuth = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,9 +20,13 @@ const NavAuth = () => {
       )}
       {status === 'unauthenticated' && (
         <div className='flex cursor-pointer gap-1 border-l-2 border-accent bg-bgSoft px-2 py-1 text-sm shadow'>
-          <Link href={'/auth/login'}>Login</Link>
+          <Link href={'/auth/login'}>
+            <Label labelId='login' />
+          </Link>
           <span>|</span>
-          <Link href={'/auth/register'}>Register</Link>
+          <Link href={'/auth/register'}>
+            <Label labelId='register' />
+          </Link>
         </div>
       )}
       {status === 'authenticated' && (

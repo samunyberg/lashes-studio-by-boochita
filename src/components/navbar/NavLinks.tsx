@@ -1,14 +1,15 @@
 import { cn } from 'clsx-tailwind-merge';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Label from '../common/Label';
 
 const links = [
-  { href: '/', label: 'Home' },
-  { href: '/book', label: 'Book' },
-  { href: '/services', label: 'Services' },
-  { href: '/hours', label: 'Business Hours' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/', label: <Label labelId='home' /> },
+  { href: '/book', label: <Label labelId='book' /> },
+  { href: '/services', label: <Label labelId='services' /> },
+  { href: '/hours', label: <Label labelId='hours' /> },
+  { href: '/about', label: <Label labelId='about' /> },
+  { href: '/contact', label: <Label labelId='contact' /> },
 ];
 
 interface Props {
@@ -20,7 +21,7 @@ const NavLinks = ({ onLinkClick }: Props) => {
 
   const renderedLinks = links.map((link) => (
     <Link
-      key={link.label}
+      key={link.href}
       href={link.href}
       onClick={onLinkClick}
       className={cn(
@@ -28,7 +29,7 @@ const NavLinks = ({ onLinkClick }: Props) => {
         {
           'border-b border-primary font-medium opacity-100':
             pathName === link.href,
-          'lg:hidden': link.label === 'Home',
+          'lg:hidden': link.href === '/',
         }
       )}
     >

@@ -10,6 +10,9 @@ import FormError from '../common/FormError';
 import Input from '../common/Input';
 import AuthFormContainer from './AuthFormContainer';
 import AuthFormHeader from './AuthFormHeader';
+import Label from '../common/Label';
+import RegistrationSuccess from './RegistrationSuccess';
+import useLanguage from '@/hooks/useLanguage';
 
 const LoginForm = ({
   registrationSuccess,
@@ -20,6 +23,7 @@ const LoginForm = ({
   const [error, setError] = useState('');
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { getLabel } = useLanguage();
 
   const login = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,44 +43,16 @@ const LoginForm = ({
     }
   };
 
-  const links = (
-    <div className='flex flex-col gap-2'>
-      <span className=''>
-        Don&#39;t have an account? Register{' '}
-        <Link href={'/auth/register'} className='text-accent underline'>
-          here
-        </Link>
-      </span>
-      <span>
-        Forgot your password? Click{' '}
-        <Link
-          href={'/auth/forgotten-password'}
-          className='text-accent underline'
-        >
-          here
-        </Link>
-      </span>
-    </div>
-  );
-
   return (
     <AuthFormContainer>
-      {registrationSuccess === 'true' && (
-        <div className='mb-8 flex flex-col items-center justify-center gap-2 rounded-sm border-2 border-green-400 bg-white px-4 py-4'>
-          <p className='text-lg'>Registration successful!</p>
-          <p className='text-balance'>
-            Thank you for registering, please continue by signing in to your new
-            account.
-          </p>
-        </div>
-      )}
-      <AuthFormHeader subtitle='Login' />
+      {registrationSuccess === 'true' && <RegistrationSuccess />}
+      <AuthFormHeader subtitle={<Label labelId='login' />} />
       <FormError className='mb-4'>{error}</FormError>
       <form className='mb-8 flex flex-col gap-6' onSubmit={login}>
         <Input
           type='text'
           name='email'
-          placeholder='Email'
+          placeholder={getLabel('email')}
           onChange={(e) =>
             setCredentials({ ...credentials, email: e.target.value })
           }
@@ -84,14 +60,32 @@ const LoginForm = ({
         <Input
           name='password'
           type='password'
-          placeholder='Password'
+          placeholder={getLabel('password')}
           onChange={(e) =>
             setCredentials({ ...credentials, password: e.target.value })
           }
         />
-        <Button label='Login' variant='accent' />
+        <Button variant='accent'>
+          <Label labelId='login' />
+        </Button>
       </form>
-      {links}
+      <div className='flex flex-col gap-2'>
+        <span>
+          <Label labelId='no_account' />{' '}
+          <Link href={'/auth/register'} className='text-accent underline'>
+            <Label labelId='register_here' />
+          </Link>
+        </span>
+        <span>
+          <Label labelId='forgot_password' />{' '}
+          <Link
+            href={'/auth/forgotten-password'}
+            className='text-accent underline'
+          >
+            <Label labelId='click_here' />
+          </Link>
+        </span>
+      </div>
     </AuthFormContainer>
   );
 };

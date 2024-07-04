@@ -1,11 +1,13 @@
 'use client';
 
+import useLanguage from '@/hooks/useLanguage';
 import { useEffect, useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import NavAuth from './NavAuth';
 import NavLinks from './NavLinks';
 import NavLogo from './NavLogo';
 import Sidebar from './Sidebar';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navbar = () => {
   const [sidebarOpened, setSidebarOpened] = useState(false);
@@ -48,6 +50,7 @@ const Navbar = () => {
             <div className='hidden lg:inline'>
               <NavLinks />
             </div>
+            <LanguageSwitcher />
             <NavAuth />
           </div>
         </div>
