@@ -1,7 +1,7 @@
 import useLanguage from '@/hooks/useLanguage';
 import { z } from 'zod';
 
-const useRegisterFormSchema = () => {
+const useLocalisedFormSchema = () => {
   const { getLabel } = useLanguage();
 
   const registerFormSchema = z
@@ -33,8 +33,23 @@ const useRegisterFormSchema = () => {
       path: ['confirmPassword'],
     });
 
-  return registerFormSchema;
+  const editAccountSchema = z.object({
+    email: z.string().email(getLabel('invalid_email')),
+    firstName: z
+      .string()
+      .min(3, getLabel('first_name_too_short'))
+      .max(50, getLabel('first_name_too_long')),
+    lastName: z
+      .string()
+      .min(3, getLabel('last_name_too_short'))
+      .max(50, getLabel('last_name_too_long')),
+    phone: z.string().regex(new RegExp('^\\d{10}$'), getLabel('invalid_phone')),
+  });
+
+  return {
+    registerFormSchema,
+    editAccountSchema,
+  };
 };
 
-export default useRegisterFormSchema;
-
+export default useLocalisedFormSchema;
