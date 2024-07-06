@@ -1,22 +1,25 @@
 'use client';
 
 import useLanguage from '@/hooks/useLanguage';
-import useRegisterFormSchema from '@/hooks/useRegisterFormSchema';
+import useLocalisedFormSchema from '@/hooks/useLocalisedFormSchema';
 import axios, { AxiosError } from 'axios';
 import { passwordStrength } from 'check-password-strength';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '../common/Button';
-import CheckBox from '../common/CheckBox';
-import FormError from '../common/FormError';
-import Input from '../common/Input';
+import FormError from '../common/forms/FormError';
+import Input from '../common/forms/Input';
 import Label from '../common/Label';
 import AuthFormContainer from './AuthFormContainer';
 import AuthFormHeader from './AuthFormHeader';
 import PasswordStrength from './PasswordStrength';
+import FormGroup from '../common/forms/FormGroup';
+import InputError from '../common/forms/InputError';
+import PasswordInput from '../common/forms/PasswordInput';
 
-interface FormErrors {
+interface FieldErrors {
   firstName?: string[];
   lastName?: string[];
   email?: string[];
@@ -28,11 +31,11 @@ interface FormErrors {
 const RegisterForm = () => {
   const { getLabel } = useLanguage();
   const router = useRouter();
-  const registerFormSchema = useRegisterFormSchema();
+  const { registerFormSchema } = useLocalisedFormSchema();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [passwdStrength, setPasswdStrenth] = useState(0);
-  const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState({} as FieldErrors);
   const [serverError, setServerError] = useState('');
   const [formData, setFormData] = useState({
     firstName: '',
@@ -44,7 +47,7 @@ const RegisterForm = () => {
   });
 
   useEffect(() => {
-    if (isRegistered) router.push('/auth/login?registrationSuccess=true');
+    if (isRegistered) router.push('/');
   }, [isRegistered]);
 
   useEffect(() => {
@@ -52,18 +55,11 @@ const RegisterForm = () => {
     setPasswdStrenth(strength.id);
   }, [formData.password]);
 
-  const ShowPasswordCheckBox = () => (
-    <div
-      className='flex cursor-pointer gap-2 self-end'
-      onClick={() => setShowPassword(!showPassword)}
-    >
-      <p className='text-sm'>Show passwords</p>
-      <CheckBox isChecked={showPassword} />
-    </div>
-  );
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setErrors({});
+    setServerError('');
 
     const validationResult = registerFormSchema.safeParse(formData);
     if (!validationResult.success) {
@@ -73,19 +69,25 @@ const RegisterForm = () => {
     }
 
     try {
-      await axios.post('/api/auth/register', formData);
-      setIsRegistered(true);
+      setIsSubmitting(true);
+      const response = await axios.post('/api/users/register', formData);
+
+      let signinResponse;
+      if (response.status === 201)
+        signinResponse = await signIn('credentials', {
+          email: formData.email,
+          password: formData.password,
+          redirect: false,
+        });
+      if (signinResponse?.ok) {
+        setIsSubmitting(false);
+        setIsRegistered(true);
+      }
     } catch (error: unknown) {
-      if (error instanceof AxiosError) {
-        if (error.response?.status === 409)
-          setServerError('User with this email already exists.');
-        else if (error.response?.status === 400)
-          setServerError('Invalid input. Please check your data.');
-        else
-          setServerError(
-            'Whoops! Something went wrong. Please try again later.'
-          );
-      } else
+      setIsSubmitting(false);
+      if (error instanceof AxiosError)
+        setServerError(error.response?.data.error);
+      else
         setServerError('Whoops! Something went wrong. Please try again later.');
     }
   };
@@ -95,71 +97,74 @@ const RegisterForm = () => {
       <AuthFormHeader subtitle={<Label labelId='register' />} />
       <FormError className='mb-4'>{serverError}</FormError>
       <form className='mb-8 flex flex-col gap-6' onSubmit={handleSubmit}>
-        <Input
-          name='firstName'
-          value={formData.firstName}
-          type='text'
-          placeholder={getLabel('first_name')}
-          onChange={(event) =>
-            setFormData({ ...formData, firstName: event.target.value })
-          }
-          error={errors.firstName?.at(0)}
-        />
-        <Input
-          name='lastName'
-          value={formData.lastName}
-          type='text'
-          placeholder={getLabel('last_name')}
-          onChange={(event) =>
-            setFormData({ ...formData, lastName: event.target.value })
-          }
-          error={errors.lastName?.at(0)}
-        />
-        <Input
-          type='text'
-          name='email'
-          value={formData.email}
-          placeholder={getLabel('email')}
-          onChange={(event) =>
-            setFormData({ ...formData, email: event.target.value })
-          }
-          error={errors.email?.at(0)}
-        />
-        <Input
-          name='password'
-          value={formData.password}
-          type={showPassword ? 'text' : 'password'}
-          placeholder={getLabel('password')}
-          onChange={(event) =>
-            setFormData({ ...formData, password: event.target.value })
-          }
-          error={errors.password?.at(0)}
-        />
+        <FormGroup error={errors.firstName?.at(0)}>
+          <Input
+            name='firstName'
+            value={formData.firstName}
+            type='text'
+            placeholder={getLabel('first_name')}
+            onChange={(event) =>
+              setFormData({ ...formData, firstName: event.target.value })
+            }
+          />
+        </FormGroup>
+        <FormGroup error={errors.lastName?.at(0)}>
+          <Input
+            name='lastName'
+            value={formData.lastName}
+            type='text'
+            placeholder={getLabel('last_name')}
+            onChange={(event) =>
+              setFormData({ ...formData, lastName: event.target.value })
+            }
+          />
+        </FormGroup>
+        <FormGroup error={errors.email?.at(0)}>
+          <Input
+            type='text'
+            name='email'
+            value={formData.email}
+            placeholder={getLabel('email')}
+            onChange={(event) =>
+              setFormData({ ...formData, email: event.target.value })
+            }
+          />
+        </FormGroup>
+        <FormGroup error={errors.password?.at(0)}>
+          <PasswordInput
+            name='password'
+            value={formData.password}
+            placeholder={getLabel('password')}
+            onChange={(event) =>
+              setFormData({ ...formData, password: event.target.value })
+            }
+          />
+        </FormGroup>
         {formData.password && (
           <PasswordStrength passwdStrength={passwdStrength} />
         )}
-        <Input
-          name='confirmPassword'
-          value={formData.confirmPassword}
-          type={showPassword ? 'text' : 'password'}
-          placeholder={getLabel('confirm_password')}
-          onChange={(event) =>
-            setFormData({ ...formData, confirmPassword: event.target.value })
-          }
-          error={errors.confirmPassword?.at(0)}
-        />
-        {ShowPasswordCheckBox()}
-        <Input
-          name='phone'
-          value={formData.phone}
-          type='text'
-          placeholder={getLabel('phone')}
-          onChange={(event) =>
-            setFormData({ ...formData, phone: event.target.value })
-          }
-          error={errors.phone?.at(0)}
-        />
-        <Button variant='accent'>
+        <FormGroup error={errors.confirmPassword?.at(0)}>
+          <PasswordInput
+            name='confirmPassword'
+            value={formData.confirmPassword}
+            placeholder={getLabel('confirm_password')}
+            onChange={(event) =>
+              setFormData({ ...formData, confirmPassword: event.target.value })
+            }
+          />
+        </FormGroup>
+        <FormGroup error={errors.phone?.at(0)}>
+          <Input
+            name='phone'
+            value={formData.phone}
+            type='text'
+            placeholder={getLabel('phone')}
+            onChange={(event) =>
+              setFormData({ ...formData, phone: event.target.value })
+            }
+          />
+        </FormGroup>
+        <Button variant='accent' isLoading={isSubmitting}>
           <Label labelId='register' />
         </Button>
       </form>
