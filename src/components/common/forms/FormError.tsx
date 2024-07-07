@@ -10,7 +10,7 @@ const FormError = ({ children, className }: Props) => {
 
   return (
     <div
-      className={`rounded-sm border border-red-400 bg-bgSoft py-2 text-center text-red-400 ${className && className}`}
+      className={`rounded-sm border border-red-400 bg-bgSoft px-2 py-2 text-center text-red-400 ${className && className}`}
     >
       {children}
     </div>
