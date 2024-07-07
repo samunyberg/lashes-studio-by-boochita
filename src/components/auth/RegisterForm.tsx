@@ -10,14 +10,13 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '../common/Button';
 import FormError from '../common/forms/FormError';
+import FormGroup from '../common/forms/FormGroup';
 import Input from '../common/forms/Input';
+import PasswordInput from '../common/forms/PasswordInput';
 import Label from '../common/Label';
 import AuthFormContainer from './AuthFormContainer';
 import AuthFormHeader from './AuthFormHeader';
 import PasswordStrength from './PasswordStrength';
-import FormGroup from '../common/forms/FormGroup';
-import InputError from '../common/forms/InputError';
-import PasswordInput from '../common/forms/PasswordInput';
 
 interface FieldErrors {
   firstName?: string[];
@@ -170,7 +169,7 @@ const RegisterForm = () => {
       </form>
       <span>
         <Label labelId='already_have_account' />{' '}
-        <Link href={'/auth/login'} className='text-accent underline'>
+        <Link href={'/auth/login'} className='text-accent'>
           <Label labelId='click_here' />
         </Link>
       </span>
