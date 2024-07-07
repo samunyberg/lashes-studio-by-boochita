@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaEye } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Input from './Input';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -32,7 +32,7 @@ const PasswordInput = ({
         className='absolute right-0 flex h-full items-center justify-center px-3'
         onClick={() => setShowPassword(!showPassword)}
       >
-        <FaEye size={20} />
+        {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
       </div>
     </div>
   );
