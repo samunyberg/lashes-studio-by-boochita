@@ -25,16 +25,24 @@ export async function POST(req: NextRequest) {
 
   const validationResult = registerFormSchema.safeParse(body);
   if (!validationResult.success)
-    return NextResponse.json('Invalid input', { status: 400 });
+    return NextResponse.json({ error: 'Invalid input.' }, { status: 400 });
 
   if (body.password !== body.confirmPassword)
-    return NextResponse.json('Passwords do not match');
+    return NextResponse.json(
+      { error: 'Passwords do not match.' },
+      { status: 400 }
+    );
 
-  const user = await prisma.user.findFirst({ where: { email: body.email } });
-  if (user)
-    return NextResponse.json('User with this email already exists.', {
-      status: 409,
-    });
+  const existingUser = await prisma.user.findFirst({
+    where: { email: body.email },
+  });
+  if (existingUser)
+    return NextResponse.json(
+      { error: 'User with this email already exists.' },
+      {
+        status: 409,
+      }
+    );
 
   const hashedPassword = await bcrypt.hash(body.password, 10);
 
@@ -48,9 +56,14 @@ export async function POST(req: NextRequest) {
         phone: body.phone,
       },
     });
-    return NextResponse.json(newUser.email);
+    return NextResponse.json(newUser.id, { status: 201 });
   } catch (error: unknown) {
-    if (error instanceof Error) return NextResponse.json(error.message);
-    else return NextResponse.json('An unexpected error occured.');
+    if (error instanceof Error)
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    else
+      return NextResponse.json(
+        { error: 'An unexpected error occured.' },
+        { status: 500 }
+      );
   }
 }
