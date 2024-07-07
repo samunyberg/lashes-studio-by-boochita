@@ -22,3 +22,17 @@ html {
   @apply rounded-full bg-primary;
 }
 
+@media (max-width: 430px) {
+  .toastContainer {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-top: 10px !important;
+  }
+
+  .customToast {
+    width: 70% !important;
+    border-radius: 5px !important;
+  }
+}
