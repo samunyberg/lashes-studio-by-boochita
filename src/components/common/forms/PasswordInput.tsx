@@ -32,7 +32,7 @@ const PasswordInput = ({
         className='absolute right-0 flex h-full items-center justify-center px-3'
         onClick={() => setShowPassword(!showPassword)}
       >
-        {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+        {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
       </div>
     </div>
   );
