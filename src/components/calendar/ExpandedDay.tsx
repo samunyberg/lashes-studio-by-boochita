@@ -4,6 +4,7 @@ import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { MotionContainer } from '../common/MotionContainer';
 import ExpandedDayAppointment from './ExpandedDayAppointment';
 import useLanguage from '@/hooks/useLanguage';
+import Label from '../common/Label';
 
 interface Props {
   appointments: Appointment[];
@@ -41,9 +42,11 @@ const ExpandedDay = ({
 
   const subHeader = () => (
     <h2 className='mb-5'>
-      {appointments.length > 0
-        ? 'Click an appointment to select it. Appointment must be booked at least one hour before start time.'
-        : 'No appointments for this day.'}
+      {appointments.length > 0 ? (
+        <Label labelId='click_appointment_to_select' />
+      ) : (
+        <Label labelId='no_appointments_for_this_day' />
+      )}
     </h2>
   );
 

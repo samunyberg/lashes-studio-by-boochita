@@ -7,6 +7,7 @@
   "about": "Info",
   "contact": "Ota yhteyttä",
   "login": "Kirjaudu",
+  "logout": "Kirjaudu ulos",
   "register": "Rekisteröidy",
   "no_account": "Eikö sinulla ole vielä käyttäjää?",
   "register_here": "Rekisteröidy täällä",
@@ -27,7 +28,7 @@
   "first_name_too_long": "Etunimi ei voi olla pidempi kuin 50 merkkiä.",
   "last_name_too_short": "Sukunimen tulee olla vähintään 3 merkkiä pitkä.",
   "last_name_too_long": "Sukunimi ei voi olla pidempi kuin 50 merkkiä.",
-  "invalid_phone": "Anna oikeamuotoinen puhelinnumero ilman suuntakoodia.",
+  "invalid_phone": "Anna oikeamuotoinen puhelinnumero ilman suuntakoodia ja välilyöntejä.",
   "passwords_do_not_match": "Salasanat eivät täsmää.",
   "registration_success": "Rekisteröinti onnistui!",
   "welcome": "Tervetuloa! Voit jatkaa kirjautumalla uudella tunnuksellasi.",
@@ -51,6 +52,15 @@
   "unavailable": "Ei varattavissa",
   "available": "Vapaa",
   "please_check_information": "Tarkistathan, että varauksesi tiedot ovat oikein. Varausvahvistus lähetetään osoitteeseen",
+  "thank_you": "Kiitos!",
+  "booking_confirmed": "Varaus onnistui. Varausvahvistus on lähetetty osoitteeseen",
   "select": "Valitse",
-  "select_option": "Valitse vaihtoehto"
+  "select_option": "Valitse vaihtoehto",
+  "click_appointment_to_select": "Klikkaa aikaa valitaksesi sen. Huomaa, että aika tulee varata viimeistään tunti ennen sen alkua.",
+  "no_appointments_for_this_day": "Ei aikoja tälle päivälle.",
+  "my_account": "Oma Tili",
+  "name": "Nimi",
+  "my_information": "Omat tiedot",
+  "edit": "Muokkaa",
+  "cancel": "Peruuta"
 }

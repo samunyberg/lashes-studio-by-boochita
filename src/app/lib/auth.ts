@@ -43,6 +43,7 @@ export const authOptions: NextAuthOptions = {
         (token.id = user.id),
           (token.firstName = user.firstName),
           (token.lastName = user.lastName),
+          (token.email = user.email),
           (token.isAdmin = user.isAdmin);
       }
 
@@ -53,6 +54,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id;
         session.user.firstName = token.firstName;
         session.user.lastName = token.lastName;
+        session.user.email = token.email;
         session.user.isAdmin = token.isAdmin;
       }
 
@@ -69,3 +71,4 @@ export const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
+

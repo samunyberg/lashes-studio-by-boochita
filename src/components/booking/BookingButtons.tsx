@@ -1,6 +1,6 @@
+import { Step } from '@/app/lib/types';
 import Button from '../common/Button';
 import Label from '../common/Label';
-import { Step } from './BookingForm';
 
 interface Props {
   steps: Step[];

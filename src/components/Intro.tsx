@@ -1,8 +1,10 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import Button from './common/Button';
-import { MotionContainer } from './common/MotionContainer';
 import Label from './common/Label';
+import { MotionContainer } from './common/MotionContainer';
 
 const Intro = () => {
   return (

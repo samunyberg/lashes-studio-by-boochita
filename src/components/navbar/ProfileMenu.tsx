@@ -31,6 +31,11 @@ const ProfileMenu = ({ user, onClose }: Props) => {
     };
   }, []);
 
+  const handleSignOut = () => {
+    signOut({ redirect: true, callbackUrl: '/' });
+    onClose();
+  };
+
   return (
     <MotionContainer
       ref={menuRef}
@@ -58,9 +63,7 @@ const ProfileMenu = ({ user, onClose }: Props) => {
         <hr className='w-full border-accent' />
         <div className='flex gap-1'>
           <MdLogout size={20} />
-          <button onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
-            Sign out
-          </button>
+          <button onClick={handleSignOut}>Sign out</button>
         </div>
       </div>
     </MotionContainer>

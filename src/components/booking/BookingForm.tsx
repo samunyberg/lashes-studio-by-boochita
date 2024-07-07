@@ -1,20 +1,20 @@
 'use client';
 
-import { ServiceWithServiceOptions } from '@/app/book/page';
+import { BookingData, ServiceWithServiceOptions } from '@/app/lib/types';
 import BookingDataContext from '@/contexts/bookingDataContext';
-import type { Appointment, Service, ServiceOption } from '@prisma/client';
+import type { Appointment } from '@prisma/client';
 import axios, { AxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
+import Label from '../common/Label';
 import StrikeThroughText from '../common/StrikeThroughText';
 import BookingButtons from './BookingButtons';
 import BookingHeader from './BookingHeader';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
-import Label from '../common/Label';
 
 const steps = [
   {
@@ -30,17 +30,6 @@ const steps = [
     description: 'confirm_your_booking',
   },
 ];
-
-export interface Step {
-  stepNumber: number;
-  description: string;
-}
-
-export interface BookingData {
-  appointment: Appointment | null;
-  service: Service | null;
-  serviceOption: ServiceOption | null;
-}
 
 interface Props {
   appointments: Appointment[];
@@ -67,6 +56,7 @@ const BookingForm = ({ appointments, services }: Props) => {
           userId: session?.user.id,
           serviceId: bookingData.service!.id,
           serviceOptionId: bookingData.serviceOption!.id,
+          servicePrice: bookingData.serviceOption?.price,
         }
       );
       router.push('/book/thank-you/?email=' + session?.user.email);

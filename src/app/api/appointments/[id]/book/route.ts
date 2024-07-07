@@ -1,4 +1,3 @@
-import { sendBookingConfirmationEmail } from '@/emails/email';
 import prisma from '@/prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
@@ -7,6 +6,7 @@ export const appointmentSchema = z.object({
   userId: z.string(),
   serviceId: z.number({ invalid_type_error: 'This field is required.' }),
   serviceOptionId: z.number({ invalid_type_error: 'This field is required.' }),
+  servicePrice: z.number({ invalid_type_error: 'This field is required.' }),
 });
 
 interface Props {
@@ -56,6 +56,7 @@ export async function PATCH(request: NextRequest, { params }: Props) {
         userId: body.userId,
         serviceId: body.serviceId,
         serviceOptionId: body.serviceOptionId,
+        servicePrice: body.servicePrice,
         status: 'BOOKED',
         bookedAt: currentTime,
       },

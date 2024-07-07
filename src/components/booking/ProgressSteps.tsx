@@ -1,6 +1,6 @@
+import { Step } from '@/app/lib/types';
 import { cn } from 'clsx-tailwind-merge';
 import { FaCheck } from 'react-icons/fa';
-import { Step } from './BookingForm';
 import Label from '../common/Label';
 
 interface Props {

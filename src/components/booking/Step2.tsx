@@ -1,4 +1,4 @@
-import type { ServiceWithServiceOptions } from '@/app/book/page';
+import { BookingData, ServiceWithServiceOptions } from '@/app/lib/types';
 import BookingDataContext from '@/contexts/bookingDataContext';
 import type { Service, ServiceOption } from '@prisma/client';
 import { useContext, useState } from 'react';
@@ -20,12 +20,12 @@ const Step2 = ({ services }: Props) => {
     if (service.id === expandedService?.id) return;
 
     // Functional state updates are used here to ensure the booking data gets updated with the most recent data.
-    setBookingData((currentData) => {
+    setBookingData((currentData: BookingData) => {
       return { ...currentData, serviceOption: null };
     });
     setSelectedServiceOption(null);
 
-    setBookingData((currentData) => {
+    setBookingData((currentData: BookingData) => {
       return { ...currentData, service };
     });
     setExpandedService(service);

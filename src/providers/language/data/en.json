@@ -7,6 +7,7 @@
   "about": "About",
   "contact": "Contact",
   "login": "Login",
+  "logout": "Logout",
   "register": "Register",
   "no_account": "Don't have an account?",
   "register_here": "Register here",
@@ -27,7 +28,7 @@
   "first_name_too_long": "First name cannot be over 50 characters long.",
   "last_name_too_short": "Last name must be at least 3 characters long.",
   "last_name_too_long": "Last name cannot be over 50 characters long.",
-  "invalid_phone": "Please provide a valid phone number without the country code.",
+  "invalid_phone": "Please provide a valid phone number without the country code and empty spaces.",
   "passwords_do_not_match": "Passwords do not match.",
   "registration_success": "Registration successful!",
   "welcome": "Welcome! Please continue by signing in to your new account.",
@@ -51,6 +52,15 @@
   "unavailable": "Unavailable",
   "available": "Available",
   "please_check_information": "Please check that the information is correct. You will receive a confirmation email to",
+  "thank_you": "Thank You!",
+  "booking_confirmed": "Your booking is confirmed. A confirmation email was sent to",
   "select": "Select",
-  "select_option": "Select Option"
+  "select_option": "Select Option",
+  "click_appointment_to_select": "Click an appointment to select it. Appointment must be booked at least one hour before start time.",
+  "no_appointments_for_this_day": "No appointments for this day",
+  "my_account": "My Account",
+  "name": "Name",
+  "my_information": "My information",
+  "edit": "Edit",
+  "cancel": "Cancel"
 }

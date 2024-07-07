@@ -2,6 +2,8 @@ import Providers from '@/components/Providers';
 import Navbar from '@/components/navbar/Navbar';
 import type { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
 
 const raleway = Raleway({
@@ -24,6 +26,7 @@ export default function RootLayout({
           <Navbar />
           <div className='container mx-auto px-3'>{children}</div>
         </Providers>
+        <ToastContainer />
       </body>
     </html>
   );

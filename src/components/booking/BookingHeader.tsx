@@ -1,6 +1,5 @@
-import React from 'react';
+import { Step } from '@/app/lib/types';
 import BookingTime from './BookingTime';
-import { Step } from './BookingForm';
 import ProgressSteps from './ProgressSteps';
 
 interface Props {
