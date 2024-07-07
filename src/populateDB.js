@@ -22,8 +22,7 @@ const populateAppointments = async () => {
         );
         await prisma.appointment.create({
           data: {
-            date: date.toISOString(),
-            time: ISODateTime,
+            dateTime: ISODateTime,
             status: 'AVAILABLE',
           },
         });
