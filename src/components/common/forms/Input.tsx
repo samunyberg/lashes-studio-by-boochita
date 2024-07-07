@@ -16,7 +16,7 @@ const Input = ({ className, id, label, placeholder, ...rest }: Props) => {
       <input
         id={id}
         placeholder={placeholder}
-        className={`w-full rounded-sm p-2 shadow placeholder:text-sm focus:outline-2 focus:outline-accent group-[.invalid]:outline group-[.invalid]:outline-red-300 ${className && className}`}
+        className={`w-full rounded-sm p-2 shadow placeholder:text-sm focus:outline-2 focus:outline-accent group-[.invalid]:outline group-[.invalid]:outline-1 group-[.invalid]:outline-red-400 ${className && className}`}
         {...rest}
       />
     </>
