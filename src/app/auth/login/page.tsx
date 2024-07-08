@@ -1,11 +1,7 @@
 import LoginForm from '@/components/auth/LoginForm';
 
-interface Props {
-  searchParams: { registrationSuccess: string };
-}
-
-const LoginPage = ({ searchParams: { registrationSuccess } }: Props) => {
-  return <LoginForm registrationSuccess={registrationSuccess} />;
+const LoginPage = () => {
+  return <LoginForm />;
 };
 
 export default LoginPage;
