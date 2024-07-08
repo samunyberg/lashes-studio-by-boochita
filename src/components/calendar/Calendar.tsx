@@ -2,26 +2,25 @@
 
 import { Appointment } from '@prisma/client';
 import { useState } from 'react';
+import AdminExpandedDayContent from './AdminExpandedDayContent';
 import CalendarDays from './CalendarDays';
 import CalendarHeaderRow from './CalendarHeaderRow';
+import ClientExpandedDayContent from './ClientExpandedDayContent';
 import ExpandedDay from './ExpandedDay';
 import Legend from './Legend';
 import MonthSelector from './MonthSelector';
 
 interface Props {
   appointments: Appointment[];
+  admin?: boolean;
 }
 
-export const Calendar = ({ appointments }: Props) => {
+const Calendar = ({ appointments, admin = false }: Props) => {
   const currentDate = new Date();
 
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   const [showExpandedDay, setShowExpandedDay] = useState(false);
-
-  const appointmentsByDate = appointments.filter(
-    (app) => app.dateTime.toDateString() === selectedDate.toDateString()
-  );
 
   const handleShowExpandedDay = () => {
     setShowExpandedDay(!showExpandedDay);
@@ -32,7 +31,7 @@ export const Calendar = ({ appointments }: Props) => {
   };
 
   return (
-    <div className='relative'>
+    <div>
       <MonthSelector
         currentDate={currentDate}
         selectedMonth={selectedMonth}
@@ -46,13 +45,27 @@ export const Calendar = ({ appointments }: Props) => {
         appointments={appointments}
         onShowExpandedDay={handleShowExpandedDay}
       />
-      <Legend />
+      {!admin && <Legend />}
       <ExpandedDay
         selectedDate={selectedDate}
-        appointments={appointmentsByDate}
         showExpandedDay={showExpandedDay}
         onShowExpandedDay={handleShowExpandedDay}
-      />
+      >
+        {admin ? (
+          <AdminExpandedDayContent
+            appointments={appointments}
+            selectedDate={selectedDate}
+          />
+        ) : (
+          <ClientExpandedDayContent
+            appointments={appointments}
+            selectedDate={selectedDate}
+            onShowExpandedDay={handleShowExpandedDay}
+          />
+        )}
+      </ExpandedDay>
     </div>
   );
 };
+
+export default Calendar;

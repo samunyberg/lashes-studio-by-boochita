@@ -1,9 +1,10 @@
 import Label from '../common/Label';
+import Panel from '../common/Panel';
 import AvailabilityIndicator from './AvailabilityIndicator';
 
 const Legend = () => {
   return (
-    <div className='my-4 flex flex-col gap-2 bg-bgSoft p-3 text-sm shadow'>
+    <Panel className='my-4 flex flex-col gap-2 p-2 text-sm'>
       <div>
         <div className='mb-3'>
           <Label labelId='click_to_see_times' />
@@ -23,7 +24,7 @@ const Legend = () => {
           <Label labelId='no_available_times_left' />
         </div>
       </div>
-    </div>
+    </Panel>
   );
 };
 

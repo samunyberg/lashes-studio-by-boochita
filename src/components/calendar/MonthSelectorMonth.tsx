@@ -17,7 +17,7 @@ const MonthSelectorMonth = ({
 
   return (
     <span
-      className={`${isSelected ? 'border-l-2 border-accent bg-bgSoft px-2 font-semibold' : ''} mx-2 cursor-pointer text-xs transition-all`}
+      className={`${isSelected ? 'border-l-2 border-accent bg-bgSoft px-2 font-semibold' : ''} mx-2 cursor-pointer text-sm font-medium transition-all`}
       onClick={() => onSelect(currentMonth)}
     >
       {month}

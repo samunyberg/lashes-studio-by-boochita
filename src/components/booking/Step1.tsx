@@ -1,5 +1,5 @@
 import { Appointment } from '@prisma/client';
-import { Calendar } from '../calendar/Calendar';
+import Calendar from '../calendar/Calendar';
 
 interface Props {
   appointments: Appointment[];

@@ -4,7 +4,7 @@ const CalendarHeaderRow = () => {
   const dayNames = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
 
   const renderedDays = dayNames.map((dayName) => (
-    <div key={dayName} className='p-4 text-xs tracking-wide'>
+    <div key={dayName} className='p-4 text-xs font-medium tracking-wide'>
       <Label labelId={dayName} />
     </div>
   ));

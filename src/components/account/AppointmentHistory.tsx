@@ -3,14 +3,27 @@
 import useLanguage from '@/hooks/useLanguage';
 import { FaCheck, FaRegCalendarCheck, FaRegClock } from 'react-icons/fa';
 import { AppointmentWithData } from './MyAppointments';
+import Button from '../common/Button';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   appointments: AppointmentWithData[];
 }
 
 const AppointmentHistory = ({ appointments }: Props) => {
+  const router = useRouter();
   const { currentLanguage } = useLanguage();
   const locale = `${currentLanguage}-FI`;
+
+  if (appointments.length === 0)
+    return (
+      <div>
+        <p className='mb-8 font-medium'>Ei menneitä varauksia.</p>
+        <Button className='w-full' onClick={() => router.back()}>
+          Takaisin
+        </Button>
+      </div>
+    );
 
   return (
     <div className='mb-4 flex flex-col gap-3'>

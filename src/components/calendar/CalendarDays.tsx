@@ -1,4 +1,5 @@
 import { Appointment } from '@prisma/client';
+import Panel from '../common/Panel';
 import CalendarDay from './CalendarDay';
 
 interface Props {
@@ -35,7 +36,7 @@ const CalendarDays = ({
   }
 
   return (
-    <div className='grid grid-cols-7 bg-bgSoft shadow'>
+    <Panel className='grid grid-cols-7'>
       {lastMonthDays.map((day) => (
         <div key={day} className='min-h-16 md:min-h-fit' />
       ))}
@@ -50,7 +51,7 @@ const CalendarDays = ({
           onShowExpandedDay={onShowExpandedDay}
         />
       ))}
-    </div>
+    </Panel>
   );
 };
 

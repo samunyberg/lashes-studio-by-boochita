@@ -26,6 +26,7 @@ export default function RootLayout({
           <Navbar />
           <div className='container mx-auto px-3'>{children}</div>
         </Providers>
+        <div id='portal-root'></div>
         <ToastContainer
           toastClassName='customToast'
           className='toastContainer'

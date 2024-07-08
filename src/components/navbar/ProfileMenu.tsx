@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { MdLogout } from 'react-icons/md';
 import { MotionContainer } from '../common/MotionContainer';
+import Panel from '../common/Panel';
 
 interface Props {
   user: {
@@ -44,7 +45,7 @@ const ProfileMenu = ({ user, onClose }: Props) => {
       transition={{ duration: 0.2 }}
       className='absolute right-0 top-0 z-50 w-56 rounded-sm text-sm'
     >
-      <div className='flex flex-col items-start justify-center gap-3 rounded-sm border-l-4 border-accent bg-white px-6 py-4 shadow'>
+      <Panel className='flex flex-col items-start justify-center gap-3 !bg-white px-6 py-4'>
         <p>
           Signed in as{' '}
           <span className='w-32 whitespace-normal font-medium'>
@@ -65,7 +66,7 @@ const ProfileMenu = ({ user, onClose }: Props) => {
           <MdLogout size={20} />
           <button onClick={handleSignOut}>Sign out</button>
         </div>
-      </div>
+      </Panel>
     </MotionContainer>
   );
 };

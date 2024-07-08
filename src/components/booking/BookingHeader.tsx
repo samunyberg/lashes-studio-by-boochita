@@ -1,4 +1,5 @@
 import { Step } from '@/app/lib/types';
+import Panel from '../common/Panel';
 import BookingTime from './BookingTime';
 import ProgressSteps from './ProgressSteps';
 
@@ -9,10 +10,10 @@ interface Props {
 
 const BookingHeader = ({ currentStep, steps }: Props) => {
   return (
-    <div className='rounded-sm bg-bgSoft p-2 shadow'>
+    <Panel className='p-2'>
       <BookingTime />
       <ProgressSteps currentStep={currentStep} steps={steps} />
-    </div>
+    </Panel>
   );
 };
 

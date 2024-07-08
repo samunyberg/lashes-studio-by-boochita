@@ -1,6 +1,6 @@
 import { Status } from '@prisma/client';
 import { cn } from 'clsx-tailwind-merge';
-import Label from './Label';
+import Label from '../Label';
 
 const AppointmentStatusBadge = ({ status }: { status: Status }) => {
   return (
@@ -14,7 +14,7 @@ const AppointmentStatusBadge = ({ status }: { status: Status }) => {
         }
       )}
     >
-      <p className='text-sm'>
+      <p className='text-sm font-medium'>
         <Label labelId={status.toLowerCase()} />
       </p>
     </div>

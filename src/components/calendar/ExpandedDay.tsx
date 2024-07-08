@@ -1,32 +1,29 @@
-import { Appointment } from '@prisma/client';
-import { FaRegCalendarCheck } from 'react-icons/fa';
-import { IoIosCloseCircleOutline } from 'react-icons/io';
-import { MotionContainer } from '../common/MotionContainer';
-import ExpandedDayAppointment from './ExpandedDayAppointment';
 import useLanguage from '@/hooks/useLanguage';
-import Label from '../common/Label';
+import { cn } from 'clsx-tailwind-merge';
+import { ReactNode } from 'react';
+import { CgCloseR } from 'react-icons/cg';
+import { FaRegCalendarCheck } from 'react-icons/fa';
+import Portal from '../common/Portal';
 
 interface Props {
-  appointments: Appointment[];
   selectedDate: Date;
   showExpandedDay: boolean;
   onShowExpandedDay: () => void;
+  children: ReactNode;
 }
 
 const ExpandedDay = ({
   selectedDate,
   showExpandedDay,
   onShowExpandedDay,
-  appointments,
+  children,
 }: Props) => {
-  if (!showExpandedDay) return null;
-
   const { currentLanguage } = useLanguage();
   const locale = `${currentLanguage}-FI`;
 
-  const header = () => (
-    <div className='flex items-center justify-between p-4'>
-      <h1 className='text-md flex items-center gap-2 rounded-sm bg-accent p-2 text-white shadow'>
+  const header = (
+    <div className='mb-2 flex items-center justify-between px-5 py-4'>
+      <h1 className='flex items-center gap-2 rounded-sm text-lg font-medium'>
         <FaRegCalendarCheck className='size-5' />
         {selectedDate.toLocaleDateString(locale, {
           weekday: 'long',
@@ -34,45 +31,28 @@ const ExpandedDay = ({
           ' ' +
           selectedDate.toLocaleDateString(locale)}
       </h1>
-      <span className='text-lg font-medium' onClick={() => onShowExpandedDay()}>
-        <IoIosCloseCircleOutline className='size-7' />
+      <span onClick={() => onShowExpandedDay()}>
+        <CgCloseR size={25} />
       </span>
     </div>
   );
 
-  const subHeader = () => (
-    <h2 className='mb-5'>
-      {appointments.length > 0 ? (
-        <Label labelId='click_appointment_to_select' />
-      ) : (
-        <Label labelId='no_appointments_for_this_day' />
-      )}
-    </h2>
-  );
-
   return (
-    <div className='absolute inset-0 flex items-center justify-center'>
-      <MotionContainer
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.1, ease: 'easeIn' }}
-        className='z-50 h-full w-full overflow-hidden bg-white shadow md:w-[300px]'
+    <Portal>
+      <div
+        className={cn(
+          'fixed bottom-0 left-0 right-0 max-h-[0%] overflow-hidden overflow-y-visible border-t transition-all duration-200 ease-out',
+          {
+            'max-h-[80%]': showExpandedDay,
+          }
+        )}
       >
-        {header()}
-        <div className='px-4 py-3'>
-          {subHeader()}
-          <div className='flex w-full flex-col gap-4 '>
-            {appointments.map((app: Appointment) => (
-              <ExpandedDayAppointment
-                key={app.id}
-                appointment={app}
-                onShowExpandedDay={onShowExpandedDay}
-              />
-            ))}
-          </div>
+        <div className='z-50 h-full w-full overflow-hidden rounded-tl-2xl rounded-tr-2xl bg-white pb-20'>
+          {header}
+          {children}
         </div>
-      </MotionContainer>
-    </div>
+      </div>
+    </Portal>
   );
 };
 

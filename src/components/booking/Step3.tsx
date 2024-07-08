@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { FaCheck, FaRegCalendarCheck, FaRegClock } from 'react-icons/fa';
 import FormError from '../common/forms/FormError';
 import Label from '../common/Label';
+import Panel from '../common/Panel';
 
 const Step3 = () => {
   const { data: session } = useSession();
@@ -14,7 +15,7 @@ const Step3 = () => {
 
   return (
     <>
-      <div className='border-l-4 border-accent bg-bgSoft px-4 py-4 font-medium shadow'>
+      <Panel className='px-4 py-4'>
         <Label labelId='please_check_information' />
         <span className='font-semibold'> {session?.user.email}.</span>
         <div className='mt-3 flex flex-col gap-1 px-4'>
@@ -42,7 +43,7 @@ const Step3 = () => {
             {bookingData.serviceOption?.name}
           </span>
         </div>
-      </div>
+      </Panel>
       <FormError className='my-5 !text-left text-sm'>{bookingError}</FormError>
     </>
   );

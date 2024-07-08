@@ -1,10 +1,10 @@
 import BookingDataContext from '@/contexts/bookingDataContext';
+import useLanguage from '@/hooks/useLanguage';
 import { Appointment } from '@prisma/client';
 import { cn } from 'clsx-tailwind-merge';
 import { useContext } from 'react';
 import { FaRegClock } from 'react-icons/fa';
-import AppointmentStatusBadge from '../common/AppointmentStatusBadge';
-import useLanguage from '@/hooks/useLanguage';
+import AppointmentStatusBadge from '../common/appointments/AppointmentStatusBadge';
 
 interface Props {
   appointment: Appointment;
@@ -44,7 +44,7 @@ const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
     >
       <span className='flex items-center gap-2'>
         <FaRegClock className='size-4' />
-        <span>
+        <span className='text-lg font-medium'>
           {appointment.dateTime.toLocaleTimeString(locale, {
             hour: '2-digit',
             minute: '2-digit',
