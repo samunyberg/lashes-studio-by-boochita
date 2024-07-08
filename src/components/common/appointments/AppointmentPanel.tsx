@@ -2,7 +2,7 @@ import { AppointmentWithAllData } from '@/components/admin/Today';
 import useLanguage from '@/hooks/useLanguage';
 import { Appointment } from '@prisma/client';
 import { FaCheck, FaRegCalendarCheck, FaRegClock } from 'react-icons/fa';
-import { FaPerson } from 'react-icons/fa6';
+import { IoPerson } from 'react-icons/io5';
 import Panel from '../Panel';
 import AppointmentStatusBadge from './AppointmentStatusBadge';
 
@@ -49,7 +49,7 @@ const AppointmentPanel = ({
           </div>
           {showClient && (
             <span className='flex items-center gap-2'>
-              <FaPerson className='size-4' />
+              <IoPerson className='size-4' />
               {`${(appointment as AppointmentWithAllData).client?.firstName} ${(appointment as AppointmentWithAllData).client?.lastName}`}
             </span>
           )}
