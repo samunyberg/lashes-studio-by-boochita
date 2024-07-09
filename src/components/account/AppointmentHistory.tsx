@@ -1,10 +1,10 @@
 'use client';
 
-import useLanguage from '@/hooks/useLanguage';
-import { FaCheck, FaRegCalendarCheck, FaRegClock } from 'react-icons/fa';
-import { AppointmentWithData } from './MyAppointments';
-import Button from '../common/Button';
 import { useRouter } from 'next/navigation';
+import AppointmentPanel from '../common/appointments/AppointmentPanel';
+import Button from '../common/Button';
+import Label from '../common/Label';
+import { AppointmentWithData } from './MyAppointments';
 
 interface Props {
   appointments: AppointmentWithData[];
@@ -12,53 +12,32 @@ interface Props {
 
 const AppointmentHistory = ({ appointments }: Props) => {
   const router = useRouter();
-  const { currentLanguage } = useLanguage();
-  const locale = `${currentLanguage}-FI`;
 
   if (appointments.length === 0)
     return (
       <div>
         <p className='mb-8 font-medium'>Ei menneitä varauksia.</p>
         <Button className='w-full' onClick={() => router.back()}>
-          Takaisin
+          <Label labelId='back' />
         </Button>
       </div>
     );
 
   return (
-    <div className='mb-4 flex flex-col gap-3'>
-      {appointments.map((app) => (
-        <div
-          key={app.id}
-          className='border-l-4 border-accent bg-bgSoft px-4 py-4 font-medium shadow'
-        >
-          <div className='flex flex-col gap-1 px-4'>
-            <span className='flex items-center gap-2'>
-              <FaRegCalendarCheck className='size-4' />
-              {app.dateTime.toLocaleDateString(locale, {
-                weekday: 'long',
-                month: 'long',
-                day: '2-digit',
-              })}
-            </span>
-            <span className='flex items-center gap-2'>
-              <FaRegClock className='size-4' />
-              {app.dateTime.toLocaleTimeString(locale, {
-                hour: '2-digit',
-                minute: '2-digit',
-              })}
-            </span>
-            <span className='flex items-center gap-2'>
-              <FaCheck className='size-3' />
-              {app.service?.name}
-            </span>
-            <span className='flex items-center gap-2'>
-              <FaCheck className='size-3' />
-              {app.serviceOption?.name}
-            </span>
-          </div>
-        </div>
-      ))}
+    <div className='pb-5'>
+      <div className='mb-6 flex flex-col gap-2'>
+        {appointments.map((app) => (
+          <AppointmentPanel
+            key={app.id}
+            appointment={app}
+            showClient={false}
+            showPrice={true}
+          />
+        ))}
+      </div>
+      <Button className='w-full' onClick={() => router.back()}>
+        <Label labelId='back' />
+      </Button>
     </div>
   );
 };
