@@ -10,7 +10,10 @@ const AppointmentHistoryPage = async () => {
   if (!session?.user) return null;
 
   const passedAppointments = await prisma.appointment.findMany({
-    where: { userId: session.user.id, dateTime: { lt: new Date() } },
+    where: {
+      userId: session.user.id,
+      dateTime: { lt: new Date() },
+    },
     include: { service: true, serviceOption: true },
     orderBy: { dateTime: 'desc' },
   });
