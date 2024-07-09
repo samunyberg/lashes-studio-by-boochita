@@ -3,7 +3,6 @@
 import useLanguage from '@/hooks/useLanguage';
 import useLocalisedFormSchema from '@/hooks/useLocalisedFormSchema';
 import axios, { AxiosError } from 'axios';
-import { passwordStrength } from 'check-password-strength';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -33,7 +32,6 @@ const RegisterForm = () => {
   const { registerFormSchema } = useLocalisedFormSchema();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-  const [passwdStrength, setPasswdStrenth] = useState(0);
   const [errors, setErrors] = useState({} as FieldErrors);
   const [serverError, setServerError] = useState('');
   const [formData, setFormData] = useState({
@@ -48,11 +46,6 @@ const RegisterForm = () => {
   useEffect(() => {
     if (isRegistered) router.push('/');
   }, [isRegistered]);
-
-  useEffect(() => {
-    const strength = passwordStrength(formData.password);
-    setPasswdStrenth(strength.id);
-  }, [formData.password]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -139,9 +132,7 @@ const RegisterForm = () => {
             }
           />
         </FormGroup>
-        {formData.password && (
-          <PasswordStrength passwdStrength={passwdStrength} />
-        )}
+        <PasswordStrength password={formData.password} />
         <FormGroup error={errors.confirmPassword?.at(0)}>
           <PasswordInput
             name='confirmPassword'
