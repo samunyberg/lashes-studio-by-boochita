@@ -46,9 +46,32 @@ const useLocalisedFormSchema = () => {
     phone: z.string().regex(new RegExp('^\\d{10}$'), getLabel('invalid_phone')),
   });
 
+  const resetPasswordFormSchema = z.object({
+    email: z.string().email(`${getLabel('invalid_email')}`),
+  });
+
+  const changePasswordFormSchema = z
+    .object({
+      password: z
+        .string()
+        .min(8, getLabel('password_min_length'))
+        .max(50, getLabel('password_max_length'))
+        .regex(
+          new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$'),
+          getLabel('password_requirements')
+        ),
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: getLabel('passwords_do_not_match'),
+      path: ['confirmPassword'],
+    });
+
   return {
     registerFormSchema,
     editAccountSchema,
+    resetPasswordFormSchema,
+    changePasswordFormSchema,
   };
 };
 
