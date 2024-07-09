@@ -18,6 +18,9 @@ const Account = async () => {
       email: true,
       phone: true,
       appointments: {
+        where: {
+          dateTime: { gt: new Date() },
+        },
         include: { service: true, serviceOption: true },
       },
     },

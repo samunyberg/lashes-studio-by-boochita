@@ -20,18 +20,14 @@ const MyAppointments = ({ appointments }: Props) => {
   const { currentLanguage } = useLanguage();
   const locale = `${currentLanguage}-FI`;
 
-  const upcomingAppointments = appointments.filter((app) => {
-    return app.dateTime.getTime() > new Date().getTime();
-  });
-
   return (
     <div>
       <h2 className='mb-2 text-lg font-semibold'>Tulevat varaukset</h2>
-      {upcomingAppointments.length === 0 ? (
-        <div className='px-2 py-4 font-medium'>Ei tulevia varauksia</div>
+      {appointments.length === 0 ? (
+        <div className='px-2 py-4 font-medium'>Ei tulevia varauksia.</div>
       ) : (
         <div className='mb-4 flex flex-col gap-3'>
-          {upcomingAppointments.map((app) => (
+          {appointments.map((app) => (
             <div
               key={app.id}
               className='border-l-4 border-accent bg-bgSoft px-4 py-4 font-medium shadow'
