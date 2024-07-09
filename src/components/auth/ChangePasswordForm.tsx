@@ -3,43 +3,41 @@
 import useLanguage from '@/hooks/useLanguage';
 import useLocalisedFormSchema from '@/hooks/useLocalisedFormSchema';
 import axios, { AxiosError } from 'axios';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Button from '../common/Button';
 import FormError from '../common/forms/FormError';
 import FormGroup from '../common/forms/FormGroup';
 import PasswordInput from '../common/forms/PasswordInput';
 import Label from '../common/Label';
-import AuthFormContainer from './AuthFormContainer';
-import AuthFormHeader from './AuthFormHeader';
 import PasswordStrength from './PasswordStrength';
 
 interface FieldErrors {
+  oldPassword?: string[];
   password?: string[];
   confirmPassword?: string[];
 }
 
-const ResetPasswordForm = () => {
+interface Props {
+  userId: string;
+  onClose: () => void;
+}
+
+const ChangePasswordForm = ({ userId, onClose }: Props) => {
+  const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isChangeSuccessful, setIsChangeSuccessful] = useState(false);
   const [inputErrors, setInputErrors] = useState({} as FieldErrors);
   const [error, setError] = useState('');
   const { getLabel } = useLanguage();
-  const token = useSearchParams().get('token');
-  const { resetPasswordFormSchema } = useLocalisedFormSchema();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isChangeSuccessful) router.push('/auth/login');
-  }, [isChangeSuccessful]);
+  const { changePasswordFormSchema } = useLocalisedFormSchema();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const validation = resetPasswordFormSchema.safeParse({
+    const validation = changePasswordFormSchema.safeParse({
+      oldPassword,
       password,
       confirmPassword,
     });
@@ -52,14 +50,14 @@ const ResetPasswordForm = () => {
       setInputErrors({});
       setError('');
       setIsSubmitting(true);
-      await axios.post('/api/users/reset-password', {
+      await axios.patch(`/api/users/${userId}/change-password`, {
+        oldPassword,
         password,
         confirmPassword,
-        token,
       });
       setIsSubmitting(false);
-      setIsChangeSuccessful(true);
       toast.success('Password changed successfully');
+      onClose();
     } catch (error: unknown) {
       setIsSubmitting(false);
       if (error instanceof AxiosError) setError(error.response?.data.error);
@@ -68,10 +66,20 @@ const ResetPasswordForm = () => {
   };
 
   return (
-    <AuthFormContainer>
-      <AuthFormHeader subtitle={<Label labelId='change_password' />} />
+    <>
+      <h2 className='p-2 text-lg font-medium'>
+        <Label labelId='change_password' />
+      </h2>
       <FormError className='mb-4'>{error}</FormError>
-      <form className='mb-8 mt-5 flex flex-col gap-6' onSubmit={handleSubmit}>
+      <form className='mb-5 mt-2 flex flex-col gap-6' onSubmit={handleSubmit}>
+        <FormGroup error={inputErrors.oldPassword?.at(0)}>
+          <PasswordInput
+            name='oldPassword'
+            placeholder={getLabel('old_password')}
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}
+          />
+        </FormGroup>
         <FormGroup error={inputErrors.password?.at(0)}>
           <PasswordInput
             name='password'
@@ -89,12 +97,12 @@ const ResetPasswordForm = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </FormGroup>
-        <Button variant='accent' isLoading={isSubmitting}>
+        <Button type='submit' variant='accent' isLoading={isSubmitting}>
           <Label labelId='send' />
         </Button>
       </form>
-    </AuthFormContainer>
+    </>
   );
 };
 
-export default ResetPasswordForm;
+export default ChangePasswordForm;

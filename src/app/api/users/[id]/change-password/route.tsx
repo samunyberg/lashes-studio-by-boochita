@@ -1,4 +1,5 @@
 import prisma from '@/prisma/client';
+import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface Props {
@@ -20,17 +21,21 @@ export async function PATCH(req: NextRequest, { params }: Props) {
       { status: 404 }
     );
 
-  if (user.email !== body.email) {
-    const userWithSameEmail = await prisma.user.findFirst({
-      where: { email: body.email, id: { not: user.id } },
-    });
+  const isValidPassword = await bcrypt.compare(
+    body.oldPassword,
+    user.hashedPassword
+  );
 
-    if (userWithSameEmail)
-      return NextResponse.json(
-        { error: 'Email is already in use.' },
-        { status: 409 }
-      );
-  }
+  if (!isValidPassword)
+    return NextResponse.json({ error: 'Invalid password' }, { status: 400 });
+
+  if (body.password !== body.confirmPassword)
+    return NextResponse.json(
+      { error: 'Passwords no not match' },
+      { status: 400 }
+    );
+
+  const hashedPassword = await bcrypt.hash(body.password, 10);
 
   try {
     await prisma.user.update({
@@ -38,18 +43,12 @@ export async function PATCH(req: NextRequest, { params }: Props) {
         id: user!.id,
       },
       data: {
-        firstName: body.firstName,
-        lastName: body.lastName,
-        email: body.email,
-        phone: body.phone,
+        hashedPassword,
       },
     });
     return NextResponse.json(
       {
-        firstName: body.firstName,
-        lastName: body.lastName,
-        email: body.email,
-        phone: body.phone,
+        message: 'Password changed successfully.',
       },
       { status: 200 }
     );
