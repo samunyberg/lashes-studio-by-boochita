@@ -4,6 +4,9 @@ import { z } from 'zod';
 const useLocalisedFormSchema = () => {
   const { getLabel } = useLanguage();
 
+  const validPhone = new RegExp('^\\d{10}$');
+  const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$');
+
   const registerFormSchema = z
     .object({
       email: z.string().email(getLabel('invalid_email')),
@@ -11,10 +14,7 @@ const useLocalisedFormSchema = () => {
         .string()
         .min(8, getLabel('password_min_length'))
         .max(50, getLabel('password_max_length'))
-        .regex(
-          new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$'),
-          getLabel('password_requirements')
-        ),
+        .regex(validPassword, getLabel('password_requirements')),
       confirmPassword: z.string(),
       firstName: z
         .string()
@@ -24,9 +24,7 @@ const useLocalisedFormSchema = () => {
         .string()
         .min(3, getLabel('last_name_too_short'))
         .max(50, getLabel('last_name_too_long')),
-      phone: z
-        .string()
-        .regex(new RegExp('^\\d{10}$'), getLabel('invalid_phone')),
+      phone: z.string().regex(validPhone, getLabel('invalid_phone')),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: getLabel('passwords_do_not_match'),
@@ -43,23 +41,35 @@ const useLocalisedFormSchema = () => {
       .string()
       .min(3, getLabel('last_name_too_short'))
       .max(50, getLabel('last_name_too_long')),
-    phone: z.string().regex(new RegExp('^\\d{10}$'), getLabel('invalid_phone')),
+    phone: z.string().regex(validPhone, getLabel('invalid_phone')),
   });
 
-  const resetPasswordFormSchema = z.object({
+  const forgottenPasswordFormSchema = z.object({
     email: z.string().email(`${getLabel('invalid_email')}`),
   });
 
-  const changePasswordFormSchema = z
+  const resetPasswordFormSchema = z
     .object({
       password: z
         .string()
         .min(8, getLabel('password_min_length'))
         .max(50, getLabel('password_max_length'))
-        .regex(
-          new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$'),
-          getLabel('password_requirements')
-        ),
+        .regex(validPassword, getLabel('password_requirements')),
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: getLabel('passwords_do_not_match'),
+      path: ['confirmPassword'],
+    });
+
+  const changePasswordFormSchema = z
+    .object({
+      oldPassword: z.string(),
+      password: z
+        .string()
+        .min(8, getLabel('password_min_length'))
+        .max(50, getLabel('password_max_length'))
+        .regex(validPassword, getLabel('password_requirements')),
       confirmPassword: z.string(),
     })
     .refine((data) => data.password === data.confirmPassword, {
@@ -70,6 +80,7 @@ const useLocalisedFormSchema = () => {
   return {
     registerFormSchema,
     editAccountSchema,
+    forgottenPasswordFormSchema,
     resetPasswordFormSchema,
     changePasswordFormSchema,
   };
