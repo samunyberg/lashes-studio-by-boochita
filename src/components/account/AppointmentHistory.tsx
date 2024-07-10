@@ -1,17 +1,21 @@
 'use client';
 
+import { formatDate, groupAppointmentsByMonth } from '@/app/lib/dates';
+import { AppointmentWithService } from '@/app/lib/types';
+import useLanguage from '@/hooks/useLanguage';
 import { useRouter } from 'next/navigation';
 import AppointmentPanel from '../common/appointments/AppointmentPanel';
 import Button from '../common/Button';
 import Label from '../common/Label';
-import { AppointmentWithData } from './MyAppointments';
 
 interface Props {
-  appointments: AppointmentWithData[];
+  appointments: AppointmentWithService[];
 }
 
 const AppointmentHistory = ({ appointments }: Props) => {
   const router = useRouter();
+  const { currentLanguage } = useLanguage();
+  const locale = `${currentLanguage}-FI`;
 
   if (appointments.length === 0)
     return (
@@ -23,18 +27,29 @@ const AppointmentHistory = ({ appointments }: Props) => {
       </div>
     );
 
+  const groupedAppointments = groupAppointmentsByMonth(appointments);
+
   return (
     <div className='pb-5'>
-      <div className='mb-6 flex flex-col gap-2'>
-        {appointments.map((app) => (
-          <AppointmentPanel
-            key={app.id}
-            appointment={app}
-            showClient={false}
-            showPrice={true}
-          />
-        ))}
-      </div>
+      {Object.keys(groupedAppointments).map((month, index) => {
+        return (
+          <div key={index}>
+            <span className='font-semibold'>
+              {formatDate(new Date(month), locale, { month: 'long' })}
+            </span>
+            <div className='mb-8 mt-2 flex flex-col gap-2'>
+              {groupedAppointments[month].map((app) => (
+                <AppointmentPanel
+                  key={app.id}
+                  appointment={app}
+                  showClient={false}
+                  showPrice={true}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      })}
       <Button className='w-full' onClick={() => router.back()}>
         <Label labelId='back' />
       </Button>
