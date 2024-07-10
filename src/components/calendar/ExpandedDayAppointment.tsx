@@ -1,3 +1,4 @@
+import { formatTime } from '@/app/lib/dates';
 import BookingDataContext from '@/contexts/bookingDataContext';
 import useLanguage from '@/hooks/useLanguage';
 import { Appointment } from '@prisma/client';
@@ -45,10 +46,7 @@ const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
       <span className='flex items-center gap-2'>
         <FaRegClock className='size-4' />
         <span className='text-lg font-medium'>
-          {appointment.dateTime.toLocaleTimeString(locale, {
-            hour: '2-digit',
-            minute: '2-digit',
-          })}
+          {formatTime(appointment.dateTime, locale)}
         </span>
       </span>
       <AppointmentStatusBadge status={appointment.status} />
