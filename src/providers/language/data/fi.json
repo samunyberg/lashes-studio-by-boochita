@@ -63,12 +63,14 @@
   "my_information": "Omat tiedot",
   "edit": "Muokkaa",
   "cancel": "Peruuta",
-  "change_password": "Vaihda Salasana",
+  "forgotten_password": "Unohtunut Salasana",
   "send": "Lähetä",
   "click_send_to_change_receive_link": "Anna sähköpostiosoitteesi ja paina Lähetä-nappia vastaanottaaksesi sähköpostin, joka sisältää ohjeet salasanan vaihtamiseen.",
   "strength": "Vahvuus",
   "weak": "Heikko",
   "low": "Matala",
   "medium": "Keskitaso",
-  "strong": "Vahva"
+  "strong": "Vahva",
+  "change_password": "Vaihda Salasana",
+  "old_password": "Vanha salasana"
 }

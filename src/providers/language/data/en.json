@@ -63,12 +63,14 @@
   "my_information": "My information",
   "edit": "Edit",
   "cancel": "Cancel",
-  "change_password": "Forgotten Password",
+  "forgotten_password": "Forgotten Password",
   "send": "Send",
   "click_send_to_change_receive_link": "Type your email address and click Send to receive an email with intructions to change your password.",
   "strength": "Strength",
   "weak": "Weak",
   "low": "Low",
   "medium": "Medium",
-  "strong": "Strong"
+  "strong": "Strong",
+  "change_password": "Change Password",
+  "old_password": "Old password"
 }
