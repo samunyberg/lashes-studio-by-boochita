@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import LanguageSwitcher from './LanguageSwitcher';
 import NavAuth from './NavAuth';
@@ -10,25 +10,6 @@ import Sidebar from './Sidebar';
 
 const Navbar = () => {
   const [sidebarOpened, setSidebarOpened] = useState(false);
-  const [color, setColor] = useState('transparent');
-  const [shadow, setShadow] = useState('none');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      if (scrollPosition > 20) {
-        setColor('bgSoft');
-        setShadow('md');
-      } else {
-        setColor('transparent');
-        setShadow('none');
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleToggleSidebar = () => {
     setSidebarOpened(!sidebarOpened);
@@ -37,9 +18,7 @@ const Navbar = () => {
   return (
     <>
       <Sidebar isOpen={sidebarOpened} onToggleSidebar={handleToggleSidebar} />
-      <nav
-        className={`sticky bg-${color} shadow-${shadow} inset-x-0 top-0 z-50 flex h-[55px] items-center px-5 py-3 backdrop-blur-md transition-all ease-in xl:px-0`}
-      >
+      <nav className='sticky inset-x-0 top-0 z-40 flex h-[55px] items-center bg-bgMain px-5 py-3 xl:px-0'>
         <div className='container mx-auto flex items-center justify-between'>
           <button className='lg:hidden' onClick={() => setSidebarOpened(true)}>
             <FiMenu size={25} />
