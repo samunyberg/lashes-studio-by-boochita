@@ -12,6 +12,8 @@ import FormError from '../common/forms/FormError';
 import FormGroup from '../common/forms/FormGroup';
 import Input from '../common/forms/Input';
 import Label from '../common/Label';
+import Modal from '../common/Modal';
+import Panel from '../common/Panel';
 
 interface FieldErrors {
   firstName?: string[];
@@ -94,7 +96,7 @@ const MyInformation = ({ user }: Props) => {
         <h2 className='mb-2 text-lg font-semibold'>
           <Label labelId='my_information' />
         </h2>
-        <div className='relative mb-4 flex flex-col gap-4 rounded-sm bg-bgSoft p-4 font-medium shadow'>
+        <Panel className='relative mb-5 flex flex-col gap-4 p-4 '>
           {editable && <FormError>{serverError}</FormError>}
           <div className='flex flex-col gap-1'>
             <p className='font-semibold'>
@@ -168,7 +170,7 @@ const MyInformation = ({ user }: Props) => {
               </>
             )}
           </div>
-        </div>
+        </Panel>
         {editable ? (
           <div className='flex flex-col gap-4 lg:flex-row'>
             <Button
@@ -197,28 +199,28 @@ const MyInformation = ({ user }: Props) => {
           </Button>
         )}
       </form>
-      {!showChangePasswordForm ? (
-        <Button
-          variant='accent'
-          className='my-12 w-full lg:w-fit'
-          onClick={() => setShowChangePasswordForm(true)}
-        >
-          <Label labelId='change_password' />
-        </Button>
-      ) : (
-        <div className='mt-4'>
+      <Button
+        variant='accent'
+        className='mt-10 w-full lg:w-fit'
+        onClick={() => setShowChangePasswordForm(true)}
+      >
+        <Label labelId='change_password' />
+      </Button>
+      <Modal
+        isVisible={showChangePasswordForm}
+        header={
+          <span className='text-lg font-medium'>
+            <Label labelId='change_password' />
+          </span>
+        }
+        content={
           <ChangePasswordForm
             userId={user.id}
             onClose={handleClosePasswordForm}
           />
-          <Button
-            className='w-full'
-            onClick={() => setShowChangePasswordForm(false)}
-          >
-            <Label labelId='cancel' />
-          </Button>
-        </div>
-      )}
+        }
+        onClose={handleClosePasswordForm}
+      />
     </div>
   );
 };

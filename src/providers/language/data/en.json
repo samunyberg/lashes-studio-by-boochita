@@ -71,6 +71,10 @@
   "low": "Low",
   "medium": "Medium",
   "strong": "Strong",
-  "change_password": "Change Password",
-  "old_password": "Old password"
+  "change_password": "Change password",
+  "old_password": "Old password",
+  "change": "Change",
+  "upcoming_appointments": "Upcoming appointments",
+  "no_upcoming_appointments": "No upcoming appointments",
+  "show_appointment_history": "Show appointment history"
 }

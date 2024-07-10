@@ -1,10 +1,10 @@
 'use client';
 
 import { AppointmentWithService } from '@/app/lib/types';
-import useLanguage from '@/hooks/useLanguage';
 import { useRouter } from 'next/navigation';
-import Button from '../common/Button';
 import AppointmentPanel from '../common/appointments/AppointmentPanel';
+import Button from '../common/Button';
+import Label from '../common/Label';
 
 interface Props {
   appointments: AppointmentWithService[];
@@ -12,16 +12,18 @@ interface Props {
 
 const MyAppointments = ({ appointments }: Props) => {
   const router = useRouter();
-  const { currentLanguage } = useLanguage();
-  const locale = `${currentLanguage}-FI`;
 
   return (
     <div>
-      <h2 className='mb-2 text-lg font-semibold'>Tulevat varaukset</h2>
+      <h2 className='mb-2 text-lg font-semibold'>
+        <Label labelId='upcoming_appointments' />
+      </h2>
       {appointments.length === 0 ? (
-        <div className='px-2 py-4 font-medium'>Ei tulevia varauksia.</div>
+        <div className='px-2 py-4 font-medium'>
+          <Label labelId='no_upcoming_appointments' />
+        </div>
       ) : (
-        <div className='mb-4 flex flex-col gap-3'>
+        <div className='mb-5 flex flex-col gap-3'>
           {appointments.map((app) => (
             <AppointmentPanel
               key={app.id}
@@ -36,7 +38,7 @@ const MyAppointments = ({ appointments }: Props) => {
         className='w-full lg:float-end lg:w-fit'
         onClick={() => router.push('/account/appointment-history')}
       >
-        Näytä varaushistoria
+        <Label labelId='show_appointment_history' />
       </Button>
     </div>
   );

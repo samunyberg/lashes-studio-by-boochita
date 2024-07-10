@@ -71,6 +71,10 @@
   "low": "Matala",
   "medium": "Keskitaso",
   "strong": "Vahva",
-  "change_password": "Vaihda Salasana",
-  "old_password": "Vanha salasana"
+  "change_password": "Vaihda salasana",
+  "old_password": "Vanha salasana",
+  "change": "Vaihda",
+  "upcoming_appointments": "Tulevat varaukset",
+  "no_upcoming_appointments": "Ei tulevia varauksia",
+  "show_appointment_history": "Näytä varaushistoria"
 }

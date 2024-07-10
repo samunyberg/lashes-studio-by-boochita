@@ -65,43 +65,59 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
     }
   };
 
+  const handleClose = () => {
+    setInputErrors({});
+    setError('');
+    setOldPassword('');
+    setPassword('');
+    setConfirmPassword('');
+
+    onClose();
+  };
+
   return (
-    <>
-      <h2 className='p-2 text-lg font-medium'>
-        <Label labelId='change_password' />
-      </h2>
+    <form className='my-6 flex flex-col gap-4 px-2' onSubmit={handleSubmit}>
       <FormError className='mb-4'>{error}</FormError>
-      <form className='mb-5 mt-2 flex flex-col gap-6' onSubmit={handleSubmit}>
-        <FormGroup error={inputErrors.oldPassword?.at(0)}>
-          <PasswordInput
-            name='oldPassword'
-            placeholder={getLabel('old_password')}
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
-          />
-        </FormGroup>
-        <FormGroup error={inputErrors.password?.at(0)}>
-          <PasswordInput
-            name='password'
-            placeholder={getLabel('password')}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </FormGroup>
-        <PasswordStrength password={password} />
-        <FormGroup error={inputErrors.confirmPassword?.at(0)}>
-          <PasswordInput
-            name='confirmPassword'
-            placeholder={getLabel('confirm_password')}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </FormGroup>
-        <Button type='submit' variant='accent' isLoading={isSubmitting}>
-          <Label labelId='send' />
-        </Button>
-      </form>
-    </>
+      <FormGroup error={inputErrors.oldPassword?.at(0)}>
+        <PasswordInput
+          className='border border-primary'
+          name='oldPassword'
+          placeholder={getLabel('old_password')}
+          value={oldPassword}
+          onChange={(e) => setOldPassword(e.target.value)}
+        />
+      </FormGroup>
+      <FormGroup error={inputErrors.password?.at(0)}>
+        <PasswordInput
+          className='border border-primary'
+          name='password'
+          placeholder={getLabel('password')}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </FormGroup>
+      <PasswordStrength password={password} />
+      <FormGroup error={inputErrors.confirmPassword?.at(0)}>
+        <PasswordInput
+          className='border border-primary'
+          name='confirmPassword'
+          placeholder={getLabel('confirm_password')}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      </FormGroup>
+      <Button
+        className='mt-5'
+        type='submit'
+        variant='accent'
+        isLoading={isSubmitting}
+      >
+        <Label labelId='change' />
+      </Button>
+      <Button type='button' className='w-full' onClick={handleClose}>
+        <Label labelId='cancel' />
+      </Button>
+    </form>
   );
 };
 
