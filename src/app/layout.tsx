@@ -2,7 +2,7 @@ import Providers from '@/components/Providers';
 import Navbar from '@/components/navbar/Navbar';
 import type { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
 
