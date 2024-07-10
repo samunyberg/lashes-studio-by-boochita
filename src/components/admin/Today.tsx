@@ -1,21 +1,12 @@
 'use client';
 
+import { AppointmentWithAllData } from '@/app/lib/types';
 import useLanguage from '@/hooks/useLanguage';
-import { Appointment, Service, ServiceOption } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import AppointmentPanel from '../common/appointments/AppointmentPanel';
 import Button from '../common/Button';
 
-export type AppointmentWithAllData = Appointment & {
-  service: Service | null;
-  serviceOption: ServiceOption | null;
-  client: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-  } | null;
-};
+
 
 interface Props {
   todaysAppointments: AppointmentWithAllData[];
