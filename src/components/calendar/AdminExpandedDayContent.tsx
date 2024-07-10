@@ -1,5 +1,5 @@
+import { AppointmentWithAllData } from '@/app/lib/types';
 import { Appointment } from '@prisma/client';
-import { AppointmentWithAllData } from '../admin/Today';
 import AppointmentPanel from '../common/appointments/AppointmentPanel';
 
 interface Props {
