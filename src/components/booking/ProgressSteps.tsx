@@ -28,7 +28,7 @@ const ProgressSteps = ({ currentStep, steps }: Props) => {
               className={cn(
                 'z-10 flex size-7 items-center justify-center rounded-full border-2 border-accent bg-white transition-all delay-300 duration-300 ease-in',
                 {
-                  'size-8 border-primary bg-accent text-white':
+                  'scale-125 bg-accent text-white':
                     step.stepNumber === currentStep,
                 }
               )}
