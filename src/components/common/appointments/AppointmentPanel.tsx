@@ -1,4 +1,5 @@
-import { AppointmentWithAllData } from '@/components/admin/Today';
+import { formatDate, formatTime } from '@/app/lib/dates';
+import { AppointmentWithAllData } from '@/app/lib/types';
 import useLanguage from '@/hooks/useLanguage';
 import { Appointment } from '@prisma/client';
 import { FaCheck, FaRegCalendarCheck, FaRegClock } from 'react-icons/fa';
@@ -13,6 +14,7 @@ interface Props {
   showClient?: boolean;
   showService?: boolean;
   showServiceOption?: boolean;
+  showPrice?: boolean;
 }
 
 const AppointmentPanel = ({
@@ -22,6 +24,7 @@ const AppointmentPanel = ({
   showClient = true,
   showService = true,
   showServiceOption = true,
+  showPrice = false,
 }: Props) => {
   const { currentLanguage } = useLanguage();
   const locale = `${currentLanguage}-FI`;
@@ -34,16 +37,13 @@ const AppointmentPanel = ({
             {showDate && (
               <span className='flex items-center gap-2'>
                 <FaRegCalendarCheck className='size-4' />
-                {appointment.dateTime.toLocaleDateString(locale)}
+                {formatDate(appointment.dateTime, locale)}
               </span>
             )}
             {showTime && (
               <span className='flex items-center gap-2'>
                 <FaRegClock className='size-4' />
-                {appointment.dateTime.toLocaleTimeString(locale, {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
+                {formatTime(appointment.dateTime, locale)}
               </span>
             )}
           </div>
@@ -64,6 +64,19 @@ const AppointmentPanel = ({
               <FaCheck className='size-3' />
               {(appointment as AppointmentWithAllData).serviceOption?.name}
             </span>
+          )}
+          {showPrice && (
+            <div className='flex flex-col items-end'>
+              <div className='text-sm'>
+                <span>Yht: </span>
+                <span className='font-semibold'>
+                  {(appointment as AppointmentWithAllData).servicePrice}€
+                </span>
+              </div>
+              <span className='text-xs'>
+                *Ei huomioitu mahdollista alennusta.
+              </span>
+            </div>
           )}
         </>
       ) : (
