@@ -1,6 +1,6 @@
 'use client';
 
-import { UserWithData } from '@/app/lib/types';
+import { UserWithAppointments } from '@/app/lib/types';
 import useLocalisedFormSchema from '@/hooks/useLocalisedFormSchema';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
@@ -21,7 +21,7 @@ interface FieldErrors {
 }
 
 interface Props {
-  user: UserWithData;
+  user: UserWithAppointments;
 }
 
 const MyInformation = ({ user }: Props) => {
