@@ -1,3 +1,4 @@
+import { formatDate, formatTime } from '@/app/lib/dates';
 import BookingDataContext from '@/contexts/bookingDataContext';
 import useLanguage from '@/hooks/useLanguage';
 import { useContext } from 'react';
@@ -15,15 +16,12 @@ const BookingTime = () => {
   return (
     <div className='flex items-center justify-between border-b border-accent border-opacity-30 px-3 py-3'>
       <span className='flex items-center gap-2'>
-        <FaRegCalendarCheck className='size-5' />{' '}
-        {appointment?.dateTime.toLocaleDateString(locale)}
+        <FaRegCalendarCheck className='size-5' />
+        {formatDate(appointment.dateTime, locale)}
       </span>
       <span className='flex items-center gap-2'>
         <FaRegClock className='size-5' />
-        {appointment?.dateTime.toLocaleTimeString(locale, {
-          hour: '2-digit',
-          minute: '2-digit',
-        })}
+        {formatTime(appointment.dateTime, locale)}
       </span>
     </div>
   );
