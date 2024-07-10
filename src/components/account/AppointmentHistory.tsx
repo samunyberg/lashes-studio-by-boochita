@@ -34,8 +34,11 @@ const AppointmentHistory = ({ appointments }: Props) => {
       {Object.keys(groupedAppointments).map((month, index) => {
         return (
           <div key={index}>
-            <span className='font-semibold'>
-              {formatDate(new Date(month), locale, { month: 'long' })}
+            <span className='text-lg font-semibold'>
+              {formatDate(new Date(month), locale, {
+                month: 'long',
+                year: 'numeric',
+              })}
             </span>
             <div className='mb-8 mt-2 flex flex-col gap-2'>
               {groupedAppointments[month].map((app) => (
