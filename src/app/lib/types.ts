@@ -1,26 +1,45 @@
 import { Appointment, Service, ServiceOption } from '@prisma/client';
 
-export interface UserWithData {
+// Represents a user with basic contact information
+export interface User {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
+}
+
+// Represents a user with their associated appointments
+export interface UserWithAppointments extends User {
   appointments: Appointment[];
 }
 
+// Represents a step in the booking form
 export interface Step {
   stepNumber: number;
   description: string;
 }
 
+// Represents booking data, including appointment, service, and pricing information
 export interface BookingData {
   appointment: Appointment | null;
   service: Service | null;
   serviceOption: ServiceOption | null;
-  servicePrice: number;
+  servicePrice: number | null;
 }
 
-export type ServiceWithServiceOptions = Service & {
+// Represents a service with its associated service options
+export interface ServiceWithServiceOptions extends Service {
   serviceOptions: ServiceOption[];
+}
+
+// Represents an appointment with associated service and service option
+export type AppointmentWithService = Appointment & {
+  service: Service | null;
+  serviceOption: ServiceOption | null;
 };
+
+// Represents an appointment with associated service, service option, and client information
+export interface AppointmentWithAllData extends AppointmentWithService {
+  client: User | null;
+}
