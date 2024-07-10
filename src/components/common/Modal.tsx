@@ -15,7 +15,7 @@ const Modal = ({ isVisible, onClose, header, content }: Props) => {
     <Portal>
       <div
         className={cn('fixed bottom-0 left-0 right-0 transition-all', {
-          'top-0 bg-black/30': isVisible,
+          'top-0 bg-black/30 z-50': isVisible,
         })}
       >
         <div
