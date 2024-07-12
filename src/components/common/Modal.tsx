@@ -14,27 +14,29 @@ const Modal = ({ isVisible, onClose, header, content }: Props) => {
   return (
     <Portal>
       <div
-        className={cn('fixed bottom-0 left-0 right-0 transition-all', {
-          'top-0 bg-black/30 z-50': isVisible,
-        })}
+        className={cn(
+          'fixed bottom-0 left-0 right-0 transition-all md:flex md:items-center md:justify-center',
+          {
+            'top-0 z-50 bg-black/30': isVisible,
+          }
+        )}
       >
         <div
           className={cn(
-            'fixed bottom-0 left-0 right-0 max-h-[0%] overflow-hidden overflow-y-visible transition-all duration-200 ease-out',
+            'fixed bottom-0 left-0 right-0 max-h-[0%] overflow-hidden overflow-y-visible rounded-tl-2xl rounded-tr-2xl bg-white opacity-0 transition-all duration-200 ease-out md:absolute md:inset-auto md:rounded-2xl md:transition-opacity',
             {
-              'max-h-[80%]': isVisible,
+              'max-h-[70%] min-h-[50%] opacity-100 md:max-h-[60%] md:min-h-fit md:min-w-[40%]':
+                isVisible,
             }
           )}
         >
-          <div className='z-50 h-full w-full overflow-hidden rounded-tl-2xl rounded-tr-2xl bg-white pb-20'>
-            <div className='flex items-center justify-between border-b border-gray-200 px-5 py-4'>
-              <div>{header}</div>
-              <span onClick={() => onClose()}>
-                <IoIosClose size={35} />
-              </span>
-            </div>
-            <div>{content}</div>
+          <div className='flex items-center justify-between border-b border-gray-200 px-5 py-4'>
+            <div>{header}</div>
+            <span className='cursor-pointer' onClick={() => onClose()}>
+              <IoIosClose size={35} />
+            </span>
           </div>
+          <div className='md:px-4 md:py-8'>{content}</div>
         </div>
       </div>
     </Portal>
