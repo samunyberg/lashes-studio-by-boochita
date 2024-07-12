@@ -10,8 +10,9 @@ const config: Config = {
     extend: {
       colors: {
         primary: '#524237',
-        secondary: '#e8ad80',
         accent: '#c9a489',
+        accentButtonHover: '#9c7f6a',
+        primaryButtonHover: 'rgb(255 255 255 / 0.2)',
         bgSoft: 'rgb(255 255 255 / 0.6)',
         bgSofter: 'rgb(255 255 255 / 0.5)',
         bgMain: 'rgba(251, 215, 199, 255)',
