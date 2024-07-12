@@ -5,17 +5,20 @@ import { createPortal } from 'react-dom';
 
 const Portal = ({ children }: PropsWithChildren) => {
   const [mounted, setMounted] = useState(false);
-  const portalRoot = useRef<HTMLDivElement>();
+  const portalRoot = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const div = document.createElement('div');
-    div.id = 'portal-root';
+    const id = 'portal-root';
+    div.id = id;
     document.body.appendChild(div);
     portalRoot.current = div;
     setMounted(true);
 
     return () => {
-      document.body.removeChild(div);
+      if (portalRoot.current && document.body.contains(portalRoot.current)) {
+        document.body.removeChild(portalRoot.current);
+      }
     };
   }, []);
 
