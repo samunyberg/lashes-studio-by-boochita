@@ -1,11 +1,9 @@
 import Link from 'next/link';
-import { GiClawSlashes } from 'react-icons/gi';
 
 const NavLogo = () => {
   return (
     <Link href='/'>
-      <div className='hidden items-center gap-2 whitespace-nowrap text-lg uppercase tracking-wide lg:flex'>
-        <GiClawSlashes size={20} />
+      <div className='hidden whitespace-nowrap text-base font-medium uppercase tracking-wide lg:inline-block'>
         Lashes Studio by Boochita
       </div>
     </Link>

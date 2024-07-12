@@ -1,6 +1,5 @@
 import { cn } from 'clsx-tailwind-merge';
-import React from 'react';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;

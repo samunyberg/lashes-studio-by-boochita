@@ -38,7 +38,7 @@ const NavAuth = () => {
               else return;
             }}
           >
-            <span className='tracking-wider'>
+            <span className='font-medium tracking-wider'>
               {session.user.firstName.substring(0, 1) +
                 session.user.lastName.substring(0, 1).toUpperCase()}
             </span>

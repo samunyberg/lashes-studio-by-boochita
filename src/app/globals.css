@@ -12,11 +12,11 @@ html {
   }
 
   *::-webkit-scrollbar-track {
-    @apply bg-slate-200;
+    @apply bg-white/50;
   }
 
   *::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-secondary;
+    @apply rounded-sm bg-black/20;
   }
 
   *::-webkit-scrollbar-thumb:hover {
@@ -38,4 +38,3 @@ html {
     border-radius: 5px !important;
   }
 }
-

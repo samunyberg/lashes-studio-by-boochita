@@ -72,15 +72,15 @@ const RegisterForm = () => {
           redirect: false,
         });
       if (signinResponse?.ok) {
-        setIsSubmitting(false);
         setIsRegistered(true);
       }
     } catch (error: unknown) {
-      setIsSubmitting(false);
       if (error instanceof AxiosError)
         setServerError(error.response?.data.error);
       else
         setServerError('Whoops! Something went wrong. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

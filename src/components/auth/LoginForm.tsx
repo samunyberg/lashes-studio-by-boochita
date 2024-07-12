@@ -33,17 +33,16 @@ const LoginForm = () => {
         redirect: false,
       });
       if (signInResult?.error) {
-        setIsSubmitting(false);
         setError('Invalid email or password');
       }
       if (signInResult?.ok) {
-        setIsSubmitting(false);
         toast.success(`Signed in as ${credentials.email}`);
         router.push(searchParams.get('callbackUrl') || '/');
       }
     } catch (error) {
-      setIsSubmitting(false);
       setError('Something went wrong. Please try again');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -80,10 +79,7 @@ const LoginForm = () => {
         </span>
         <span>
           <Label labelId='forgot_password' />{' '}
-          <Link
-            href={'/auth/forgotten-password'}
-            className='text-accent'
-          >
+          <Link href={'/auth/forgotten-password'} className='text-accent'>
             <Label labelId='click_here' />
           </Link>
         </span>

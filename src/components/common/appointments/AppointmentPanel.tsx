@@ -30,63 +30,60 @@ const AppointmentPanel = ({
   const locale = `${currentLanguage}-FI`;
 
   return (
-    <Panel border className='flex flex-col gap-1 px-4 py-3'>
+    <Panel
+      border
+      className='flex cursor-pointer flex-col gap-1 px-4 py-3 transition-all hover:bg-gray-100'
+    >
       {appointment.status === 'BOOKED' ? (
         <>
-          <div className='mb-2 flex gap-6 border-b border-accent p-2 text-lg'>
+          <div className='mb-2 flex gap-6 border-b border-accent p-2 text-base'>
             {showDate && (
               <span className='flex items-center gap-2'>
-                <FaRegCalendarCheck className='size-4' />
+                <FaRegCalendarCheck size={15} />
                 {formatDate(appointment.dateTime, locale)}
               </span>
             )}
             {showTime && (
               <span className='flex items-center gap-2'>
-                <FaRegClock className='size-4' />
+                <FaRegClock size={15} />
                 {formatTime(appointment.dateTime, locale)}
               </span>
             )}
           </div>
-          {showClient && (
-            <span className='flex items-center gap-2'>
-              <IoPerson className='size-4' />
-              {`${(appointment as AppointmentWithAllData).client?.firstName} ${(appointment as AppointmentWithAllData).client?.lastName}`}
-            </span>
-          )}
-          {showService && (
-            <span className='flex items-center gap-2'>
-              <FaCheck className='size-3' />
-              {(appointment as AppointmentWithAllData).service?.name}
-            </span>
-          )}
-          {showServiceOption && (
-            <span className='flex items-center gap-2'>
-              <FaCheck className='size-3' />
-              {(appointment as AppointmentWithAllData).serviceOption?.name}
-            </span>
-          )}
-          {showPrice && (
-            <div className='flex flex-col items-end'>
-              <div className='text-sm'>
-                <span>Yht: </span>
-                <span className='font-semibold'>
-                  {(appointment as AppointmentWithAllData).servicePrice}€
+          <div className='flex flex-col lg:flex-row lg:gap-6'>
+            {showClient && (
+              <span className='flex items-center gap-2 text-sm'>
+                <IoPerson size={12} />
+                {`${(appointment as AppointmentWithAllData).client?.firstName} ${(appointment as AppointmentWithAllData).client?.lastName}`}
+              </span>
+            )}
+            {showService && (
+              <span className='flex items-center gap-2 text-sm'>
+                <FaCheck size={12} />
+                {(appointment as AppointmentWithAllData).service?.name},{' '}
+                {(appointment as AppointmentWithAllData).serviceOption?.name}
+              </span>
+            )}
+            {showPrice && (
+              <div className='flex flex-col items-end'>
+                <div className='text-sm'>
+                  <span>Yht: </span>
+                  <span className='font-semibold'>
+                    {(appointment as AppointmentWithAllData).servicePrice}€
+                  </span>
+                </div>
+                <span className='text-xs'>
+                  *Ei huomioitu mahdollista alennusta.
                 </span>
               </div>
-              <span className='text-xs'>
-                *Ei huomioitu mahdollista alennusta.
-              </span>
-            </div>
-          )}
+            )}
+          </div>
         </>
       ) : (
         <div className='flex items-center justify-between'>
-          <span className='flex items-center gap-2 text-lg'>
-            <FaRegClock className='size-4' />
-            {appointment.dateTime.toLocaleTimeString(locale, {
-              hour: '2-digit',
-              minute: '2-digit',
-            })}
+          <span className='flex items-center gap-2 text-base'>
+            <FaRegClock size={15} />
+            {formatTime(appointment.dateTime, locale)}
           </span>
           <AppointmentStatusBadge status={appointment.status} />
         </div>
