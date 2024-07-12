@@ -1,6 +1,7 @@
+import { formatDate } from '@/app/lib/dates';
+import useLanguage from '@/hooks/useLanguage';
 import { Dispatch, SetStateAction } from 'react';
 import MonthSelectorMonth from './MonthSelectorMonth';
-import useLanguage from '@/hooks/useLanguage';
 
 interface Props {
   currentDate: Date;
@@ -15,9 +16,9 @@ const MonthSelector = ({ currentDate, selectedMonth, onSelect }: Props) => {
   const locale = `${currentLanguage}-FI`;
 
   return (
-    <div className='mb-1 flex items-center justify-between gap-2 px-4'>
+    <div className='flex h-full items-center justify-between gap-2 px-4'>
       <h2 className='text-md font-semibold uppercase'>
-        {new Date(currentYear, selectedMonth).toLocaleDateString(locale, {
+        {formatDate(new Date(currentYear, selectedMonth), locale, {
           month: 'long',
         })}
       </h2>
@@ -25,12 +26,13 @@ const MonthSelector = ({ currentDate, selectedMonth, onSelect }: Props) => {
         {[0, 1, 2].map((i) => (
           <MonthSelectorMonth
             key={i}
-            monthName={new Date(
-              currentYear,
-              currentMonth + i
-            ).toLocaleDateString(locale, {
-              month: 'long',
-            })}
+            monthName={formatDate(
+              new Date(currentYear, selectedMonth + i),
+              locale,
+              {
+                month: 'long',
+              }
+            )}
             currentMonth={currentMonth + i}
             selectedMonth={selectedMonth}
             onSelect={onSelect}

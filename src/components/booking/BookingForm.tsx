@@ -2,17 +2,15 @@
 
 import { BookingData, ServiceWithServiceOptions } from '@/app/lib/types';
 import BookingDataContext from '@/contexts/bookingDataContext';
-import type { Appointment } from '@prisma/client';
 import axios, { AxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { ThreeDots } from 'react-loader-spinner';
+import Calendar from '../calendar/Calendar';
 import Label from '../common/Label';
 import StrikeThroughText from '../common/StrikeThroughText';
 import BookingButtons from './BookingButtons';
 import BookingHeader from './BookingHeader';
-import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 
@@ -32,12 +30,11 @@ const steps = [
 ];
 
 interface Props {
-  appointments: Appointment[];
   services: ServiceWithServiceOptions[];
 }
 
-const BookingForm = ({ appointments, services }: Props) => {
-  const { data: session, status } = useSession();
+const BookingForm = ({ services }: Props) => {
+  const { data: session } = useSession();
   const router = useRouter();
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -60,9 +57,7 @@ const BookingForm = ({ appointments, services }: Props) => {
         }
       );
       router.push('/book/thank-you/?email=' + session?.user.email);
-      setIsSubmitting(false);
     } catch (error) {
-      setIsSubmitting(false);
       let errorMessage = '';
       const err = error as AxiosError;
       if (err.response?.status === 409)
@@ -73,6 +68,8 @@ const BookingForm = ({ appointments, services }: Props) => {
           'Appointment must be booked at least one hour before start time. Please choose a different appointment time.';
       else errorMessage = 'Whoops! Something went wrong. Please try again.';
       setBookingError(errorMessage);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -111,27 +108,21 @@ const BookingForm = ({ appointments, services }: Props) => {
           <Label labelId='book_appointment' />
         </StrikeThroughText>
         <BookingHeader steps={steps} currentStep={currentStep} />
-        {status === 'loading' ? (
-          <div className='mt-24 flex h-full w-full items-center justify-center'>
-            <ThreeDots height='40' width='40' color='#524237' visible={true} />
+        <>
+          <div className='mb-8 mt-6'>
+            {currentStep === 1 && <Calendar />}
+            {currentStep === 2 && <Step2 services={services} />}
+            {currentStep === 3 && <Step3 />}
           </div>
-        ) : (
-          <>
-            <div className='mb-8 mt-6'>
-              {currentStep === 1 && <Step1 appointments={appointments} />}
-              {currentStep === 2 && <Step2 services={services} />}
-              {currentStep === 3 && <Step3 />}
-            </div>
-            <BookingButtons
-              steps={steps}
-              currentStep={currentStep}
-              onBackClick={handleBack}
-              onNextClick={handleNext}
-              isNextDisabled={!isStepComplete()}
-              isSubmitting={isSubmitting}
-            />
-          </>
-        )}
+          <BookingButtons
+            steps={steps}
+            currentStep={currentStep}
+            onBackClick={handleBack}
+            onNextClick={handleNext}
+            isNextDisabled={!isStepComplete()}
+            isSubmitting={isSubmitting}
+          />
+        </>
       </div>
     </BookingDataContext.Provider>
   );

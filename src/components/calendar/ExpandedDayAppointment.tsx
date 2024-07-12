@@ -23,7 +23,8 @@ const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
 
     return (
       appointment.status === 'AVAILABLE' &&
-      appointment.dateTime.getTime() - currentTime.getTime() >= oneHourInMS
+      new Date(appointment.dateTime).getTime() - currentTime.getTime() >=
+        oneHourInMS
     );
   };
 
@@ -46,7 +47,7 @@ const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
       <span className='flex items-center gap-2'>
         <FaRegClock className='size-4' />
         <span className='text-lg font-medium'>
-          {formatTime(appointment.dateTime, locale)}
+          {formatTime(new Date(appointment.dateTime), locale)}
         </span>
       </span>
       <AppointmentStatusBadge status={appointment.status} />

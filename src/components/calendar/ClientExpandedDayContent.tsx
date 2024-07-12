@@ -14,7 +14,8 @@ const ClientExpandedDayContent = ({
   appointments,
 }: Props) => {
   const appointmentsByDate = appointments.filter(
-    (app) => app.dateTime.toDateString() === selectedDate.toDateString()
+    (app) =>
+      new Date(app.dateTime).toDateString() === selectedDate.toDateString()
   );
 
   return (

@@ -4,12 +4,12 @@ const CalendarHeaderRow = () => {
   const dayNames = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
 
   const renderedDays = dayNames.map((dayName) => (
-    <div key={dayName} className='p-4 text-xs font-medium tracking-wide'>
+    <div key={dayName} className='h-full px-2 text-xs font-medium tracking-wide'>
       <Label labelId={dayName} />
     </div>
   ));
 
-  return <div className='grid grid-cols-7 gap-1'>{renderedDays}</div>;
+  return <div className='grid grid-cols-7'>{renderedDays}</div>;
 };
 
 export default CalendarHeaderRow;

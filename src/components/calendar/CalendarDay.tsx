@@ -30,7 +30,7 @@ const CalendarDay = ({
     currentMonth === selectedMonth && currentDate.getDate() === index;
 
   const appointmentsByDate = appointments.filter(
-    (app) => app.dateTime.toDateString() === date.toDateString()
+    (app) => new Date(app.dateTime).toDateString() === date.toDateString()
   );
 
   const dayHasAvailableAppointments = () => {
@@ -45,7 +45,7 @@ const CalendarDay = ({
     <div
       key={index}
       className={cn(
-        'min-h-16 cursor-pointer border border-white/30 p-4 font-medium transition-all hover:bg-bgSofter md:min-h-fit lg:p-6',
+        'flex h-full cursor-pointer flex-col items-center justify-between border border-black/5 p-4 text-sm font-medium transition-all hover:bg-bgSofter lg:flex-row',
         {
           'border-2 border-accent': isCurrentDay,
           'pointer-events-none text-gray-400': isPassedDay,
@@ -56,13 +56,11 @@ const CalendarDay = ({
         onShowExpandedDay();
       }}
     >
-      <div className='flex flex-col items-center justify-between gap-1 text-xs md:flex-row md:gap-0'>
-        <span>{index}</span>
-        <AvailabilityIndicator
-          dayHasAvailableAppointments={dayHasAvailableAppointments()}
-          isPassedDay={isPassedDay}
-        />
-      </div>
+      <span>{index}</span>
+      <AvailabilityIndicator
+        dayHasAvailableAppointments={dayHasAvailableAppointments()}
+        isPassedDay={isPassedDay}
+      />
     </div>
   );
 };
