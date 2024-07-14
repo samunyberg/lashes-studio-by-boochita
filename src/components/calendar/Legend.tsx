@@ -4,7 +4,7 @@ import AvailabilityIndicator from './AvailabilityIndicator';
 
 const Legend = () => {
   return (
-    <Panel className='my-4 flex flex-col gap-2 p-2 text-sm'>
+    <Panel className='my-4 flex flex-col gap-2 px-4 py-2 text-sm'>
       <div>
         <div className='mb-3'>
           <Label labelId='click_to_see_times' />
