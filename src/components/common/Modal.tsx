@@ -23,9 +23,9 @@ const Modal = ({ isVisible, onClose, header, content }: Props) => {
       >
         <div
           className={cn(
-            'fixed bottom-0 left-0 right-0 max-h-[0%] overflow-hidden overflow-y-visible rounded-tl-2xl rounded-tr-2xl bg-white opacity-0 transition-all duration-200 ease-out md:absolute md:inset-auto md:rounded-2xl md:transition-opacity',
+            'fixed bottom-0 left-0 right-0 h-0 overflow-hidden rounded-tl-xl rounded-tr-xl bg-white transition-all duration-200 ease-out md:absolute md:inset-auto md:rounded-xl md:opacity-0 md:transition-opacity',
             {
-              'max-h-[70%] min-h-[50%] opacity-100 md:max-h-[60%] md:min-h-fit md:min-w-[40%]':
+              'h-fit max-h-[70%] min-h-[50%] w-screen md:max-h-[60%] md:min-h-[40%] md:w-fit md:min-w-[30%] md:max-w-[60%] md:opacity-100':
                 isVisible,
             }
           )}
@@ -36,7 +36,7 @@ const Modal = ({ isVisible, onClose, header, content }: Props) => {
               <IoIosClose size={35} />
             </span>
           </div>
-          <div className='md:px-4 md:py-8'>{content}</div>
+          <div className='px-2 pb-4 pt-2 md:px-4 md:py-6'>{content}</div>
         </div>
       </div>
     </Portal>
