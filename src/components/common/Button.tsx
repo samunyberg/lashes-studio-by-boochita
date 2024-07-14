@@ -21,11 +21,11 @@ const Button = ({
   return (
     <button
       className={cn(
-        `${className ? className : ''} flex h-10 items-center justify-center rounded-sm border-2 border-primary px-3 py-2 text-sm font-medium tracking-wide transition-all disabled:cursor-not-allowed disabled:text-opacity-50`,
+        `${className ? className : ''} flex h-8 min-w-[80px] items-center justify-center rounded-sm border-2 border-primary px-3 py-2 text-sm font-medium tracking-wide transition-all disabled:cursor-not-allowed disabled:text-opacity-50`,
         {
-          'hover:bg-primaryButtonHover bg-transparent disabled:border-opacity-50':
+          'bg-transparent hover:bg-primaryButtonHover disabled:border-opacity-50':
             variant === 'primary',
-          'hover:bg-accentButtonHover bg-accent text-white disabled:bg-opacity-50':
+          'bg-accent text-white hover:bg-accentButtonHover disabled:bg-opacity-50':
             variant === 'accent',
         }
       )}

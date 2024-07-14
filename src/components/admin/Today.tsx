@@ -1,51 +1,74 @@
 'use client';
 
+import { formatDate } from '@/app/lib/dates';
 import { AppointmentWithAllData } from '@/app/lib/types';
-import useLanguage from '@/hooks/useLanguage';
-import { useRouter } from 'next/navigation';
+import useLocale from '@/hooks/useLocale';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { ThreeDots } from 'react-loader-spinner';
 import AppointmentPanel from '../common/appointments/AppointmentPanel';
 import Button from '../common/Button';
+import Label from '../common/Label';
+import Panel from '../common/Panel';
 
+const Today = () => {
+  const [appointments, setAppointments] = useState<AppointmentWithAllData[]>();
+  const [isLoading, setIsLoading] = useState(false);
+  const locale = useLocale();
 
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get<AppointmentWithAllData[]>(
+          '/api/appointments/today'
+        );
+        setAppointments(response.data);
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-interface Props {
-  todaysAppointments: AppointmentWithAllData[];
-}
-
-const Today = ({ todaysAppointments }: Props) => {
-  const router = useRouter();
-  const { currentLanguage } = useLanguage();
+    fetchAppointments();
+  }, []);
 
   return (
-    <>
-      <div className='flex items-center justify-between'>
-        <Button
-          variant='accent'
-          className='mt-4 !hidden text-sm lg:inline'
-          onClick={() => router.push('/admin/appointments')}
-        >
-          Show All
-        </Button>
-      </div>
-      {todaysAppointments.length === 0 ? (
-        <div className='rounded-sm bg-bgSoft px-2 py-4 font-medium shadow'>
-          No appointments for today. Enjoy your day off!
+    <div>
+      <h1 className='mb-5 border-b border-accent bg-bgMain text-base font-semibold uppercase'>
+        <Label labelId='today' />,{' '}
+        {formatDate(new Date(), locale, {
+          day: '2-digit',
+          month: 'long',
+        })}
+      </h1>
+      {isLoading ? (
+        <div className='h-full w-full'>
+          <ThreeDots color='#524237' height={8} />
         </div>
       ) : (
-        <div className='mb-6 flex flex-col gap-2 lg:flex-row'>
-          {todaysAppointments.map((app) => (
-            <AppointmentPanel key={app.id} appointment={app} showDate={false} />
-          ))}
+        <div className='flex flex-col gap-5'>
+          {appointments?.length === 0 ? (
+            <Panel className='px-4 py-3'>
+              No appointments for today. Enjoy your day off!
+            </Panel>
+          ) : (
+            <div className='flex flex-col gap-2'>
+              {appointments?.map((app) => (
+                <AppointmentPanel
+                  key={app.id}
+                  appointment={app}
+                  showDate={false}
+                />
+              ))}
+            </div>
+          )}
+          <Button variant='accent' className='self-end lg:w-fit'>
+            View all
+          </Button>
         </div>
       )}
-      <Button
-        variant='accent'
-        className='mt-5 w-full lg:hidden'
-        onClick={() => router.push('/admin/appointments')}
-      >
-        Show all appointments
-      </Button>
-    </>
+    </div>
   );
 };
 

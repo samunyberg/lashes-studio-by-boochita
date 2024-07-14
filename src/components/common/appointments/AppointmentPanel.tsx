@@ -32,7 +32,7 @@ const AppointmentPanel = ({
   return (
     <Panel
       border
-      className='flex cursor-pointer flex-col gap-1 px-4 py-3 transition-all hover:bg-gray-100'
+      className='flex cursor-pointer flex-col gap-1 px-4 py-3 transition-all hover:bg-bgSofter lg:gap-0 lg:py-2'
     >
       {appointment.status === 'BOOKED' ? (
         <>

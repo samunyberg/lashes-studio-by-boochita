@@ -3,6 +3,8 @@
 import { Appointment } from '@prisma/client';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { ThreeDots } from 'react-loader-spinner';
+import Panel from '../common/Panel';
 import AdminExpandedDayContent from './AdminExpandedDayContent';
 import CalendarDays from './CalendarDays';
 import CalendarHeaderRow from './CalendarHeaderRow';
@@ -27,7 +29,9 @@ const Calendar = ({ admin = false }: Props) => {
     const fetchAppointments = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get<Appointment[]>('/api/appointments');
+        const response = await axios.get<Appointment[]>(
+          '/api/appointments/upcoming'
+        );
         setAppointments(response.data);
       } catch (error) {
       } finally {
@@ -46,7 +50,12 @@ const Calendar = ({ admin = false }: Props) => {
     setSelectedDate(date);
   };
 
-  if (isLoading) return <div className='p-5'>Loading...</div>;
+  if (isLoading)
+    return (
+      <Panel className='flex h-[370px] w-full items-center justify-center backdrop-opacity-30 lg:h-full'>
+        <ThreeDots height={10} color='#524237' />
+      </Panel>
+    );
 
   return (
     <div className='flex h-full flex-col'>

@@ -76,5 +76,9 @@
   "change": "Vaihda",
   "upcoming_appointments": "Tulevat varaukset",
   "no_upcoming_appointments": "Ei tulevia varauksia",
-  "show_appointment_history": "Näytä varaushistoria"
+  "show_appointment_history": "Näytä varaushistoria",
+  "today": "Tänään",
+  "show_all_appointments": "Näytä kaikki varaukset",
+  "calendar": "Kalenteri",
+  "recently_booked": "Uudet varaukset"
 }

@@ -76,5 +76,9 @@
   "change": "Change",
   "upcoming_appointments": "Upcoming appointments",
   "no_upcoming_appointments": "No upcoming appointments",
-  "show_appointment_history": "Show appointment history"
+  "show_appointment_history": "Show appointment history",
+  "today": "Today",
+  "show_all_appointments": "Show all appointments",
+  "calendar": "Calendar",
+  "recently_booked": "Recently booked"
 }

@@ -38,7 +38,7 @@ const CalendarDays = ({
   return (
     <Panel className='grid h-full grid-cols-7'>
       {lastMonthDays.map((day) => (
-        <div key={day} className='h-auto' />
+        <div key={day} />
       ))}
       {currentMonthDays.map((day) => (
         <CalendarDay

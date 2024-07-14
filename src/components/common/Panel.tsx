@@ -10,9 +10,12 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 const Panel = ({ children, className, border = false, ...rest }: Props) => {
   return (
     <div
-      className={cn(`${className && className} bg-bgSoft font-medium shadow`, {
-        'border-l-4 border-accent': border,
-      })}
+      className={cn(
+        `${className && className} rounded-sm bg-bgSoft font-medium shadow`,
+        {
+          'border-l-4 border-accent': border,
+        }
+      )}
       {...rest}
     >
       {children}

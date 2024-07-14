@@ -1,95 +1,39 @@
+import { getMonthlyAppointmentsCount } from '@/app/lib/db/appointments';
+import AppointmentChart from '@/components/admin/AppointmentChart';
 import Navigation from '@/components/admin/Navigation';
 import RecentlyBooked from '@/components/admin/RecentlyBooked';
 import Today from '@/components/admin/Today';
 import Calendar from '@/components/calendar/Calendar';
-import prisma from '@/prisma/client';
 
 const AdminHomePage = async () => {
-  const todayStart = new Date();
-  todayStart.setHours(0, 0, 0, 0);
-
-  const todayEnd = new Date();
-  todayEnd.setHours(23, 59, 59, 999);
-
-  const todaysAppointments = await prisma.appointment.findMany({
-    where: {
-      dateTime: {
-        gte: todayStart,
-        lte: todayEnd,
-      },
-    },
-    include: {
-      service: true,
-      serviceOption: true,
-      client: {
-        select: {
-          id: true,
-          firstName: true,
-          lastName: true,
-          email: true,
-        },
-      },
-    },
-  });
-
-  const appointments = await prisma.appointment.findMany({
-    where: {
-      dateTime: {
-        gte: todayStart,
-      },
-    },
-    include: {
-      service: true,
-      serviceOption: true,
-      client: {
-        select: {
-          id: true,
-          firstName: true,
-          lastName: true,
-          email: true,
-        },
-      },
-    },
-  });
-
-  const threeDaysAgoStart = new Date(
-    todayStart.getTime() - 3 * 24 * 60 * 60 * 1000
+  const lineChartData = await getMonthlyAppointmentsCount(
+    new Date().getFullYear(),
+    'en-FI'
   );
 
-  const recentlyBookedAppointments = await prisma.appointment.findMany({
-    where: {
-      bookedAt: {
-        gte: threeDaysAgoStart,
-      },
-    },
-    include: { service: true, serviceOption: true, client: true },
-  });
-
   return (
-    <div className='flex flex-col gap-5 pb-12'>
-      <div>
-        <Navigation />
-      </div>
-      <div>
-        <h1 className='mb-5 w-full border-b border-accent text-xl font-semibold uppercase'>
-          Today
-        </h1>
-        <Today todaysAppointments={todaysAppointments} />
-      </div>
-      <div className='mt-8'>
-        <h2 className='mb-5 w-full border-b border-accent text-xl font-semibold uppercase'>
-          Calendar
-        </h2>
-        <Calendar admin appointments={appointments} />
-      </div>
-      <div className='mt-8'>
-        <h1 className='mb-5 w-full border-b border-accent text-xl font-semibold uppercase'>
-          Recently Booked
-        </h1>
-        <RecentlyBooked appointments={recentlyBookedAppointments} />
+    <div className='flex h-full flex-col pb-5 lg:h-[calc(100vh-60px)]'>
+      <Navigation />
+      <div className='mt-3 flex flex-col gap-10 lg:grid lg:grid-cols-5 lg:grid-rows-8 lg:gap-8 lg:overflow-hidden'>
+        <div className='order-2 lg:col-span-3 lg:col-start-1 lg:row-span-5 lg:row-start-1'>
+          <Calendar admin />
+        </div>
+        <div className='order-4 h-[300px] md:h-full lg:col-span-3 lg:col-start-1 lg:row-span-3 lg:row-start-6'>
+          <div className='h-full pb-12 pr-2 lg:pr-6'>
+            <AppointmentChart data={lineChartData} />
+          </div>
+        </div>
+        <div className='order-1 lg:col-span-2 lg:col-start-4 lg:row-span-4 lg:row-start-1'>
+          <Today />
+        </div>
+        <div className='order-3 lg:col-span-2 lg:col-start-4 lg:row-span-4 lg:row-start-5'>
+          <RecentlyBooked />
+        </div>
       </div>
     </div>
   );
 };
+
+export const dynamic = 'force-dynamic';
 
 export default AdminHomePage;
