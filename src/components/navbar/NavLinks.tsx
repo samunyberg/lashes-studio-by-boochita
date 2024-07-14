@@ -25,7 +25,7 @@ const NavLinks = ({ onLinkClick }: Props) => {
       href={link.href}
       onClick={onLinkClick}
       className={cn(
-        `cursor-pointer px-2 text-sm font-medium uppercase tracking-wide opacity-90 transition-all`,
+        `cursor-pointer px-2 text-[15px] font-medium uppercase tracking-wide opacity-90 transition-all`,
         {
           'border-b border-primary font-semibold opacity-100':
             pathName === link.href,

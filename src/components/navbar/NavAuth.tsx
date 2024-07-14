@@ -2,8 +2,8 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
-import ProfileMenu from './ProfileMenu';
 import Label from '../common/Label';
+import ProfileMenu from './ProfileMenu';
 
 const NavAuth = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,7 +32,7 @@ const NavAuth = () => {
       {status === 'authenticated' && (
         <div>
           <div
-            className={`cursor-pointer rounded-sm border-l-4 border-accent bg-bgSoft px-2 py-1 text-sm shadow ${isMenuOpen && 'bg-white'}`}
+            className={`flex size-9 cursor-pointer items-center justify-center rounded-full border border-accent bg-bgSoft text-sm shadow ${isMenuOpen && 'bg-white'}`}
             onClick={() => {
               if (!isMenuOpen) setIsMenuOpen(true);
               else return;
