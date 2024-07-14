@@ -27,7 +27,7 @@ const MonthSelector = ({ currentDate, selectedMonth, onSelect }: Props) => {
           <MonthSelectorMonth
             key={i}
             monthName={formatDate(
-              new Date(currentYear, selectedMonth + i),
+              new Date(currentYear, currentMonth + i),
               locale,
               {
                 month: 'long',
