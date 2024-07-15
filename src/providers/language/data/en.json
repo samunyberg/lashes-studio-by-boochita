@@ -3,7 +3,6 @@
   "book": "Book",
   "book_appointment": "Book Appointment",
   "services": "Services",
-  "hours": "Hours",
   "about": "About",
   "contact": "Contact",
   "login": "Login",
@@ -80,5 +79,7 @@
   "today": "Today",
   "show_all_appointments": "Show all appointments",
   "calendar": "Calendar",
-  "recently_booked": "Recently booked"
+  "recently_booked": "Recently booked",
+  "restricted_area": "Restricted area",
+  "trying_to_access_restricted_area": "Sorry, looks like you were trying to access a restricted page."
 }

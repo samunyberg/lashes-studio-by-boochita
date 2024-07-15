@@ -3,7 +3,6 @@
   "book": "Varaa",
   "book_appointment": "Varaa Aika",
   "services": "Palvelut",
-  "hours": "Työajat",
   "about": "Info",
   "contact": "Ota yhteyttä",
   "login": "Kirjaudu",
@@ -80,5 +79,7 @@
   "today": "Tänään",
   "show_all_appointments": "Näytä kaikki varaukset",
   "calendar": "Kalenteri",
-  "recently_booked": "Uudet varaukset"
+  "recently_booked": "Uudet varaukset",
+  "restricted_area": "Rajattu pääsy",
+  "trying_to_access_restricted_area": "Näyttää siltä, että yritit päästä rajatulle sivulle."
 }
