@@ -23,43 +23,46 @@ export async function PATCH(request: NextRequest, { params }: Props) {
   if (!validation.success)
     return NextResponse.json(validation.error.format(), { status: 400 });
 
-  const appointment = await prisma.appointment.findUnique({
-    where: { id: parseInt(params.id) },
-  });
-
-  if (!appointment)
-    return NextResponse.json({ error: 'Invalid appointment' }, { status: 404 });
-
-  const startsInLessThanOneHour = () => {
-    const oneHourInMS = 3_600_000;
-    return appointment.dateTime.getTime() - currentTime.getTime() < oneHourInMS;
-  };
-
-  if (startsInLessThanOneHour())
-    return NextResponse.json(
-      {
-        error: 'Appointment must be booked at least one hour before start time',
-      },
-      { status: 403 }
-    );
-
-  if (appointment.status === 'BOOKED')
-    return NextResponse.json(
-      { error: 'This appointment is already booked' },
-      { status: 409 }
-    );
+  const appointmentId = parseInt(params.id);
 
   try {
-    const bookedAppointment = await prisma.appointment.update({
-      where: { id: appointment.id },
-      data: {
-        userId: body.userId,
-        serviceId: body.serviceId,
-        serviceOptionId: body.serviceOptionId,
-        servicePrice: body.servicePrice,
-        status: 'BOOKED',
-        bookedAt: currentTime,
-      },
+    const bookedAppointment = await prisma.$transaction(async (prisma) => {
+      const appointment = await prisma.appointment.findUnique({
+        where: { id: appointmentId },
+      });
+
+      if (!appointment) {
+        throw new Error('Invalid appointment');
+      }
+
+      const startsInLessThanOneHour = () => {
+        const oneHourInMS = 3_600_000;
+        return (
+          appointment.dateTime.getTime() - currentTime.getTime() < oneHourInMS
+        );
+      };
+
+      if (startsInLessThanOneHour()) {
+        throw new Error(
+          'Appointment must be booked at least one hour before start time'
+        );
+      }
+
+      if (appointment.status === 'BOOKED') {
+        throw new Error('This appointment is already booked');
+      }
+
+      return await prisma.appointment.update({
+        where: { id: appointmentId },
+        data: {
+          userId: body.userId,
+          serviceId: body.serviceId,
+          serviceOptionId: body.serviceOptionId,
+          servicePrice: body.servicePrice,
+          status: 'BOOKED',
+          bookedAt: currentTime,
+        },
+      });
     });
 
     // TODO: ENABLE EMAILS WHEN NEEDED:
@@ -82,7 +85,13 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     //   });
 
     return NextResponse.json(bookedAppointment);
-  } catch (error) {
-    return NextResponse.json({ status: 500 });
+  } catch (error: unknown) {
+    if (error instanceof Error)
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    else
+      return NextResponse.json(
+        { error: 'An unexpected error occured.' },
+        { status: 500 }
+      );
   }
 }
