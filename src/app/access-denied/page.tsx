@@ -1,4 +1,5 @@
 import Button from '@/components/common/Button';
+import Label from '@/components/common/Label';
 import Link from 'next/link';
 import { MdBlock } from 'react-icons/md';
 
@@ -8,13 +9,17 @@ const AccessDeniedPage = () => {
       <div className='flex h-full w-full flex-col items-center justify-center'>
         <div className='mb-5 flex items-center gap-2 text-center'>
           <MdBlock size={30} />
-          <h1 className='text-2xl font-bold'>Restricted Area</h1>
+          <h1 className='text-2xl font-bold'>
+            <Label labelId='restricted_area' />
+          </h1>
         </div>
         <h2 className='mb-12 text-center text-lg font-medium'>
-          Sorry, looks you were trying to access a restricted page.
+          <Label labelId='trying_to_access_restricted_area' />
         </h2>
         <Link href='/'>
-          <Button variant='accent' label='Back Home' />
+          <Button variant='accent'>
+            <Label labelId='back' />
+          </Button>
         </Link>
       </div>
     </div>
