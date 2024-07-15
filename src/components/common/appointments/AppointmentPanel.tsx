@@ -13,7 +13,6 @@ interface Props {
   showTime?: boolean;
   showClient?: boolean;
   showService?: boolean;
-  showServiceOption?: boolean;
   showPrice?: boolean;
 }
 
@@ -23,7 +22,6 @@ const AppointmentPanel = ({
   showTime = true,
   showClient = true,
   showService = true,
-  showServiceOption = true,
   showPrice = false,
 }: Props) => {
   const { currentLanguage } = useLanguage();
