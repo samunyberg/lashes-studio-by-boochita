@@ -6,10 +6,7 @@ import Today from '@/components/admin/Today';
 import Calendar from '@/components/calendar/Calendar';
 
 const AdminHomePage = async () => {
-  const lineChartData = await getMonthlyAppointmentsCount(
-    new Date().getFullYear(),
-    'en-FI'
-  );
+  const lineChartData = await getMonthlyAppointmentsCount();
 
   return (
     <div className='flex h-full flex-col pb-5 lg:h-[calc(100vh-60px)]'>

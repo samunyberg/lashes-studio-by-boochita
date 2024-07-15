@@ -86,10 +86,10 @@ export async function getTodaysAppointments() {
   return appointments;
 }
 
-export async function getMonthlyAppointmentsCount(
-  year: number,
-  locale: string
-) {
+export async function getMonthlyAppointmentsCount() {
+  const now = new Date();
+  const year = now.getFullYear();
+
   const monthlyCounts = [];
 
   const getFirstAndLastDateOfMonth = (year: number, month: number) => {
@@ -98,7 +98,7 @@ export async function getMonthlyAppointmentsCount(
     return { firstDate, lastDate };
   };
 
-  for (let month = 0; month <= new Date().getMonth(); month++) {
+  for (let month = 0; month <= now.getMonth(); month++) {
     const { firstDate, lastDate } = getFirstAndLastDateOfMonth(year, month);
 
     const count = await prisma.appointment.count({
@@ -112,7 +112,7 @@ export async function getMonthlyAppointmentsCount(
     });
 
     monthlyCounts.push({
-      month: formatDate(firstDate, locale, { month: 'long' }),
+      month: formatDate(firstDate, 'en-FI', { month: 'long' }),
       count,
     });
   }
