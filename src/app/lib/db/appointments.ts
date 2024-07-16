@@ -7,6 +7,14 @@ todayStart.setHours(0, 0, 0, 0);
 const todayEnd = new Date();
 todayEnd.setHours(23, 59, 59, 999);
 
+export async function getAppointments() {
+  const appointments = await prisma.appointment.findMany({
+    include: { client: true, service: true, serviceOption: true },
+  });
+
+  return appointments;
+}
+
 export async function getUpcomingAppointments() {
   const appointments = await prisma.appointment.findMany({
     where: {

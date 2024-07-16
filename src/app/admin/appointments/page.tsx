@@ -1,20 +1,13 @@
+import { getAppointments } from '@/app/lib/db/appointments';
 import { AppointmentWithAllData } from '@/app/lib/types';
 import AppointmentList from '@/components/admin/AppointmentList';
-import prisma from '@/prisma/client';
 
 const AdminAppointmentsPage = async () => {
-  const appointments = (await prisma.appointment.findMany({
-    where: {
-      dateTime: { gte: new Date() },
-    },
-    include: { service: true, serviceOption: true, client: true },
-  })) as AppointmentWithAllData[];
+  const appointments = (await getAppointments()) as AppointmentWithAllData[];
 
-  return (
-    <div>
-      <AppointmentList appointments={appointments} />
-    </div>
-  );
+  return <AppointmentList appointments={appointments} />;
 };
+
+export const dynamic = 'force-dynamic';
 
 export default AdminAppointmentsPage;
