@@ -43,7 +43,7 @@ const ProfileMenu = ({ user, onClose }: Props) => {
       initial={{ opacity: 0, right: -20 }}
       animate={{ opacity: 1, right: 0 }}
       transition={{ duration: 0.2 }}
-      className='absolute right-0 top-0 z-50 w-56 rounded-sm text-sm'
+      className='absolute right-0 top-0 z-[999] w-56 rounded-sm text-sm'
     >
       <Panel className='flex flex-col items-start justify-center gap-3 !bg-white px-6 py-4'>
         <p>
