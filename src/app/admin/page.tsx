@@ -1,6 +1,5 @@
 import { getMonthlyAppointmentsCount } from '@/app/lib/db/appointments';
 import AppointmentChart from '@/components/admin/AppointmentChart';
-import Navigation from '@/components/admin/Navigation';
 import RecentlyBooked from '@/components/admin/RecentlyBooked';
 import Today from '@/components/admin/Today';
 import Calendar from '@/components/calendar/Calendar';
@@ -9,9 +8,8 @@ const AdminHomePage = async () => {
   const lineChartData = await getMonthlyAppointmentsCount();
 
   return (
-    <div className='flex h-full flex-col pb-5 lg:h-[calc(100vh-60px)]'>
-      <Navigation />
-      <div className='mt-3 flex flex-col gap-10 lg:grid lg:grid-cols-5 lg:grid-rows-8 lg:gap-8 lg:overflow-hidden'>
+    <div className='flex h-full flex-col pb-5 lg:h-[calc(100vh-110px)]'>
+      <div className='flex flex-col gap-12 lg:grid lg:grid-cols-5 lg:grid-rows-8 lg:gap-8 lg:overflow-hidden'>
         <div className='order-2 lg:col-span-3 lg:col-start-1 lg:row-span-5 lg:row-start-1'>
           <Calendar admin />
         </div>

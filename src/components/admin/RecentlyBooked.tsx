@@ -11,12 +11,11 @@ import Label from '../common/Label';
 
 const RecentlyBooked = () => {
   const [appointments, setAppointments] = useState<AppointmentWithAllData[]>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const locale = useLocale();
 
   useEffect(() => {
     const fetchAppointments = async () => {
-      setIsLoading(true);
       try {
         const response = await axios.get<AppointmentWithAllData[]>(
           '/api/appointments/recent'
@@ -40,8 +39,7 @@ const RecentlyBooked = () => {
         <Label labelId='recently_booked' />
       </h1>
       {isLoading ? (
-        <div>
-          {' '}
+        <div className='flex h-32 w-full items-center justify-center'>
           <ThreeDots color='#524237' height={8} />
         </div>
       ) : (

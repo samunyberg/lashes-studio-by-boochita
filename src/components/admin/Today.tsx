@@ -4,6 +4,7 @@ import { formatDate } from '@/app/lib/dates';
 import { AppointmentWithAllData } from '@/app/lib/types';
 import useLocale from '@/hooks/useLocale';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 import AppointmentPanel from '../common/appointments/AppointmentPanel';
@@ -13,12 +14,12 @@ import Panel from '../common/Panel';
 
 const Today = () => {
   const [appointments, setAppointments] = useState<AppointmentWithAllData[]>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const locale = useLocale();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchAppointments = async () => {
-      setIsLoading(true);
       try {
         const response = await axios.get<AppointmentWithAllData[]>(
           '/api/appointments/today'
@@ -43,7 +44,7 @@ const Today = () => {
         })}
       </h1>
       {isLoading ? (
-        <div className='h-full w-full'>
+        <div className='flex h-32 w-full items-center justify-center'>
           <ThreeDots color='#524237' height={8} />
         </div>
       ) : (
@@ -63,7 +64,11 @@ const Today = () => {
               ))}
             </div>
           )}
-          <Button variant='accent' className='self-end lg:w-fit'>
+          <Button
+            variant='accent'
+            className='lg:w-fit lg:self-end'
+            onClick={() => router.push('/admin/appointments')}
+          >
             View all
           </Button>
         </div>
