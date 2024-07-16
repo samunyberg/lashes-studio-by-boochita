@@ -36,7 +36,7 @@ const CalendarDays = ({
   }
 
   return (
-    <Panel className='grid h-full grid-cols-7'>
+    <Panel className='grid h-full grid-cols-7 !shadow-none'>
       {lastMonthDays.map((day) => (
         <div key={day} />
       ))}

@@ -22,12 +22,11 @@ const Calendar = ({ admin = false }: Props) => {
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   const [showExpandedDay, setShowExpandedDay] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
 
   useEffect(() => {
     const fetchAppointments = async () => {
-      setIsLoading(true);
       try {
         const response = await axios.get<Appointment[]>(
           '/api/appointments/upcoming'
@@ -50,13 +49,6 @@ const Calendar = ({ admin = false }: Props) => {
     setSelectedDate(date);
   };
 
-  if (isLoading)
-    return (
-      <Panel className='flex h-[370px] w-full items-center justify-center backdrop-opacity-30 lg:h-full'>
-        <ThreeDots height={10} color='#524237' />
-      </Panel>
-    );
-
   return (
     <div className='flex h-full flex-col'>
       <div className='h-[50px]'>
@@ -69,7 +61,12 @@ const Calendar = ({ admin = false }: Props) => {
       <div className='h-[25px]'>
         <CalendarHeaderRow />
       </div>
-      <div className='flex-1'>
+      <div className='relative flex-1'>
+        {isLoading && (
+          <div className='absolute inset-0 flex items-center justify-center bg-bgMain'>
+            <ThreeDots height={10} color='#524237' />
+          </div>
+        )}
         <CalendarDays
           currentDate={currentDate}
           selectedMonth={selectedMonth}
