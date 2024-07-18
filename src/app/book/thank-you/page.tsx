@@ -3,6 +3,7 @@
 import Button from '@/components/common/Button';
 import Label from '@/components/common/Label';
 import { MotionContainer } from '@/components/common/MotionContainer';
+import Panel from '@/components/common/Panel';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { BsCheckCircle } from 'react-icons/bs';
@@ -17,8 +18,8 @@ const ThankYouPage = ({ searchParams: { email } }: Props) => {
   const router = useRouter();
 
   return (
-    <div className='h-[calc(100vh-4rem)] pt-32'>
-      <div className='flex flex-col items-center justify-center gap-4'>
+    <div className='h-[calc(100vh-55px)] pt-32 md:mx-auto md:max-w-[350px] lg:max-w-[450px]'>
+      <Panel className='flex flex-col items-center justify-center gap-4 py-12 px-5'>
         <MotionContainer
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -44,7 +45,7 @@ const ThankYouPage = ({ searchParams: { email } }: Props) => {
             <Label labelId='logout' />
           </Button>
         </div>
-      </div>
+      </Panel>
     </div>
   );
 };
