@@ -32,7 +32,7 @@ const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
     <div
       key={appointment.id}
       className={cn(
-        `flex h-14 w-full items-center justify-between border-l-4 border-accent px-4 py-2 shadow`,
+        `flex h-14 w-full cursor-pointer items-center justify-between border-l-4 border-accent px-4 py-2 shadow`,
         {
           'pointer-events-none cursor-not-allowed opacity-70 shadow-none':
             !isBookable(),

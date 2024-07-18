@@ -13,7 +13,7 @@ const ClientExpandedDayContent = ({
   onShowExpandedDay,
   appointments,
 }: Props) => {
-  const appointmentsByDate = appointments.filter(
+  const appointmentsByDate = appointments?.filter(
     (app) =>
       new Date(app.dateTime).toDateString() === selectedDate.toDateString()
   );
@@ -22,7 +22,7 @@ const ClientExpandedDayContent = ({
     <>
       <div className='px-4 py-3'>
         <h2 className='mb-2 font-medium'>
-          {appointmentsByDate.length > 0 ? (
+          {appointmentsByDate?.length > 0 ? (
             <Label labelId='click_appointment_to_select' />
           ) : (
             <Label labelId='no_appointments_for_this_day' />
@@ -30,7 +30,7 @@ const ClientExpandedDayContent = ({
         </h2>
       </div>
       <div className='flex w-full flex-col gap-4 p-2 '>
-        {appointmentsByDate.map((app: Appointment) => (
+        {appointmentsByDate?.map((app: Appointment) => (
           <ExpandedDayAppointment
             key={app.id}
             appointment={app}

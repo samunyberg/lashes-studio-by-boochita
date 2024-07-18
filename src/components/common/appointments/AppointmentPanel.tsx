@@ -1,3 +1,5 @@
+'use client';
+
 import { formatDate, formatTime } from '@/app/lib/dates';
 import { AppointmentWithAllData } from '@/app/lib/types';
 import useLanguage from '@/hooks/useLanguage';

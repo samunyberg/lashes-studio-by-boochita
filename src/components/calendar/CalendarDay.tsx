@@ -29,12 +29,12 @@ const CalendarDay = ({
   const isCurrentDay =
     currentMonth === selectedMonth && currentDate.getDate() === index;
 
-  const appointmentsByDate = appointments.filter(
+  const appointmentsByDate = appointments?.filter(
     (app) => new Date(app.dateTime).toDateString() === date.toDateString()
   );
 
   const dayHasAvailableAppointments = () => {
-    const availableAppointment = appointmentsByDate.find(
+    const availableAppointment = appointmentsByDate?.find(
       (app) => app.status === 'AVAILABLE'
     );
 

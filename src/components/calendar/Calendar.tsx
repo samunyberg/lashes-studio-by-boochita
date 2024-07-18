@@ -1,53 +1,41 @@
 'use client';
 
 import { Appointment } from '@prisma/client';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { ThreeDots } from 'react-loader-spinner';
-import Panel from '../common/Panel';
-import AdminExpandedDayContent from './AdminExpandedDayContent';
+import { useState } from 'react';
 import CalendarDays from './CalendarDays';
 import CalendarHeaderRow from './CalendarHeaderRow';
-import ClientExpandedDayContent from './ClientExpandedDayContent';
-import ExpandedDay from './ExpandedDay';
 import Legend from './Legend';
 import MonthSelector from './MonthSelector';
 
 interface Props {
   admin?: boolean;
+  initialData: Appointment[];
 }
 
-const Calendar = ({ admin = false }: Props) => {
+const Calendar = ({ admin = false, initialData }: Props) => {
   const currentDate = new Date();
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
-  const [showExpandedDay, setShowExpandedDay] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
-
-  useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        const response = await axios.get<Appointment[]>(
-          '/api/appointments/upcoming'
-        );
-        setAppointments(response.data);
-      } catch (error) {
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchAppointments();
-  }, []);
-
-  const handleShowExpandedDay = () => {
-    setShowExpandedDay(!showExpandedDay);
-  };
+  const { data: appointments = initialData, error } = useQuery<
+    Appointment[],
+    Error
+  >({
+    queryKey: ['appointments'],
+    queryFn: () =>
+      axios
+        .get<Appointment[]>('/api/appointments/upcoming')
+        .then((res) => res.data),
+    refetchInterval: 60 * 1000,
+    initialData: initialData,
+  });
 
   const handleSelectDate = (date: Date) => {
     setSelectedDate(date);
   };
+
+  if (error) return <div>Error fetching the appointments</div>;
 
   return (
     <div className='flex h-full flex-col'>
@@ -62,38 +50,16 @@ const Calendar = ({ admin = false }: Props) => {
         <CalendarHeaderRow />
       </div>
       <div className='relative flex-1'>
-        {isLoading && (
-          <div className='absolute inset-0 flex items-center justify-center bg-bgMain'>
-            <ThreeDots height={10} color='#524237' />
-          </div>
-        )}
         <CalendarDays
+          admin={admin}
+          appointments={appointments}
           currentDate={currentDate}
           selectedMonth={selectedMonth}
+          selectedDate={selectedDate}
           onSelectedDate={handleSelectDate}
-          appointments={appointments}
-          onShowExpandedDay={handleShowExpandedDay}
         />
       </div>
       {!admin && <Legend />}
-      <ExpandedDay
-        selectedDate={selectedDate}
-        showExpandedDay={showExpandedDay}
-        onShowExpandedDay={handleShowExpandedDay}
-      >
-        {admin ? (
-          <AdminExpandedDayContent
-            appointments={appointments}
-            selectedDate={selectedDate}
-          />
-        ) : (
-          <ClientExpandedDayContent
-            appointments={appointments}
-            selectedDate={selectedDate}
-            onShowExpandedDay={handleShowExpandedDay}
-          />
-        )}
-      </ExpandedDay>
     </div>
   );
 };
