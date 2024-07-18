@@ -1,5 +1,6 @@
 import prisma from '@/prisma/client';
 import { formatDate } from '../dates';
+import { AppointmentWithAllData } from '../types';
 
 const todayStart = new Date();
 todayStart.setHours(0, 0, 0, 0);
@@ -7,15 +8,29 @@ todayStart.setHours(0, 0, 0, 0);
 const todayEnd = new Date();
 todayEnd.setHours(23, 59, 59, 999);
 
-export async function getAppointments() {
+export async function getAppointments(): Promise<AppointmentWithAllData[]> {
   const appointments = await prisma.appointment.findMany({
-    include: { client: true, service: true, serviceOption: true },
+    include: {
+      service: true,
+      serviceOption: true,
+      client: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+          phone: true,
+        },
+      },
+    },
   });
 
   return appointments;
 }
 
-export async function getUpcomingAppointments() {
+export async function getUpcomingAppointments(): Promise<
+  AppointmentWithAllData[]
+> {
   const appointments = await prisma.appointment.findMany({
     where: {
       dateTime: {
@@ -31,6 +46,7 @@ export async function getUpcomingAppointments() {
           firstName: true,
           lastName: true,
           email: true,
+          phone: true,
         },
       },
     },
@@ -39,7 +55,9 @@ export async function getUpcomingAppointments() {
   return appointments;
 }
 
-export async function getRecentlyBookedAppointments() {
+export async function getRecentlyBookedAppointments(): Promise<
+  AppointmentWithAllData[]
+> {
   const threeDaysAgoStart = new Date(
     todayStart.getTime() - 3 * 24 * 60 * 60 * 1000
   );
@@ -60,6 +78,7 @@ export async function getRecentlyBookedAppointments() {
           firstName: true,
           lastName: true,
           email: true,
+          phone: true,
         },
       },
     },
@@ -69,7 +88,9 @@ export async function getRecentlyBookedAppointments() {
   return appointments;
 }
 
-export async function getTodaysAppointments() {
+export async function getTodaysAppointments(): Promise<
+  AppointmentWithAllData[]
+> {
   const appointments = await prisma.appointment.findMany({
     where: {
       dateTime: {
@@ -86,6 +107,7 @@ export async function getTodaysAppointments() {
           firstName: true,
           lastName: true,
           email: true,
+          phone: true,
         },
       },
     },
