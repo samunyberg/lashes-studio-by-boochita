@@ -24,7 +24,7 @@ const ServiceListItem = ({
     <div key={service.id} className='shadow'>
       <Panel
         border
-        className='flex w-full items-center justify-between p-2 tracking-wide'
+        className='flex w-full cursor-pointer items-center justify-between p-2 tracking-wide'
         onClick={() => onServiceSelect(service)}
       >
         <h2 className={`${isExpanded ? 'font-semibold' : 'font-medium'}`}>
@@ -50,7 +50,7 @@ const ServiceListItem = ({
           {service.serviceOptions.map((option) => (
             <div
               key={option.id}
-              className='flex items-center justify-between border-b border-accent p-2 last:border-none'
+              className='flex cursor-pointer items-center justify-between border-b border-accent p-2 last:border-none'
               onClick={() => onServiceOptionSelect(option)}
             >
               <div className='flex w-full flex-col gap-1 px-1'>
