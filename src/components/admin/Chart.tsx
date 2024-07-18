@@ -17,8 +17,11 @@ interface Props {
 const Chart = ({ data }: Props) => {
   return (
     <ResponsiveContainer width='100%' height='100%'>
-      <LineChart data={data} margin={{ top: 5, right: 30, bottom: 5, left: 0 }}>
-        <CartesianGrid strokeDasharray='3 3' stroke='rgba(0, 0, 0, 0.1)' />
+      <LineChart
+        data={data}
+        margin={{ top: 20, right: 30, bottom: 5, left: 0 }}
+      >
+        <CartesianGrid strokeDasharray='3 3' stroke='rgba(0, 0, 0, 0.2)' />
         <XAxis dataKey='month' stroke='#524237' />
         <YAxis stroke='#524237' />
         <Tooltip />
