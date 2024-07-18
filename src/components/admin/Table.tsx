@@ -41,14 +41,11 @@ const Table = <T,>({ data, config, keyFn, itemsPerPage = 10 }: Props<T>) => {
 
   return (
     <div className='w-full overflow-x-auto'>
-      <table className='min-w-full table-auto rounded-sm bg-bgSoft'>
-        <thead className='bg-accent font-thin tracking-wide text-white'>
+      <table className='min-w-full table-auto rounded-sm bg-bgSofter'>
+        <thead className='bg-accent font-semibold tracking-wide text-white'>
           <tr>
             {config.map((column) => (
-              <th
-                key={column.label}
-                className='py-2 pl-3 text-start font-medium'
-              >
+              <th key={column.label} className='py-2 pl-3 text-start'>
                 {column.label}
               </th>
             ))}
@@ -56,7 +53,7 @@ const Table = <T,>({ data, config, keyFn, itemsPerPage = 10 }: Props<T>) => {
         </thead>
         <tbody>
           {paginatedData.map((rowData) => (
-            <tr key={keyFn(rowData)} className='border-b even:bg-white/40'>
+            <tr key={keyFn(rowData)} className='border-b even:bg-white/20'>
               {config.map((column) => (
                 <td
                   key={column.label}
