@@ -1,5 +1,3 @@
-import { formatDate, formatTime } from '@/app/lib/dates';
-import { sendBookingConfirmationEmail } from '@/emails/email';
 import prisma from '@/prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
@@ -27,6 +25,11 @@ export async function PATCH(request: NextRequest, { params }: Props) {
 
   const appointmentId = parseInt(params.id);
 
+  const startsInLessThanOneHour = (appointmentDateTime: Date) => {
+    const oneHourInMS = 3_600_000;
+    return appointmentDateTime.getTime() - currentTime.getTime() < oneHourInMS;
+  };
+
   try {
     const bookedAppointment = await prisma.$transaction(
       async (prisma) => {
@@ -42,14 +45,7 @@ export async function PATCH(request: NextRequest, { params }: Props) {
           throw new Error('This appointment is already booked');
         }
 
-        const startsInLessThanOneHour = () => {
-          const oneHourInMS = 3_600_000;
-          return (
-            appointment.dateTime.getTime() - currentTime.getTime() < oneHourInMS
-          );
-        };
-
-        if (startsInLessThanOneHour()) {
+        if (startsInLessThanOneHour(appointment.dateTime)) {
           throw new Error(
             'Appointment must be booked at least one hour before start time'
           );
@@ -70,31 +66,41 @@ export async function PATCH(request: NextRequest, { params }: Props) {
       { isolationLevel: 'Serializable' }
     );
 
-    const [user, service, serviceOption] = await Promise.all([
-      prisma.user.findUnique({
-        where: { id: body.userId },
-      }),
-      prisma.service.findUnique({ where: { id: body.serviceId } }),
-      prisma.serviceOption.findUnique({ where: { id: body.serviceOptionId } }),
-    ]);
-
-    if (user)
-      await sendBookingConfirmationEmail({
-        to: user.email,
-        date: formatDate(bookedAppointment.dateTime, 'en-FI'),
-        time: formatTime(bookedAppointment.dateTime, 'en-FI'),
-        service: service?.name || 'Unknown Service',
-        serviceOption: serviceOption?.name || 'Unknown Option',
-      });
-
-    return NextResponse.json(bookedAppointment);
+    return NextResponse.json({ data: bookedAppointment }, { status: 200 });
   } catch (error: unknown) {
-    if (error instanceof Error)
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    else
-      return NextResponse.json(
-        { error: 'An unexpected error occured.' },
-        { status: 500 }
-      );
+    let errorMessage = 'An unexpected error occurred.';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+      if (error.message === 'Invalid appointment') {
+        return NextResponse.json({ error: errorMessage }, { status: 400 });
+      }
+      if (error.message === 'This appointment is already booked') {
+        return NextResponse.json({ error: errorMessage }, { status: 409 });
+      }
+      if (
+        error.message ===
+        'Appointment must be booked at least one hour before start time'
+      ) {
+        return NextResponse.json({ error: errorMessage }, { status: 403 });
+      }
+    }
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
+
+// const [user, service, serviceOption] = await Promise.all([
+//   prisma.user.findUnique({
+//     where: { id: body.userId },
+//   }),
+//   prisma.service.findUnique({ where: { id: body.serviceId } }),
+//   prisma.serviceOption.findUnique({ where: { id: body.serviceOptionId } }),
+// ]);
+
+// if (user)
+//   await sendBookingConfirmationEmail({
+//     to: user.email,
+//     date: formatDate(bookedAppointment.dateTime, 'en-FI'),
+//     time: formatTime(bookedAppointment.dateTime, 'en-FI'),
+//     service: service?.name || 'Unknown Service',
+//     serviceOption: serviceOption?.name || 'Unknown Option',
+//   });
