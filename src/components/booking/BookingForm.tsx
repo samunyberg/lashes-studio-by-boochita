@@ -13,6 +13,7 @@ import BookingButtons from './BookingButtons';
 import BookingHeader from './BookingHeader';
 import Step2 from './Step2';
 import Step3 from './Step3';
+import { Appointment } from '@prisma/client';
 
 const steps = [
   {
@@ -31,9 +32,10 @@ const steps = [
 
 interface Props {
   services: ServiceWithServiceOptions[];
+  appointments: Appointment[];
 }
 
-const BookingForm = ({ services }: Props) => {
+const BookingForm = ({ services, appointments }: Props) => {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -110,7 +112,7 @@ const BookingForm = ({ services }: Props) => {
         <BookingHeader steps={steps} currentStep={currentStep} />
         <>
           <div className='mb-8 mt-6'>
-            {currentStep === 1 && <Calendar />}
+            {currentStep === 1 && <Calendar initialData={appointments} />}
             {currentStep === 2 && <Step2 services={services} />}
             {currentStep === 3 && <Step3 />}
           </div>
