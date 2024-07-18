@@ -23,9 +23,9 @@ const Button = ({
       className={cn(
         `${className ? className : ''} flex h-10 min-w-[80px] items-center justify-center rounded-sm border-2 border-primary px-4 text-base font-medium tracking-wide transition-all disabled:cursor-not-allowed disabled:text-opacity-50 lg:text-sm`,
         {
-          'bg-transparent hover:bg-primaryButtonHover disabled:border-opacity-50':
+          'bg-transparent active:bg-primaryButtonHover disabled:border-opacity-50 lg:hover:bg-primaryButtonHover':
             variant === 'primary',
-          'bg-accent text-white hover:bg-accentButtonHover disabled:bg-opacity-50':
+          'bg-accent text-white active:bg-accentButtonHover disabled:bg-opacity-50 lg:hover:bg-accentButtonHover':
             variant === 'accent',
         }
       )}
