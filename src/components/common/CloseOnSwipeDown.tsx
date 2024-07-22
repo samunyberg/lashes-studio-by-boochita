@@ -45,7 +45,7 @@ const CloseOnSwipeDown = ({ onClose }: Props) => {
   }, [onClose]);
 
   return (
-    <div ref={ref} className='h-2 w-16 rounded-full bg-black/20 md:hidden' />
+    <div ref={ref} className='h-1 w-24 rounded-full bg-black/20 md:hidden' />
   );
 };
 
