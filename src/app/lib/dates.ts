@@ -9,7 +9,7 @@ export function formatDate(
   return new Date(date).toLocaleDateString(locale, options);
 }
 
-export function formatTime(date: Date, locale: string) {
+export function formatDSTAdjustedTime(date: Date, locale: string) {
   const adjustedDate = adjustForDST(new Date(date));
   return adjustedDate.toLocaleTimeString(locale, {
     hour: '2-digit',
