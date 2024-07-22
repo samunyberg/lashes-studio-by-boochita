@@ -20,9 +20,12 @@ const Navigation = () => {
         <Link
           key={link.href}
           href={link.href}
-          className={cn('h-full  p-2 transition-all hover:text-accent', {
-            'font-semibold': pathName === link.href,
-          })}
+          className={cn(
+            'h-full  p-2 transition-all active:text-accent lg:hover:text-accent',
+            {
+              'font-semibold': pathName === link.href,
+            }
+          )}
         >
           {link.label}
         </Link>
