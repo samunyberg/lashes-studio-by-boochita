@@ -47,21 +47,21 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
     }
 
     try {
+      setIsSubmitting(true);
       setInputErrors({});
       setError('');
-      setIsSubmitting(true);
       await axios.patch(`/api/users/${userId}/change-password`, {
         oldPassword,
         password,
         confirmPassword,
       });
-      setIsSubmitting(false);
       toast.success('Password changed successfully');
       onClose();
     } catch (error: unknown) {
-      setIsSubmitting(false);
       if (error instanceof AxiosError) setError(error.response?.data.error);
       else setError('Something went wrong. Please try again');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
