@@ -41,23 +41,26 @@ const Table = <T,>({ data, config, keyFn, itemsPerPage = 10 }: Props<T>) => {
 
   return (
     <div className='w-full overflow-x-auto'>
-      <table className='min-w-full table-auto rounded-sm bg-bgSofter'>
-        <thead className='bg-accent font-semibold tracking-wide text-white'>
+      <table className='min-w-full table-auto'>
+        <thead className='tracking-wide'>
           <tr>
             {config.map((column) => (
-              <th key={column.label} className='py-2 pl-3 text-start'>
+              <th
+                key={column.label}
+                className='border-b border-primary py-2 pl-3 text-start'
+              >
                 {column.label}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className='bg-bgSofter'>
           {paginatedData.map((rowData) => (
-            <tr key={keyFn(rowData)} className='border-b even:bg-white/20'>
+            <tr key={keyFn(rowData)} className='border-b'>
               {config.map((column) => (
                 <td
                   key={column.label}
-                  className='border-r px-3 py-2 font-medium'
+                  className='whitespace-nowrap px-3 py-3 font-medium'
                 >
                   {column.render(rowData)}
                 </td>
