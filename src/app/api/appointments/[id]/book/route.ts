@@ -1,3 +1,4 @@
+import { startsInLessThanOneHour } from '@/app/lib/dates';
 import prisma from '@/prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
@@ -24,11 +25,6 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     return NextResponse.json(validation.error.format(), { status: 400 });
 
   const appointmentId = parseInt(params.id);
-
-  const startsInLessThanOneHour = (appointmentDateTime: Date) => {
-    const oneHourInMS = 3_600_000;
-    return appointmentDateTime.getTime() - currentTime.getTime() < oneHourInMS;
-  };
 
   try {
     const bookedAppointment = await prisma.$transaction(

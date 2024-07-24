@@ -149,3 +149,26 @@ export async function getMonthlyAppointmentsCount() {
 
   return monthlyCounts;
 }
+
+export async function getAppointmentById(
+  id: number
+): Promise<AppointmentWithAllData | null> {
+  const appointment = await prisma.appointment.findFirst({
+    where: { id },
+    include: {
+      service: true,
+      serviceOption: true,
+      client: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+          phone: true,
+        },
+      },
+    },
+  });
+
+  return appointment;
+}
