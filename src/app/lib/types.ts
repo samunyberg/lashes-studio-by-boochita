@@ -33,13 +33,9 @@ export interface ServiceWithServiceOptions extends Service {
   serviceOptions: ServiceOption[];
 }
 
-// Represents an appointment with associated service and service option
-export type AppointmentWithService = Appointment & {
+// Represents an appointment with associated service, service option, and client information
+export type AppointmentWithData = Appointment & {
   service: Service | null;
   serviceOption: ServiceOption | null;
-};
-
-// Represents an appointment with associated service, service option, and client information
-export interface AppointmentWithAllData extends AppointmentWithService {
   client: User | null;
-}
+};

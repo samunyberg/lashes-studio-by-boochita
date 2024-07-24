@@ -1,13 +1,13 @@
 'use client';
 
-import { AppointmentWithService } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import { useRouter } from 'next/navigation';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 import Button from '../common/Button';
 import Label from '../common/Label';
 
 interface Props {
-  appointments: AppointmentWithService[];
+  appointments: AppointmentWithData[];
 }
 
 const MyAppointments = ({ appointments }: Props) => {

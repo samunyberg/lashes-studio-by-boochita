@@ -1,6 +1,6 @@
 import prisma from '@/prisma/client';
 import { formatDate } from '../dates';
-import { AppointmentWithAllData } from '../types';
+import { AppointmentWithData } from '../types';
 
 const todayStart = new Date();
 todayStart.setHours(0, 0, 0, 0);
@@ -8,7 +8,7 @@ todayStart.setHours(0, 0, 0, 0);
 const todayEnd = new Date();
 todayEnd.setHours(23, 59, 59, 999);
 
-export async function getAppointments(): Promise<AppointmentWithAllData[]> {
+export async function getAppointments(): Promise<AppointmentWithData[]> {
   const appointments = await prisma.appointment.findMany({
     include: {
       service: true,
@@ -29,7 +29,7 @@ export async function getAppointments(): Promise<AppointmentWithAllData[]> {
 }
 
 export async function getUpcomingAppointments(): Promise<
-  AppointmentWithAllData[]
+  AppointmentWithData[]
 > {
   const appointments = await prisma.appointment.findMany({
     where: {
@@ -56,7 +56,7 @@ export async function getUpcomingAppointments(): Promise<
 }
 
 export async function getRecentlyBookedAppointments(): Promise<
-  AppointmentWithAllData[]
+  AppointmentWithData[]
 > {
   const threeDaysAgoStart = new Date(
     todayStart.getTime() - 3 * 24 * 60 * 60 * 1000
@@ -88,9 +88,7 @@ export async function getRecentlyBookedAppointments(): Promise<
   return appointments;
 }
 
-export async function getTodaysAppointments(): Promise<
-  AppointmentWithAllData[]
-> {
+export async function getTodaysAppointments(): Promise<AppointmentWithData[]> {
   const appointments = await prisma.appointment.findMany({
     where: {
       dateTime: {
@@ -152,7 +150,7 @@ export async function getMonthlyAppointmentsCount() {
 
 export async function getAppointmentById(
   id: number
-): Promise<AppointmentWithAllData | null> {
+): Promise<AppointmentWithData | null> {
   const appointment = await prisma.appointment.findFirst({
     where: { id },
     include: {

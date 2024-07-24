@@ -1,7 +1,7 @@
 'use client';
 
 import { formatDate, formatDSTAdjustedTime } from '@/app/lib/dates';
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import { useRouter } from 'next/navigation';
 import { IoArrowBack } from 'react-icons/io5';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
@@ -9,7 +9,7 @@ import Button from '../common/Button';
 import CancelButton from './CancelButton';
 
 interface Props {
-  appointment: AppointmentWithAllData;
+  appointment: AppointmentWithData;
 }
 
 const AppointmentDetails = ({ appointment }: Props) => {

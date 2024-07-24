@@ -1,13 +1,13 @@
+import { AppointmentWithData } from '@/app/lib/types';
 import { Appointment } from '@prisma/client';
 import Label from '../common/Label';
 import ExpandedDayAppointment from './ExpandedDayAppointment';
-import { AppointmentWithAllData } from '@/app/lib/types';
 
 interface Props {
   selectedDate: Date;
   appointments: Appointment[];
   onShowExpandedDay: () => void;
-  onAppointmentSelect: (app: Appointment | AppointmentWithAllData) => void;
+  onAppointmentSelect: (app: Appointment | AppointmentWithData) => void;
 }
 
 const ClientExpandedDayContent = ({

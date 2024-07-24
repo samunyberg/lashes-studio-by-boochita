@@ -1,6 +1,6 @@
 'use client';
 
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import { useRouter } from 'next/navigation';
 import Calendar from '../../calendar/Calendar';
 import RecentlyBooked from '../recentlyBooked/RecentlyBooked';
@@ -8,9 +8,9 @@ import AppointmentChart from './AppointmentChart';
 import Today from './Today';
 
 interface Props {
-  upcomingAppointments: AppointmentWithAllData[];
-  todaysAppointments: AppointmentWithAllData[];
-  recentlyBooked: AppointmentWithAllData[];
+  upcomingAppointments: AppointmentWithData[];
+  todaysAppointments: AppointmentWithData[];
+  recentlyBooked: AppointmentWithData[];
   chartData: {
     month: string;
     count: number;

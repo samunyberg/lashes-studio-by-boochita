@@ -1,9 +1,9 @@
 import { getAppointments } from '@/app/lib/db/appointments';
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import AppointmentList from '@/components/admin/AppointmentList';
 
 const AdminAppointmentsPage = async () => {
-  const appointments = (await getAppointments()) as AppointmentWithAllData[];
+  const appointments = (await getAppointments()) as AppointmentWithData[];
 
   return <AppointmentList appointments={appointments} />;
 };

@@ -1,4 +1,4 @@
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import { format } from 'date-fns';
 
 export function formatDate(
@@ -17,10 +17,8 @@ export function formatDSTAdjustedTime(date: Date, locale: string) {
   });
 }
 
-export function groupAppointmentsByMonth(
-  appointments: AppointmentWithAllData[]
-) {
-  const groupedAppointments: Record<string, AppointmentWithAllData[]> = {};
+export function groupAppointmentsByMonth(appointments: AppointmentWithData[]) {
+  const groupedAppointments: Record<string, AppointmentWithData[]> = {};
   appointments.forEach((app) => {
     const month = format(app.dateTime, 'yyyy-MM');
     if (!groupedAppointments[month]) groupedAppointments[month] = [];

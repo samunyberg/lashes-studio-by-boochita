@@ -1,6 +1,6 @@
 'use client';
 
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import { Appointment } from '@prisma/client';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
@@ -16,8 +16,8 @@ import Modal from '../common/Modal';
 import StrikeThroughText from '../common/StrikeThroughText';
 
 interface Props {
-  oldAppointment: AppointmentWithAllData;
-  upcomingAppointments: AppointmentWithAllData[];
+  oldAppointment: AppointmentWithData;
+  upcomingAppointments: AppointmentWithData[];
 }
 
 const Reschedule = ({ oldAppointment, upcomingAppointments }: Props) => {

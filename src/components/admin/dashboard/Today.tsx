@@ -1,5 +1,5 @@
 import { formatDate } from '@/app/lib/dates';
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import useLocale from '@/hooks/useLocale';
 import { useRouter } from 'next/navigation';
 import AppointmentPanel from '../../common/appointments/appointmentPanel/AppointmentPanel';
@@ -9,7 +9,7 @@ import Panel from '../../common/Panel';
 import DashboardHeader from './DashboardHeader';
 
 interface Props {
-  appointments: AppointmentWithAllData[];
+  appointments: AppointmentWithData[];
 }
 
 const Today = ({ appointments }: Props) => {

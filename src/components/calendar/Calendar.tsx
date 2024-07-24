@@ -1,6 +1,6 @@
 'use client';
 
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import { Appointment } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -13,7 +13,7 @@ import MonthSelector from './MonthSelector';
 interface Props {
   admin?: boolean;
   initialData: Appointment[];
-  onAppointmentSelect: (app: Appointment | AppointmentWithAllData) => void;
+  onAppointmentSelect: (app: Appointment | AppointmentWithData) => void;
 }
 
 const Calendar = ({

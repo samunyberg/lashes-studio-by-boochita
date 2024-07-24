@@ -1,4 +1,4 @@
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Label from '../../common/Label';
@@ -6,18 +6,18 @@ import DashboardHeader from '../dashboard/DashboardHeader';
 import RecentlyBookedItem from './RecentlyBookedItem';
 
 interface Props {
-  initialData: AppointmentWithAllData[];
+  initialData: AppointmentWithData[];
 }
 
 const RecentlyBooked = ({ initialData }: Props) => {
   const { data: appointments = initialData, error } = useQuery<
-    AppointmentWithAllData[],
+    AppointmentWithData[],
     Error
   >({
     queryKey: ['recently-booked'],
     queryFn: () =>
       axios
-        .get<AppointmentWithAllData[]>('/api/appointments/recent')
+        .get<AppointmentWithData[]>('/api/appointments/recent')
         .then((res) => res.data),
     refetchInterval: 5 * 60 * 1000,
     initialData: initialData,

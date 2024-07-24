@@ -1,11 +1,11 @@
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import { Appointment } from '@prisma/client';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 
 interface Props {
   selectedDate: Date;
   appointments: Appointment[];
-  onAppointmentSelect: (app: Appointment | AppointmentWithAllData) => void;
+  onAppointmentSelect: (app: Appointment | AppointmentWithData) => void;
 }
 
 const AdminExpandedDayContent = ({
@@ -27,13 +27,13 @@ const AdminExpandedDayContent = ({
         <div key={app.id} onClick={() => onAppointmentSelect(app)}>
           {app.status === 'AVAILABLE' || app.status === 'UNAVAILABLE' ? (
             <AppointmentPanel
-              appointment={app as AppointmentWithAllData}
+              appointment={app as AppointmentWithData}
               showDate={false}
               showStatusBadge
             />
           ) : (
             <AppointmentPanel
-              appointment={app as AppointmentWithAllData}
+              appointment={app as AppointmentWithData}
               showDate={false}
               showClient
               showService

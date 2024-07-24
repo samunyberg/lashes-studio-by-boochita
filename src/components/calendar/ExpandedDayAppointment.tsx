@@ -1,4 +1,4 @@
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import { Appointment } from '@prisma/client';
 import { cn } from 'clsx-tailwind-merge';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
@@ -6,7 +6,7 @@ import AppointmentPanel from '../common/appointments/appointmentPanel/Appointmen
 interface Props {
   appointment: Appointment;
   onShowExpandedDay: () => void;
-  onAppointmentSelect: (app: Appointment | AppointmentWithAllData) => void;
+  onAppointmentSelect: (app: Appointment | AppointmentWithData) => void;
 }
 
 const ExpandedDayAppointment = ({

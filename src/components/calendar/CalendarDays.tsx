@@ -1,6 +1,6 @@
 import { Appointment } from '@prisma/client';
 
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import { useState } from 'react';
 import Panel from '../common/Panel';
 import AdminExpandedDayContent from './AdminExpandedDayContent';
@@ -15,7 +15,7 @@ interface Props {
   selectedDate: Date;
   selectedMonth: number;
   onSelectDate: (date: Date) => void;
-  onAppointmentSelect: (app: Appointment | AppointmentWithAllData) => void;
+  onAppointmentSelect: (app: Appointment | AppointmentWithData) => void;
 }
 
 const CalendarDays = ({

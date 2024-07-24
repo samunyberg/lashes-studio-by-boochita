@@ -1,5 +1,5 @@
 import { formatTimeAgo, isBookedLessThanOneHourAgo } from '@/app/lib/dates';
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import AppointmentPanel from '@/components/common/appointments/appointmentPanel/AppointmentPanel';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -7,7 +7,7 @@ import { GoDot } from 'react-icons/go';
 import NewBadge from './NewBadge';
 
 interface Props {
-  appointment: AppointmentWithAllData;
+  appointment: AppointmentWithData;
 }
 
 const RecentlyBookedItem = ({ appointment }: Props) => {

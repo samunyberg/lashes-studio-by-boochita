@@ -1,7 +1,7 @@
 'use client';
 
 import { formatDate, formatDSTAdjustedTime } from '@/app/lib/dates';
-import { AppointmentWithAllData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/app/lib/types';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import AppointmentStatusBadge from '../common/appointments/AppointmentStatusBadge';
@@ -10,10 +10,10 @@ import SearchInput from '../common/forms/SearchInput';
 import Table, { Config } from './Table';
 
 interface Props {
-  appointments: AppointmentWithAllData[];
+  appointments: AppointmentWithData[];
 }
 
-const config: Config<AppointmentWithAllData>[] = [
+const config: Config<AppointmentWithData>[] = [
   {
     label: 'Date',
     render: (app) => formatDate(app.dateTime, 'en-FI'),
@@ -42,7 +42,7 @@ const config: Config<AppointmentWithAllData>[] = [
   },
 ];
 
-const keyFn = (app: AppointmentWithAllData) => app.id;
+const keyFn = (app: AppointmentWithData) => app.id;
 
 const AppointmentList = ({ appointments }: Props) => {
   const [search, setSearch] = useState({ term: '', date: '' });
