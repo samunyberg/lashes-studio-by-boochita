@@ -29,7 +29,7 @@ const AppointmentHistory = ({ appointments }: Props) => {
   const groupedAppointments = groupAppointmentsByMonth(appointments);
 
   return (
-    <div className='pb-5'>
+    <>
       {Object.keys(groupedAppointments).map((month, index) => {
         return (
           <div key={index}>
@@ -52,10 +52,7 @@ const AppointmentHistory = ({ appointments }: Props) => {
           </div>
         );
       })}
-      <Button className='w-full' onClick={() => router.back()}>
-        <Label labelId='back' />
-      </Button>
-    </div>
+    </>
   );
 };
 
