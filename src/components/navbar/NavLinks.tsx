@@ -37,7 +37,7 @@ const NavLinks = ({ onLinkClick }: Props) => {
   ));
 
   return (
-    <div className='flex flex-col gap-8 whitespace-nowrap lg:flex-row lg:gap-4'>
+    <div className='flex flex-col gap-8 whitespace-nowrap pt-12 lg:flex-row lg:gap-4 lg:pt-0'>
       {renderedLinks}
     </div>
   );
