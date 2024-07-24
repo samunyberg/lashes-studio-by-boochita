@@ -1,6 +1,7 @@
+import useClickOutside from '@/hooks/useClickOutside';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { MdLogout } from 'react-icons/md';
 import { MotionContainer } from '../common/MotionContainer';
 import Panel from '../common/Panel';
@@ -18,19 +19,7 @@ interface Props {
 const ProfileMenu = ({ user, onClose }: Props) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        onClose();
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  useClickOutside(menuRef, () => onClose());
 
   const handleSignOut = () => {
     signOut({ redirect: true, callbackUrl: '/' });
@@ -48,7 +37,7 @@ const ProfileMenu = ({ user, onClose }: Props) => {
       <Panel className='flex flex-col items-start justify-center gap-3 !bg-white px-6 py-4'>
         <p>
           Signed in as{' '}
-          <span className='w-32 whitespace-normal font-medium'>
+          <span className='w-32 whitespace-normal font-semibold'>
             {user.email}
           </span>
         </p>
