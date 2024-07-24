@@ -1,22 +1,19 @@
-import { formatTime } from '@/app/lib/dates';
-import BookingDataContext from '@/contexts/bookingDataContext';
-import useLanguage from '@/hooks/useLanguage';
+import { AppointmentWithAllData } from '@/app/lib/types';
 import { Appointment } from '@prisma/client';
 import { cn } from 'clsx-tailwind-merge';
-import { useContext } from 'react';
-import { FaRegClock } from 'react-icons/fa';
-import AppointmentStatusBadge from '../common/appointments/AppointmentStatusBadge';
+import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 
 interface Props {
   appointment: Appointment;
   onShowExpandedDay: () => void;
+  onAppointmentSelect: (app: Appointment | AppointmentWithAllData) => void;
 }
 
-const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
-  const { currentLanguage } = useLanguage();
-  const { bookingData, setBookingData } = useContext(BookingDataContext);
-  const locale = `${currentLanguage}-FI`;
-
+const ExpandedDayAppointment = ({
+  appointment,
+  onShowExpandedDay,
+  onAppointmentSelect,
+}: Props) => {
   const isBookable = () => {
     const currentTime = new Date();
     const oneHourInMS = 3_600_000;
@@ -31,26 +28,20 @@ const ExpandedDayAppointment = ({ appointment, onShowExpandedDay }: Props) => {
   return (
     <div
       key={appointment.id}
-      className={cn(
-        `flex h-14 w-full cursor-pointer items-center justify-between border-l-4 border-accent px-4 py-2 shadow`,
-        {
-          'pointer-events-none cursor-not-allowed opacity-70 shadow-none':
-            !isBookable(),
-        }
-      )}
+      className={cn({
+        'pointer-events-none cursor-not-allowed opacity-70': !isBookable(),
+      })}
       onClick={() => {
         if (!isBookable()) return;
-        setBookingData({ ...bookingData, appointment });
+        onAppointmentSelect(appointment);
         onShowExpandedDay();
       }}
     >
-      <span className='flex items-center gap-2'>
-        <FaRegClock className='size-4' />
-        <span className='text-lg font-medium'>
-          {formatTime(new Date(appointment.dateTime), locale)}
-        </span>
-      </span>
-      <AppointmentStatusBadge status={appointment.status} />
+      <AppointmentPanel
+        appointment={appointment}
+        showDate={false}
+        showStatusBadge
+      />
     </div>
   );
 };

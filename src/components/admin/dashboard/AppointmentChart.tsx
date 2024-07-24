@@ -1,6 +1,6 @@
-'use client';
-
 import { formatDate } from '@/app/lib/dates';
+import Label from '@/components/common/Label';
+import Panel from '@/components/common/Panel';
 import useLocale from '@/hooks/useLocale';
 import {
   CartesianGrid,
@@ -11,8 +11,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import Label from '../common/Label';
-import Panel from '../common/Panel';
+import DashboardHeader from './DashboardHeader';
 
 interface Props {
   data: { month: string; count: number }[];
@@ -23,10 +22,10 @@ const AppointmentLineChart = ({ data }: Props) => {
 
   return (
     <div className='h-full'>
-      <h1 className='sticky top-0 mb-3 border-b border-accent bg-bgMain text-base font-semibold uppercase'>
+      <DashboardHeader>
         <Label labelId='booked' />{' '}
         {formatDate(new Date(), locale, { year: 'numeric' })}
-      </h1>
+      </DashboardHeader>
       <Panel className='h-full'>
         <ResponsiveContainer width='100%' height='100%'>
           <LineChart

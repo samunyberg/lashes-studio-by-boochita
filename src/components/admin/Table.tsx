@@ -47,16 +47,16 @@ const Table = <T,>({ data, config, keyFn, itemsPerPage = 10 }: Props<T>) => {
             {config.map((column) => (
               <th
                 key={column.label}
-                className='border-b border-primary py-2 pl-3 text-start'
+                className='border-b border-black/10 py-2 pl-3 text-start'
               >
                 {column.label}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className='bg-bgSofter'>
+        <tbody>
           {paginatedData.map((rowData) => (
-            <tr key={keyFn(rowData)} className='border-b'>
+            <tr key={keyFn(rowData)} className='border-b border-black/10'>
               {config.map((column) => (
                 <td
                   key={column.label}

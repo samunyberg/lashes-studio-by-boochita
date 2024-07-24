@@ -1,13 +1,12 @@
-'use client';
-
 import { formatDate } from '@/app/lib/dates';
 import { AppointmentWithAllData } from '@/app/lib/types';
 import useLocale from '@/hooks/useLocale';
 import { useRouter } from 'next/navigation';
-import AppointmentPanel from '../common/appointments/AppointmentPanel';
-import Button from '../common/Button';
-import Label from '../common/Label';
-import Panel from '../common/Panel';
+import AppointmentPanel from '../../common/appointments/appointmentPanel/AppointmentPanel';
+import Button from '../../common/Button';
+import Label from '../../common/Label';
+import Panel from '../../common/Panel';
+import DashboardHeader from './DashboardHeader';
 
 interface Props {
   appointments: AppointmentWithAllData[];
@@ -19,13 +18,13 @@ const Today = ({ appointments }: Props) => {
 
   return (
     <div>
-      <h1 className='mb-3 border-b border-accent bg-bgMain text-base font-semibold uppercase'>
+      <DashboardHeader>
         <Label labelId='today' />,{' '}
         {formatDate(new Date(), locale, {
           day: '2-digit',
           month: 'long',
         })}
-      </h1>
+      </DashboardHeader>
       <div className='flex flex-col gap-5'>
         {appointments.length === 0 ? (
           <Panel className='px-4 py-3'>
@@ -34,11 +33,27 @@ const Today = ({ appointments }: Props) => {
         ) : (
           <div className='flex flex-col gap-2'>
             {appointments.map((app) => (
-              <AppointmentPanel
+              <div
                 key={app.id}
-                appointment={app}
-                showDate={false}
-              />
+                onClick={() => router.push(`/admin/appointments/${app.id}`)}
+              >
+                {app.status === 'AVAILABLE' || app.status === 'UNAVAILABLE' ? (
+                  <AppointmentPanel
+                    key={app.id}
+                    appointment={app}
+                    showDate={false}
+                    showStatusBadge
+                  />
+                ) : (
+                  <AppointmentPanel
+                    key={app.id}
+                    appointment={app}
+                    showDate={false}
+                    showClient
+                    showService
+                  />
+                )}
+              </div>
             ))}
           </div>
         )}

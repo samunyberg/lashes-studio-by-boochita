@@ -81,5 +81,8 @@
   "calendar": "Kalenteri",
   "recently_booked": "Uudet varaukset",
   "restricted_area": "Rajattu pääsy",
-  "trying_to_access_restricted_area": "Näyttää siltä, että yritit päästä rajatulle sivulle."
+  "trying_to_access_restricted_area": "Näyttää siltä, että yritit päästä rajatulle sivulle.",
+  "no_new_bookings": "Ei uusia varauksia viimeisen kolmen päivän aikana.",
+  "no_appointments_today": "Ei varauksia tälle päivälle.",
+  "view_all": "Näytä kaikki"
 }

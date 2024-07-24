@@ -81,5 +81,8 @@
   "calendar": "Calendar",
   "recently_booked": "Recently booked",
   "restricted_area": "Restricted area",
-  "trying_to_access_restricted_area": "Sorry, looks like you were trying to access a restricted page."
+  "trying_to_access_restricted_area": "Sorry, looks like you were trying to access a restricted page.",
+  "no_new_bookings": "No new bookings within 3 days",
+  "no_appointments_today": " No appointments for today. Enjoy your day off!",
+  "view_all": "View All"
 }

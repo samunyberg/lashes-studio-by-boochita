@@ -39,7 +39,7 @@ const Modal = ({ isVisible, onClose, header, content }: Props) => {
       >
         <div
           className={cn(
-            'fixed bottom-0 left-0 right-0 max-h-0 overflow-hidden rounded-tl-xl rounded-tr-xl bg-white transition-all duration-300 ease-out md:inset-auto md:min-w-[25%] md:max-w-[60%] md:rounded-md',
+            'fixed bottom-0 left-0 right-0 max-h-0 overflow-hidden rounded-tl-xl rounded-tr-xl bg-white transition-all duration-300 ease-out md:inset-auto md:min-w-[25%] md:max-w-[60%] md:rounded-md lg:max-w-[40%]',
             {
               'max-h-[70%]': isVisible,
             }

@@ -1,3 +1,4 @@
+import { cn } from 'clsx-tailwind-merge';
 import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
@@ -17,7 +18,12 @@ const MonthSelectorMonth = ({
 
   return (
     <span
-      className={`${isSelected && 'border-l-2 border-accent bg-bgSoft px-2 font-semibold'} mx-2 h-full cursor-pointer text-sm font-medium transition-all`}
+      className={cn(
+        'mx-2 h-full cursor-pointer text-sm font-medium transition-all',
+        {
+          'font-bold': isSelected,
+        }
+      )}
       onClick={() => onSelect(currentMonth)}
     >
       {month}

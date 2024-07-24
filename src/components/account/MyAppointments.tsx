@@ -2,7 +2,7 @@
 
 import { AppointmentWithService } from '@/app/lib/types';
 import { useRouter } from 'next/navigation';
-import AppointmentPanel from '../common/appointments/AppointmentPanel';
+import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 import Button from '../common/Button';
 import Label from '../common/Label';
 

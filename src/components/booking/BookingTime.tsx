@@ -1,4 +1,4 @@
-import { formatDate, formatTime } from '@/app/lib/dates';
+import { formatDate, formatDSTAdjustedTime } from '@/app/lib/dates';
 import BookingDataContext from '@/contexts/bookingDataContext';
 import useLanguage from '@/hooks/useLanguage';
 import { useContext } from 'react';
@@ -21,7 +21,7 @@ const BookingTime = () => {
       </span>
       <span className='flex items-center gap-2'>
         <FaRegClock className='size-5' />
-        {formatTime(appointment.dateTime, locale)}
+        {formatDSTAdjustedTime(appointment.dateTime, locale)}
       </span>
     </div>
   );

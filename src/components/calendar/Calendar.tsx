@@ -1,5 +1,6 @@
 'use client';
 
+import { AppointmentWithAllData } from '@/app/lib/types';
 import { Appointment } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -12,9 +13,14 @@ import MonthSelector from './MonthSelector';
 interface Props {
   admin?: boolean;
   initialData: Appointment[];
+  onAppointmentSelect: (app: Appointment | AppointmentWithAllData) => void;
 }
 
-const Calendar = ({ admin = false, initialData }: Props) => {
+const Calendar = ({
+  admin = false,
+  initialData,
+  onAppointmentSelect,
+}: Props) => {
   const currentDate = new Date();
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
@@ -56,7 +62,8 @@ const Calendar = ({ admin = false, initialData }: Props) => {
           currentDate={currentDate}
           selectedMonth={selectedMonth}
           selectedDate={selectedDate}
-          onSelectedDate={handleSelectDate}
+          onSelectDate={handleSelectDate}
+          onAppointmentSelect={onAppointmentSelect}
         />
       </div>
       {!admin && <Legend />}

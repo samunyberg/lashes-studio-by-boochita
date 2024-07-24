@@ -14,7 +14,10 @@ const config: Config<User>[] = [
   {
     label: 'Name',
     render: (user) => (
-      <Link href={'/admin/clients/' + user.id} className='hover:text-accent'>
+      <Link
+        href={'/admin/clients/' + user.id}
+        className='underline hover:text-accent'
+      >
         {`${user.firstName} ${user.lastName}`}
       </Link>
     ),
@@ -58,12 +61,7 @@ const ClientList = ({ clients }: Props) => {
       {filteredClients.length === 0 ? (
         <div className='p-5 font-medium'>No results with this search.</div>
       ) : (
-        <Table
-          data={filteredClients}
-          config={config}
-          keyFn={keyFn}
-          itemsPerPage={20}
-        />
+        <Table data={filteredClients} config={config} keyFn={keyFn} />
       )}
     </div>
   );

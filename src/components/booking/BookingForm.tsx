@@ -2,6 +2,7 @@
 
 import { BookingData, ServiceWithServiceOptions } from '@/app/lib/types';
 import BookingDataContext from '@/contexts/bookingDataContext';
+import { Appointment } from '@prisma/client';
 import axios, { AxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -13,7 +14,6 @@ import BookingButtons from './BookingButtons';
 import BookingHeader from './BookingHeader';
 import Step2 from './Step2';
 import Step3 from './Step3';
-import { Appointment } from '@prisma/client';
 
 const steps = [
   {
@@ -112,7 +112,14 @@ const BookingForm = ({ services, appointments }: Props) => {
         <BookingHeader steps={steps} currentStep={currentStep} />
         <>
           <div className='mb-8 mt-6'>
-            {currentStep === 1 && <Calendar initialData={appointments} />}
+            {currentStep === 1 && (
+              <Calendar
+                initialData={appointments}
+                onAppointmentSelect={(app: Appointment) =>
+                  setBookingData({ ...bookingData, appointment: app })
+                }
+              />
+            )}
             {currentStep === 2 && <Step2 services={services} />}
             {currentStep === 3 && <Step3 />}
           </div>

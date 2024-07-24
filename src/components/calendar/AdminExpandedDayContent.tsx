@@ -1,13 +1,18 @@
 import { AppointmentWithAllData } from '@/app/lib/types';
 import { Appointment } from '@prisma/client';
-import AppointmentPanel from '../common/appointments/AppointmentPanel';
+import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 
 interface Props {
   selectedDate: Date;
   appointments: Appointment[];
+  onAppointmentSelect: (app: Appointment | AppointmentWithAllData) => void;
 }
 
-const AdminExpandedDayContent = ({ selectedDate, appointments }: Props) => {
+const AdminExpandedDayContent = ({
+  selectedDate,
+  appointments,
+  onAppointmentSelect,
+}: Props) => {
   const appointmentsByDate = appointments?.filter(
     (app) =>
       new Date(app.dateTime).toDateString() === selectedDate.toDateString()
@@ -19,11 +24,22 @@ const AdminExpandedDayContent = ({ selectedDate, appointments }: Props) => {
         <h2 className='mb-2 p-4 font-medium'>No appointments for this day.</h2>
       )}
       {appointmentsByDate?.map((app: Appointment) => (
-        <AppointmentPanel
-          key={app.id}
-          appointment={app as AppointmentWithAllData}
-          showDate={false}
-        />
+        <div key={app.id} onClick={() => onAppointmentSelect(app)}>
+          {app.status === 'AVAILABLE' || app.status === 'UNAVAILABLE' ? (
+            <AppointmentPanel
+              appointment={app as AppointmentWithAllData}
+              showDate={false}
+              showStatusBadge
+            />
+          ) : (
+            <AppointmentPanel
+              appointment={app as AppointmentWithAllData}
+              showDate={false}
+              showClient
+              showService
+            />
+          )}
+        </div>
       ))}
     </div>
   );

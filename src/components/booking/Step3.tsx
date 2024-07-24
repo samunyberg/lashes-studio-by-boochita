@@ -1,4 +1,4 @@
-import { formatDate, formatTime } from '@/app/lib/dates';
+import { formatDate, formatDSTAdjustedTime } from '@/app/lib/dates';
 import BookingDataContext from '@/contexts/bookingDataContext';
 import useLanguage from '@/hooks/useLanguage';
 import { useSession } from 'next-auth/react';
@@ -30,7 +30,10 @@ const Step3 = () => {
           </span>
           <span className='flex items-center gap-2'>
             <FaRegClock className='size-4' />
-            {formatTime(new Date(bookingData.appointment?.dateTime), locale)}
+            {formatDSTAdjustedTime(
+              new Date(bookingData.appointment?.dateTime),
+              locale
+            )}
           </span>
           <span className='flex items-center gap-2'>
             <FaCheck className='size-3' />
