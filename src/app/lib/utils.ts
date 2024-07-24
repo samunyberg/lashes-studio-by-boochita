@@ -1,5 +1,5 @@
-import { User } from '../types';
+import { Client } from './types';
 
-export function formatName(client: User) {
+export function formatName(client: Client) {
   return `${client.firstName} ${client.lastName}`;
 }
