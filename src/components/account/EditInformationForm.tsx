@@ -9,7 +9,6 @@ import FormError from '../common/forms/FormError';
 import FormGroup from '../common/forms/FormGroup';
 import Input from '../common/forms/Input';
 import Label from '../common/Label';
-import Panel from '../common/Panel';
 
 interface FieldErrors {
   firstName?: string[];
@@ -85,7 +84,7 @@ const EditInformationForm = ({ user, onClose }: Props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Panel className='relative mb-5 flex flex-col gap-4 p-4 '>
+      <div className='mb-5 flex flex-col gap-4 px-2 py-4'>
         <FormError>{serverError}</FormError>
         <div className='flex flex-col gap-1'>
           <p className='font-semibold'>
@@ -94,6 +93,7 @@ const EditInformationForm = ({ user, onClose }: Props) => {
           <FormGroup error={errors.firstName?.at(0)}>
             <Input
               value={firstName}
+              className='border border-black/30 !shadow-none'
               onChange={(event) => setFirstName(event.target.value)}
             />
           </FormGroup>
@@ -105,6 +105,7 @@ const EditInformationForm = ({ user, onClose }: Props) => {
           <FormGroup error={errors.lastName?.at(0)}>
             <Input
               value={lastName}
+              className='border border-black/30 !shadow-none'
               onChange={(event) => setLastName(event.target.value)}
             />
           </FormGroup>
@@ -116,6 +117,7 @@ const EditInformationForm = ({ user, onClose }: Props) => {
           <FormGroup error={errors.email?.at(0)}>
             <Input
               value={email}
+              className='border border-black/30 !shadow-none'
               onChange={(event) => setEmail(event.target.value)}
             />
           </FormGroup>
@@ -127,11 +129,12 @@ const EditInformationForm = ({ user, onClose }: Props) => {
           <FormGroup error={errors.phone?.at(0)}>
             <Input
               value={phone}
+              className='border border-black/30 !shadow-none'
               onChange={(event) => setPhone(event.target.value)}
             />
           </FormGroup>
         </div>
-      </Panel>
+      </div>
       <div className='flex flex-col gap-4 lg:flex-row'>
         <Button
           type='submit'

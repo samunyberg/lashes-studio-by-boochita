@@ -80,7 +80,7 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
       <FormError className='mb-4'>{error}</FormError>
       <FormGroup error={inputErrors.oldPassword?.at(0)}>
         <PasswordInput
-          className='border border-primary'
+          className='border border-black/30 !shadow-none'
           name='oldPassword'
           placeholder={getLabel('old_password')}
           value={oldPassword}
@@ -89,7 +89,7 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
       </FormGroup>
       <FormGroup error={inputErrors.password?.at(0)}>
         <PasswordInput
-          className='border border-primary'
+          className='border border-black/30 !shadow-none'
           name='password'
           placeholder={getLabel('password')}
           value={password}
@@ -99,7 +99,7 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
       <PasswordStrength password={password} />
       <FormGroup error={inputErrors.confirmPassword?.at(0)}>
         <PasswordInput
-          className='border border-primary'
+          className='border border-black/30 !shadow-none'
           name='confirmPassword'
           placeholder={getLabel('confirm_password')}
           value={confirmPassword}
