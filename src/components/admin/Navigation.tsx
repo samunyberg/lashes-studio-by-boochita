@@ -15,7 +15,7 @@ const Navigation = () => {
   const pathName = usePathname();
 
   return (
-    <div className='flex h-[55px] items-center justify-evenly gap-1 lg:justify-start lg:gap-2'>
+    <div className='flex h-[55px] items-center justify-evenly gap-1 font-medium lg:justify-start lg:gap-2'>
       {links.map((link) => (
         <Link
           key={link.href}
@@ -23,7 +23,7 @@ const Navigation = () => {
           className={cn(
             'h-full  p-2 transition-all active:text-accent lg:hover:text-accent',
             {
-              'font-semibold': pathName === link.href,
+              'font-bold': link.href === pathName,
             }
           )}
         >
