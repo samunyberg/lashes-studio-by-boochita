@@ -1,9 +1,9 @@
-import { User } from '@/app/lib/types';
+import { Client } from '@/app/lib/types';
 import { formatName } from '@/app/lib/utils';
 import { IoPerson } from 'react-icons/io5';
 
 interface Props {
-  client: User | null;
+  client: Client | null;
 }
 
 const ClientInfo = ({ client }: Props) => (

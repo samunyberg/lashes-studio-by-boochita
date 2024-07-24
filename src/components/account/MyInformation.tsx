@@ -1,6 +1,6 @@
 'use client';
 
-import { UserWithAppointments } from '@/app/lib/types';
+import { ClientWithAppointments } from '@/app/lib/types';
 import { useState } from 'react';
 import ChangePasswordForm from '../auth/ChangePasswordForm';
 import Button from '../common/Button';
@@ -10,7 +10,7 @@ import Panel from '../common/Panel';
 import EditInformationForm from './EditInformationForm';
 
 interface Props {
-  user: UserWithAppointments;
+  user: ClientWithAppointments;
 }
 
 const MyInformation = ({ user }: Props) => {

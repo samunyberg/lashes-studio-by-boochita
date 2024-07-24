@@ -1,7 +1,6 @@
 'use client';
 
 import { AppointmentWithData } from '@/app/lib/types';
-import { Appointment } from '@prisma/client';
 import Panel from '../../Panel';
 import AppointmentStatusBadge from '../AppointmentStatusBadge';
 import ClientInfo from './ClientInfo';
@@ -11,7 +10,7 @@ import ServiceInfo from './ServiceInfo';
 import TimeDisplay from './TimeDisplay';
 
 interface Props {
-  appointment: Appointment | AppointmentWithData;
+  appointment: AppointmentWithData;
   showDate?: boolean;
   showTime?: boolean;
   showClient?: boolean;
@@ -44,20 +43,14 @@ const AppointmentPanel = ({
         )}
       </div>
       <div className='flex flex-col'>
-        {showClient && (
-          <ClientInfo client={(appointment as AppointmentWithData).client} />
-        )}
+        {showClient && <ClientInfo client={appointment.client} />}
         {showService && (
           <ServiceInfo
-            service={(appointment as AppointmentWithData).service}
-            serviceOption={(appointment as AppointmentWithData).serviceOption}
+            service={appointment.service}
+            serviceOption={appointment.serviceOption}
           />
         )}
-        {showPrice && (
-          <PriceInfo
-            price={(appointment as AppointmentWithData).servicePrice}
-          />
-        )}
+        {showPrice && <PriceInfo price={appointment.servicePrice} />}
       </div>
     </Panel>
   );

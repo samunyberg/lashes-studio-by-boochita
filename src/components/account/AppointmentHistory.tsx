@@ -44,8 +44,8 @@ const AppointmentHistory = ({ appointments }: Props) => {
                 <AppointmentPanel
                   key={app.id}
                   appointment={app}
-                  showClient={false}
-                  showPrice={true}
+                  showService
+                  showPrice
                 />
               ))}
             </div>

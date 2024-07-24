@@ -1,7 +1,7 @@
 import { Appointment, Service, ServiceOption } from '@prisma/client';
 
 // Represents a user with basic contact information
-export interface User {
+export interface Client {
   id: string;
   firstName: string;
   lastName: string;
@@ -10,7 +10,7 @@ export interface User {
 }
 
 // Represents a user with their associated appointments
-export interface UserWithAppointments extends User {
+export interface ClientWithAppointments extends Client {
   appointments: Appointment[];
 }
 
@@ -37,5 +37,5 @@ export interface ServiceWithServiceOptions extends Service {
 export type AppointmentWithData = Appointment & {
   service: Service | null;
   serviceOption: ServiceOption | null;
-  client: User | null;
+  client: Client | null;
 };
