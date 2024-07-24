@@ -1,7 +1,8 @@
 'use client';
 
-import { formatDate, formatTime } from '@/app/lib/dates';
+import { formatDate, formatDSTAdjustedTime } from '@/app/lib/dates';
 import { AppointmentWithAllData } from '@/app/lib/types';
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import AppointmentStatusBadge from '../common/appointments/AppointmentStatusBadge';
 import Input from '../common/forms/Input';
@@ -19,7 +20,11 @@ const config: Config<AppointmentWithAllData>[] = [
   },
   {
     label: 'Time',
-    render: (app) => formatTime(app.dateTime, 'en-FI'),
+    render: (app) => (
+      <Link href={`/admin/appointments/${app.id}`}>
+        {formatDSTAdjustedTime(app.dateTime, 'en-FI')}
+      </Link>
+    ),
   },
   {
     label: 'Status',
@@ -62,9 +67,9 @@ const AppointmentList = ({ appointments }: Props) => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <div className='flex w-full flex-col gap-5 self-end md:flex-row lg:w-1/2'>
+      <div className='flex gap-2 self-end lg:w-1/2'>
         <Input
-          className='!w-[50%] !bg-bgSofter md:!w-[35%]'
+          className='!w-[40%] !bg-bgSofter md:!w-[35%]'
           type='date'
           value={search.date}
           onChange={(event) =>
@@ -83,12 +88,7 @@ const AppointmentList = ({ appointments }: Props) => {
       {filteredAppointments.length === 0 ? (
         <div className='p-5 font-medium'>No results with this search.</div>
       ) : (
-        <Table
-          data={filteredAppointments}
-          config={config}
-          keyFn={keyFn}
-          itemsPerPage={20}
-        />
+        <Table data={filteredAppointments} config={config} keyFn={keyFn} />
       )}
     </div>
   );
