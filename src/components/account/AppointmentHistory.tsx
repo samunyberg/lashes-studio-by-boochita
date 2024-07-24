@@ -2,7 +2,7 @@
 
 import { formatDate, groupAppointmentsByMonth } from '@/app/lib/dates';
 import { AppointmentWithData } from '@/app/lib/types';
-import useLanguage from '@/hooks/useLanguage';
+import useLocale from '@/hooks/useLocale';
 import { useRouter } from 'next/navigation';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 import Button from '../common/Button';
@@ -14,8 +14,7 @@ interface Props {
 
 const AppointmentHistory = ({ appointments }: Props) => {
   const router = useRouter();
-  const { currentLanguage } = useLanguage();
-  const locale = `${currentLanguage}-FI`;
+  const locale = useLocale();
 
   if (appointments.length === 0)
     return (
