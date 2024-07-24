@@ -25,7 +25,7 @@ const RecentlyBookedItem = ({ appointment }: Props) => {
   }, []);
 
   const timeStamp = () => (
-    <div className='flex items-center gap-1'>
+    <div className='flex items-center'>
       <GoDot />
       <span>{timeAgo}</span>
     </div>
@@ -34,7 +34,7 @@ const RecentlyBookedItem = ({ appointment }: Props) => {
   return (
     <div
       key={appointment.id}
-      className='flex cursor-pointer flex-col gap-3 font-medium'
+      className='flex cursor-pointer flex-col gap-1 font-medium'
       onClick={() => router.push(`/admin/appointments/${appointment.id}`)}
     >
       <div className='flex items-center'>
