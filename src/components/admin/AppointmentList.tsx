@@ -69,7 +69,7 @@ const AppointmentList = ({ appointments }: Props) => {
     <div className='flex flex-col gap-5'>
       <div className='flex gap-1 md:p-2 lg:w-1/2 lg:self-end'>
         <Input
-          className='w-[36%]'
+          className='w-[33%]'
           id='date'
           type='date'
           value={search.date}
