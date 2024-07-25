@@ -45,11 +45,7 @@ const CloseOnSwipeDown = ({ onClose, children }: Props) => {
     }
   }, [onClose]);
 
-  return (
-    <div ref={ref} className='touch-none'>
-      {children}
-    </div>
-  );
+  return <div ref={ref}>{children}</div>;
 };
 
 export default CloseOnSwipeDown;
