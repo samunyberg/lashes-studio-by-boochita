@@ -1,6 +1,5 @@
+import { AppointmentWithData } from '@/lib/types';
 import { Appointment } from '@prisma/client';
-
-import { AppointmentWithData } from '@/app/lib/types';
 import { useState } from 'react';
 import Panel from '../common/Panel';
 import AdminExpandedDayContent from './AdminExpandedDayContent';
