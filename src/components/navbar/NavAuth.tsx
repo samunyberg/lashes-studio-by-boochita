@@ -6,29 +6,31 @@ import Label from '../common/Label';
 import ProfileMenu from './ProfileMenu';
 
 const NavAuth = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { status, data: session } = useSession();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleToggleProfileMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  if (status === 'loading')
+    return <ThreeDots height='30' width='30' color='#524237' visible={true} />;
+
+  if (status === 'unauthenticated')
+    return (
+      <div className='flex cursor-pointer gap-1 bg-bgSofter px-2 py-1 text-sm font-medium shadow'>
+        <Link href={'/auth/login'}>
+          <Label labelId='login' />
+        </Link>
+        <span>|</span>
+        <Link href={'/auth/register'}>
+          <Label labelId='register' />
+        </Link>
+      </div>
+    );
+
   return (
     <div className='relative'>
-      {status === 'loading' && (
-        <ThreeDots height='30' width='30' color='#524237' visible={true} />
-      )}
-      {status === 'unauthenticated' && (
-        <div className='flex cursor-pointer gap-1 border-l-2 border-accent bg-bgSoft px-2 py-1 text-sm shadow'>
-          <Link href={'/auth/login'}>
-            <Label labelId='login' />
-          </Link>
-          <span>|</span>
-          <Link href={'/auth/register'}>
-            <Label labelId='register' />
-          </Link>
-        </div>
-      )}
       {status === 'authenticated' && (
         <div>
           <div

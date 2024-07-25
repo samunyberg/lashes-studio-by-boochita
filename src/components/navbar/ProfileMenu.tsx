@@ -32,7 +32,6 @@ const ProfileMenu = ({ user, onClose }: Props) => {
     >
       <Panel className='flex flex-col items-start justify-center gap-3 !bg-white px-6 py-4'>
         <div className='flex flex-wrap'>
-          Signed in as{' '}
           <span className='whitespace-normal break-all font-semibold'>
             {user.email}
           </span>
