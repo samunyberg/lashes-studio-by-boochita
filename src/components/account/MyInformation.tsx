@@ -1,6 +1,6 @@
 'use client';
 
-import { ClientWithAppointments } from '@/app/lib/types';
+import { ClientWithAppointments } from '@/lib/types';
 import { useState } from 'react';
 import ChangePasswordForm from '../auth/ChangePasswordForm';
 import Button from '../common/Button';
@@ -24,7 +24,7 @@ const MyInformation = ({ user }: Props) => {
 
   return (
     <div>
-      <h2 className='mb-2 text-lg font-semibold'>
+      <h2 className='mb-5 text-xl font-semibold'>
         <Label labelId='my_information' />
       </h2>
       <Panel className='relative mb-5 flex flex-col gap-4 p-4 '>
@@ -32,28 +32,28 @@ const MyInformation = ({ user }: Props) => {
           <p className='font-semibold'>
             <Label labelId='first_name' />
           </p>
-          <hr className='border-accent' />
+          <hr className='border-black/20' />
           <span className='pl-2'>{user.firstName}</span>
         </div>
         <div className='flex flex-col gap-2'>
           <p className='font-semibold'>
             <Label labelId='last_name' />
           </p>
-          <hr className='border-accent' />
+          <hr className='border-black/20' />
           <span className='pl-2'>{user.lastName}</span>
         </div>
         <div className='flex flex-col gap-2'>
           <p className='font-semibold'>
             <Label labelId='email' />
           </p>
-          <hr className='border-accent' />
+          <hr className='border-black/20' />
           <span className='pl-2'>{user.email}</span>
         </div>
         <div className='flex flex-col gap-2'>
           <p className='font-semibold'>
             <Label labelId='phone' />
           </p>
-          <hr className='border-accent' />
+          <hr className='border-black/20' />
           <span className='pl-2'>{user.phone}</span>
         </div>
       </Panel>

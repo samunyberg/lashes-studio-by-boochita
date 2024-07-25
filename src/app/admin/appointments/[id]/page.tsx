@@ -1,15 +1,13 @@
-import {
-  getAppointmentById
-} from '@/app/lib/db/appointments';
 import AppointmentDetails from '@/components/admin/AppointmentDetails';
+import { getAppointmentById } from '@/lib/db/appointments';
 import { notFound } from 'next/navigation';
 
 interface Props {
   params: { id: string };
 }
 
-const AppointmentDetailPage = async ({ params }: Props) => {
-  const appointment = await getAppointmentById(parseInt(params.id));
+const AppointmentDetailPage = async ({ params: { id } }: Props) => {
+  const appointment = await getAppointmentById(parseInt(id));
 
   if (!appointment) notFound();
 

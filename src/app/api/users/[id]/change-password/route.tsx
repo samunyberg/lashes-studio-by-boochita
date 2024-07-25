@@ -1,6 +1,6 @@
-import prisma from '@/prisma/client';
 import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
+import prisma from '../../../../../prisma/client';
 
 interface Props {
   params: {

@@ -1,6 +1,6 @@
 'use client';
 
-import { AppointmentWithData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/lib/types';
 import Panel from '../../Panel';
 import AppointmentStatusBadge from '../AppointmentStatusBadge';
 import ClientInfo from './ClientInfo';

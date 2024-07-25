@@ -3,7 +3,8 @@
 import { User } from '@prisma/client';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import SearchInput from '../common/forms/SearchInput';
+import { FaSearch } from 'react-icons/fa';
+import Input from '../common/forms/Input';
 import Table, { Config } from './Table';
 
 interface Props {
@@ -48,14 +49,15 @@ const ClientList = ({ clients }: Props) => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <div className='flex md:w-[50%] md:self-end lg:w-[35%]'>
-        <SearchInput
+      <div className='flex md:w-[50%] md:self-end md:p-2 lg:w-[35%]'>
+        <Input
+          id='term'
           placeholder='Search clients'
           value={search.term}
           onChange={(event) =>
             setSearch({ ...search, term: event.target.value })
           }
-          className='bg-bgSofter'
+          icon={<FaSearch />}
         />
       </div>
       {filteredClients.length === 0 ? (

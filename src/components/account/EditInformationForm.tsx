@@ -1,5 +1,5 @@
-import { ClientWithAppointments } from '@/app/lib/types';
 import useLocalisedFormSchema from '@/hooks/useLocalisedFormSchema';
+import { ClientWithAppointments } from '@/lib/types';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -86,54 +86,46 @@ const EditInformationForm = ({ user, onClose }: Props) => {
     <form onSubmit={handleSubmit}>
       <div className='mb-5 flex flex-col gap-4 px-2 py-4'>
         <FormError>{serverError}</FormError>
-        <div className='flex flex-col gap-1'>
-          <p className='font-semibold'>
-            <Label labelId='first_name' />
-          </p>
-          <FormGroup error={errors.firstName?.at(0)}>
-            <Input
-              value={firstName}
-              className='border border-black/30 !shadow-none'
-              onChange={(event) => setFirstName(event.target.value)}
-            />
-          </FormGroup>
-        </div>
-        <div className='flex flex-col gap-2'>
-          <p className='font-semibold'>
-            <Label labelId='last_name' />
-          </p>
-          <FormGroup error={errors.lastName?.at(0)}>
-            <Input
-              value={lastName}
-              className='border border-black/30 !shadow-none'
-              onChange={(event) => setLastName(event.target.value)}
-            />
-          </FormGroup>
-        </div>
-        <div className='flex flex-col gap-2'>
-          <p className='font-semibold'>
-            <Label labelId='email' />
-          </p>
-          <FormGroup error={errors.email?.at(0)}>
-            <Input
-              value={email}
-              className='border border-black/30 !shadow-none'
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </FormGroup>
-        </div>
-        <div className='flex flex-col gap-2'>
-          <p className='font-semibold'>
-            <Label labelId='phone' />
-          </p>
-          <FormGroup error={errors.phone?.at(0)}>
-            <Input
-              value={phone}
-              className='border border-black/30 !shadow-none'
-              onChange={(event) => setPhone(event.target.value)}
-            />
-          </FormGroup>
-        </div>
+        <FormGroup
+          error={errors.firstName?.at(0)}
+          label={<Label labelId='first_name' />}
+        >
+          <Input
+            id='firstName'
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+          />
+        </FormGroup>
+        <FormGroup
+          error={errors.lastName?.at(0)}
+          label={<Label labelId='last_name' />}
+        >
+          <Input
+            id='lastName'
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+          />
+        </FormGroup>
+        <FormGroup
+          error={errors.email?.at(0)}
+          label={<Label labelId='email' />}
+        >
+          <Input
+            id='email'
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </FormGroup>
+        <FormGroup
+          error={errors.phone?.at(0)}
+          label={<Label labelId='phone' />}
+        >
+          <Input
+            id='phone'
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
+          />
+        </FormGroup>
       </div>
       <div className='flex flex-col gap-4 lg:flex-row'>
         <Button

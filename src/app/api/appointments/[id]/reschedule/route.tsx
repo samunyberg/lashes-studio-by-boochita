@@ -1,6 +1,6 @@
 import { startsInLessThanOneHour } from '@/app/lib/dates';
-import prisma from '@/prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
+import prisma from '../../../../../prisma/client';
 
 interface Props {
   params: {

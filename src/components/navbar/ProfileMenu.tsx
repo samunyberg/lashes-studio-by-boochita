@@ -1,5 +1,5 @@
-import { SessionUser } from '@/app/lib/types';
 import useClickOutside from '@/hooks/useClickOutside';
+import { SessionUser } from '@/lib/types';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useRef } from 'react';

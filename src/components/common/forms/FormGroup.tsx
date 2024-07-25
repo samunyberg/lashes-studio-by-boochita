@@ -2,13 +2,15 @@ import { ReactNode } from 'react';
 import InputError from './InputError';
 
 interface Props {
-    children: ReactNode;
-    error?: string,
+  label?: string | ReactNode;
+  children: ReactNode;
+  error?: string;
 }
 
-const FormGroup = ({ children, error }: Props) => {
+const FormGroup = ({ children, error, label }: Props) => {
   return (
-    <div className={`flex w-full flex-col gap-1 ${error && 'group invalid'}`}>
+    <div className={`flex w-full flex-col gap-1 ${error && 'invalid group'}`}>
+      {label && <span className='text-sm font-medium'>{label}</span>}
       {children}
       <InputError>{error}</InputError>
     </div>

@@ -1,4 +1,4 @@
-import { AppointmentWithData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Label from '../../common/Label';

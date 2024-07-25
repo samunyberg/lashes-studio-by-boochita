@@ -1,18 +1,20 @@
 'use client';
 
-import { formatDate, groupAppointmentsByMonth } from '@/app/lib/dates';
-import { AppointmentWithData } from '@/app/lib/types';
 import useLocale from '@/hooks/useLocale';
+import { formatDate, groupAppointmentsByMonth } from '@/lib/dates';
+import { AppointmentWithData } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 import Button from '../common/Button';
+import GoBackLink from '../common/GoBackLink';
 import Label from '../common/Label';
 
 interface Props {
   appointments: AppointmentWithData[];
+  onAppointmentClick?: (app: AppointmentWithData) => void;
 }
 
-const AppointmentHistory = ({ appointments }: Props) => {
+const AppointmentHistory = ({ appointments, onAppointmentClick }: Props) => {
   const router = useRouter();
   const locale = useLocale();
 
@@ -30,6 +32,9 @@ const AppointmentHistory = ({ appointments }: Props) => {
 
   return (
     <>
+      <div className='mb-5'>
+        <GoBackLink />
+      </div>
       {Object.keys(groupedAppointments).map((month, index) => {
         return (
           <div key={index}>
@@ -41,12 +46,12 @@ const AppointmentHistory = ({ appointments }: Props) => {
             </span>
             <div className='mb-8 mt-2 flex flex-col gap-2'>
               {groupedAppointments[month].map((app) => (
-                <AppointmentPanel
+                <div
                   key={app.id}
-                  appointment={app}
-                  showService
-                  showPrice
-                />
+                  onClick={() => onAppointmentClick && onAppointmentClick(app)}
+                >
+                  <AppointmentPanel appointment={app} showService showPrice />
+                </div>
               ))}
             </div>
           </div>

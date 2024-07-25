@@ -1,7 +1,7 @@
 import { sendResetEmail } from '@/emails/email';
-import prisma from '@/prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
+import prisma from '../../../../prisma/client';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();

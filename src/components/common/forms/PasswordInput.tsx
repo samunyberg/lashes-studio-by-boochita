@@ -3,7 +3,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Input from './Input';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  id?: string;
+  id: string;
   label?: string;
   placeholder?: string;
   isPassword?: boolean;
@@ -21,19 +21,18 @@ const PasswordInput = ({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className='relative flex w-full'>
+    <div className='relative flex w-full justify-between'>
       <Input
         id={id}
         type={showPassword ? 'text' : 'password'}
         placeholder={placeholder}
+        icon={
+          <div onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+          </div>
+        }
         {...rest}
       />
-      <div
-        className='absolute right-0 flex h-full items-center justify-center px-3'
-        onClick={() => setShowPassword(!showPassword)}
-      >
-        {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
-      </div>
     </div>
   );
 };

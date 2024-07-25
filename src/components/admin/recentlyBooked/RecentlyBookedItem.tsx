@@ -1,6 +1,6 @@
-import { formatTimeAgo, isBookedLessThanOneHourAgo } from '@/app/lib/dates';
-import { AppointmentWithData } from '@/app/lib/types';
 import AppointmentPanel from '@/components/common/appointments/appointmentPanel/AppointmentPanel';
+import { formatTimeAgo, isBookedLessThanOneHourAgo } from '@/lib/dates';
+import { AppointmentWithData } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { GoDot } from 'react-icons/go';

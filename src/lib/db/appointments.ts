@@ -1,4 +1,4 @@
-import prisma from '@/prisma/client';
+import prisma from '../../../prisma/client';
 import { formatDate } from '../dates';
 import { AppointmentWithData } from '../types';
 
@@ -169,4 +169,17 @@ export async function getAppointmentById(
   });
 
   return appointment;
+}
+
+export async function getPassedAppointmentsByClientId(id: string) {
+  const passedAppointments = await prisma.appointment.findMany({
+    where: {
+      userId: id,
+      dateTime: { lt: new Date() },
+    },
+    include: { service: true, serviceOption: true },
+    orderBy: { dateTime: 'desc' },
+  });
+
+  return passedAppointments as AppointmentWithData[];
 }

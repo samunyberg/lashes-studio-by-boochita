@@ -1,5 +1,14 @@
 import { Appointment, Service, ServiceOption } from '@prisma/client';
 
+// Represents a user defined in session
+export interface SessionUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  isAdmin: boolean;
+}
+
 // Represents a user with basic contact information
 export interface Client {
   id: string;

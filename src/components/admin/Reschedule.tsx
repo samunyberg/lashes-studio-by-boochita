@@ -1,6 +1,6 @@
 'use client';
 
-import { AppointmentWithData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/lib/types';
 import { Appointment } from '@prisma/client';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
@@ -45,11 +45,8 @@ const Reschedule = ({ oldAppointment, upcomingAppointments }: Props) => {
       setShowConfirmation(false);
       toast.success('Appointment rescheduled successfully');
     } catch (error: unknown) {
-      let errorMessage = '';
-      if (error instanceof AxiosError)
-        errorMessage = error.response?.data.error;
-      else errorMessage = 'Whoops! Something went wrong.';
-      setError(errorMessage);
+      if (error instanceof AxiosError) setError(error.response?.data.error);
+      else setError('Whoops! Something went wrong.');
     } finally {
       setIsSubmitting(false);
     }
@@ -84,7 +81,9 @@ const Reschedule = ({ oldAppointment, upcomingAppointments }: Props) => {
               <AppointmentPanel appointment={oldAppointment} />
               <FaArrowDown className='self-center' size={15} />
               {newAppointment && (
-                <AppointmentPanel appointment={newAppointment} />
+                <AppointmentPanel
+                  appointment={newAppointment as AppointmentWithData}
+                />
               )}
             </div>
             <div className='mb-8 flex items-center gap-2'>

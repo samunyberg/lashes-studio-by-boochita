@@ -1,6 +1,6 @@
 'use client';
 
-import { AppointmentWithData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 import Button from '../common/Button';
@@ -8,14 +8,15 @@ import Label from '../common/Label';
 
 interface Props {
   appointments: AppointmentWithData[];
+  clientId: string;
 }
 
-const MyAppointments = ({ appointments }: Props) => {
+const MyAppointments = ({ appointments, clientId }: Props) => {
   const router = useRouter();
 
   return (
     <div>
-      <h2 className='mb-2 text-lg font-semibold'>
+      <h2 className='mb-5 text-xl font-semibold'>
         <Label labelId='upcoming_appointments' />
       </h2>
       {appointments.length === 0 ? (
@@ -25,18 +26,14 @@ const MyAppointments = ({ appointments }: Props) => {
       ) : (
         <div className='mb-5 flex flex-col gap-3'>
           {appointments.map((app) => (
-            <AppointmentPanel
-              key={app.id}
-              appointment={app}
-              showClient={false}
-            />
+            <AppointmentPanel key={app.id} appointment={app} showService />
           ))}
         </div>
       )}
       <Button
         variant='primary'
         className='w-full lg:float-end lg:w-fit'
-        onClick={() => router.push('/account/appointment-history')}
+        onClick={() => router.push(`/account/${clientId}/appointment-history`)}
       >
         <Label labelId='show_appointment_history' />
       </Button>

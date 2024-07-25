@@ -1,12 +1,12 @@
 'use client';
 
-import { formatDate, formatDSTAdjustedTime } from '@/app/lib/dates';
-import { AppointmentWithData } from '@/app/lib/types';
+import { formatDate, formatDSTAdjustedTime } from '@/lib/dates';
+import { AppointmentWithData } from '@/lib/types';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
 import AppointmentStatusBadge from '../common/appointments/AppointmentStatusBadge';
 import Input from '../common/forms/Input';
-import SearchInput from '../common/forms/SearchInput';
 import Table, { Config } from './Table';
 
 interface Props {
@@ -67,19 +67,22 @@ const AppointmentList = ({ appointments }: Props) => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <div className='flex gap-2 self-end lg:w-1/2'>
+      <div className='flex gap-1 md:p-2 lg:w-1/2 lg:self-end'>
         <Input
-          className='!w-[40%] !bg-bgSofter md:!w-[35%]'
+          className='w-[36%]'
+          id='date'
           type='date'
           value={search.date}
           onChange={(event) =>
             setSearch({ ...search, date: event.target.value })
           }
         />
-        <SearchInput
-          className='!bg-bgSofter'
+        <Input
+          className='flex-1'
+          id='term'
           placeholder='Search by client'
           value={search.term}
+          icon={<FaSearch />}
           onChange={(event) =>
             setSearch({ ...search, term: event.target.value })
           }
