@@ -21,7 +21,9 @@ model Appointment {
   serviceOptionId Int?
   status          Status    @default(AVAILABLE)
   bookedAt        DateTime?
+  rescheduledAt   DateTime?
   servicePrice    Float?
+  adminNote       String?   @db.VarChar(500)
 
   client        User?          @relation(fields: [userId], references: [id])
   service       Service?       @relation(fields: [serviceId], references: [id])
