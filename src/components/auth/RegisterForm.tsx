@@ -32,8 +32,8 @@ const RegisterForm = () => {
   const { registerFormSchema } = useLocalisedFormSchema();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-  const [errors, setErrors] = useState({} as FieldErrors);
-  const [serverError, setServerError] = useState('');
+  const [validationErrors, setValidationErrors] = useState({} as FieldErrors);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -50,20 +50,19 @@ const RegisterForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setErrors({});
-    setServerError('');
+    setValidationErrors({});
+    setError('');
 
     const validationResult = registerFormSchema.safeParse(formData);
     if (!validationResult.success) {
       const fieldErrors = validationResult.error.flatten().fieldErrors;
-      setErrors(fieldErrors);
+      setValidationErrors(fieldErrors);
       return;
     }
 
     try {
       setIsSubmitting(true);
       const response = await axios.post('/api/users/register', formData);
-
       let signinResponse;
       if (response.status === 201)
         signinResponse = await signIn('credentials', {
@@ -75,10 +74,8 @@ const RegisterForm = () => {
         setIsRegistered(true);
       }
     } catch (error: unknown) {
-      if (error instanceof AxiosError)
-        setServerError(error.response?.data.error);
-      else
-        setServerError('Whoops! Something went wrong. Please try again later.');
+      if (error instanceof AxiosError) setError(error.response?.data.error);
+      else setError('Whoops! Something went wrong. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }
@@ -87,11 +84,11 @@ const RegisterForm = () => {
   return (
     <AuthFormContainer>
       <AuthFormHeader subtitle={<Label labelId='register' />} />
-      <FormError className='mb-4'>{serverError}</FormError>
+      <FormError className='mb-4'>{error}</FormError>
       <form className='mb-8 flex flex-col gap-6' onSubmit={handleSubmit}>
-        <FormGroup error={errors.firstName?.at(0)}>
+        <FormGroup error={validationErrors.firstName?.at(0)}>
           <Input
-            name='firstName'
+            id='firstName'
             value={formData.firstName}
             type='text'
             placeholder={getLabel('first_name')}
@@ -100,9 +97,9 @@ const RegisterForm = () => {
             }
           />
         </FormGroup>
-        <FormGroup error={errors.lastName?.at(0)}>
+        <FormGroup error={validationErrors.lastName?.at(0)}>
           <Input
-            name='lastName'
+            id='lastName'
             value={formData.lastName}
             type='text'
             placeholder={getLabel('last_name')}
@@ -111,10 +108,11 @@ const RegisterForm = () => {
             }
           />
         </FormGroup>
-        <FormGroup error={errors.email?.at(0)}>
+        <FormGroup error={validationErrors.email?.at(0)}>
           <Input
-            type='text'
+            id='email'
             name='email'
+            type='text'
             value={formData.email}
             placeholder={getLabel('email')}
             onChange={(event) =>
@@ -122,9 +120,9 @@ const RegisterForm = () => {
             }
           />
         </FormGroup>
-        <FormGroup error={errors.password?.at(0)}>
+        <FormGroup error={validationErrors.password?.at(0)}>
           <PasswordInput
-            name='password'
+            id='password'
             value={formData.password}
             placeholder={getLabel('password')}
             onChange={(event) =>
@@ -133,9 +131,9 @@ const RegisterForm = () => {
           />
         </FormGroup>
         <PasswordStrength password={formData.password} />
-        <FormGroup error={errors.confirmPassword?.at(0)}>
+        <FormGroup error={validationErrors.confirmPassword?.at(0)}>
           <PasswordInput
-            name='confirmPassword'
+            id='confirmPassword'
             value={formData.confirmPassword}
             placeholder={getLabel('confirm_password')}
             onChange={(event) =>
@@ -143,9 +141,9 @@ const RegisterForm = () => {
             }
           />
         </FormGroup>
-        <FormGroup error={errors.phone?.at(0)}>
+        <FormGroup error={validationErrors.phone?.at(0)}>
           <Input
-            name='phone'
+            id='phone'
             value={formData.phone}
             type='text'
             placeholder={getLabel('phone')}

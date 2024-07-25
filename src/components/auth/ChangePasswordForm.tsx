@@ -24,14 +24,14 @@ interface Props {
 }
 
 const ChangePasswordForm = ({ userId, onClose }: Props) => {
+  const { getLabel } = useLanguage();
+  const { changePasswordFormSchema } = useLocalisedFormSchema();
   const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [inputErrors, setInputErrors] = useState({} as FieldErrors);
+  const [validationErrors, setValidationErrors] = useState({} as FieldErrors);
   const [error, setError] = useState('');
-  const { getLabel } = useLanguage();
-  const { changePasswordFormSchema } = useLocalisedFormSchema();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,13 +42,13 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
       confirmPassword,
     });
     if (!validation.success) {
-      setInputErrors(validation.error.flatten().fieldErrors);
+      setValidationErrors(validation.error.flatten().fieldErrors);
       return;
     }
 
     try {
       setIsSubmitting(true);
-      setInputErrors({});
+      setValidationErrors({});
       setError('');
       await axios.patch(`/api/users/${userId}/change-password`, {
         oldPassword,
@@ -59,14 +59,14 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
       onClose();
     } catch (error: unknown) {
       if (error instanceof AxiosError) setError(error.response?.data.error);
-      else setError('Something went wrong. Please try again');
+      else setError('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleClose = () => {
-    setInputErrors({});
+    setValidationErrors({});
     setError('');
     setOldPassword('');
     setPassword('');
@@ -76,31 +76,31 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
   };
 
   return (
-    <form className='my-6 flex flex-col gap-4 px-2' onSubmit={handleSubmit}>
+    <form className='mt-5 flex flex-col gap-4 px-2' onSubmit={handleSubmit}>
       <FormError className='mb-4'>{error}</FormError>
-      <FormGroup error={inputErrors.oldPassword?.at(0)}>
+      <FormGroup error={validationErrors.oldPassword?.at(0)}>
         <PasswordInput
-          className='border border-black/30 !shadow-none'
-          name='oldPassword'
+          id='currentPassword'
+          label='Current password'
           placeholder={getLabel('old_password')}
           value={oldPassword}
           onChange={(e) => setOldPassword(e.target.value)}
         />
       </FormGroup>
-      <FormGroup error={inputErrors.password?.at(0)}>
+      <FormGroup error={validationErrors.password?.at(0)}>
         <PasswordInput
-          className='border border-black/30 !shadow-none'
-          name='password'
+          id='newPassword'
+          label='New password'
           placeholder={getLabel('password')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </FormGroup>
       <PasswordStrength password={password} />
-      <FormGroup error={inputErrors.confirmPassword?.at(0)}>
+      <FormGroup error={validationErrors.confirmPassword?.at(0)}>
         <PasswordInput
-          className='border border-black/30 !shadow-none'
-          name='confirmPassword'
+          id='confirmNewPassword'
+          label='Confirm new password'
           placeholder={getLabel('confirm_password')}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}

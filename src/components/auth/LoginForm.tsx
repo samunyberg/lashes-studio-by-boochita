@@ -15,12 +15,12 @@ import AuthFormContainer from './AuthFormContainer';
 import AuthFormHeader from './AuthFormHeader';
 
 const LoginForm = () => {
+  const router = useRouter();
+  const { getLabel } = useLanguage();
+  const searchParams = useSearchParams();
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const { getLabel } = useLanguage();
 
   const login = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,15 +52,15 @@ const LoginForm = () => {
       <FormError className='mb-4'>{error}</FormError>
       <form className='mb-8 flex flex-col gap-6' onSubmit={login}>
         <Input
+          id='email'
           type='text'
-          name='email'
           placeholder={getLabel('email')}
           onChange={(e) =>
             setCredentials({ ...credentials, email: e.target.value })
           }
         />
         <PasswordInput
-          name='password'
+          id='password'
           placeholder={getLabel('password')}
           onChange={(e) =>
             setCredentials({ ...credentials, password: e.target.value })

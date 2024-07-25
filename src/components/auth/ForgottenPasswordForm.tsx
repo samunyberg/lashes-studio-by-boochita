@@ -17,7 +17,9 @@ import AuthFormHeader from './AuthFormHeader';
 const ForgottenPasswordForm = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [inputError, setInputError] = useState<string | undefined>('');
+  const [validationError, setValidationError] = useState<string | undefined>(
+    ''
+  );
   const [error, setError] = useState('');
   const { getLabel } = useLanguage();
   const { forgottenPasswordFormSchema } = useLocalisedFormSchema();
@@ -27,21 +29,22 @@ const ForgottenPasswordForm = () => {
 
     const validation = forgottenPasswordFormSchema.safeParse({ email });
     if (!validation.success) {
-      setInputError(validation.error.flatten().fieldErrors.email?.at(0));
+      setValidationError(validation.error.flatten().fieldErrors.email?.at(0));
       return;
     }
 
     try {
-      setInputError('');
+      setValidationError('');
+      setError('');
       setIsSubmitting(true);
       await axios.post('/api/users/forgotten-password', { email });
-      setIsSubmitting(false);
       setEmail('');
       toast.success('Email sent successfully');
     } catch (error: unknown) {
-      setIsSubmitting(false);
       if (error instanceof AxiosError) setError(error.response?.data.error);
       else setError('Something went wrong. Please try again');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -51,10 +54,10 @@ const ForgottenPasswordForm = () => {
       <FormError className='mb-4'>{error}</FormError>
       <Label labelId='click_send_to_change_receive_link' />
       <form className='mb-8 mt-5 flex flex-col gap-6' onSubmit={handleSubmit}>
-        <FormGroup error={inputError}>
+        <FormGroup error={validationError}>
           <Input
+            id='email'
             type='text'
-            name='email'
             value={email}
             placeholder={getLabel('email')}
             onChange={(e) => setEmail(e.target.value)}
