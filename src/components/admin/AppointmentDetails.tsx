@@ -15,6 +15,10 @@ interface Props {
 const AppointmentDetails = ({ appointment }: Props) => {
   const router = useRouter();
 
+  const isPassedAppointment = () => {
+    return new Date() >= new Date(appointment.dateTime);
+  };
+
   const renderStatusMessage = () => {
     switch (appointment.status) {
       case 'BOOKED':
@@ -78,7 +82,7 @@ const AppointmentDetails = ({ appointment }: Props) => {
         <span>{formatDSTAdjustedTime(appointment.dateTime, 'en-FI')}</span>
       </div>
       {renderStatusMessage()}
-      {renderActionButtons()}
+      {!isPassedAppointment() && renderActionButtons()}
     </div>
   );
 };
