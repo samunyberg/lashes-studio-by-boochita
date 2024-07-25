@@ -1,16 +1,16 @@
+import Reschedule from '@/components/admin/Reschedule';
 import {
   getAppointmentById,
   getUpcomingAppointments,
-} from '@/app/lib/db/appointments';
-import Reschedule from '@/components/admin/Reschedule';
+} from '@/lib/db/appointments';
 import { notFound } from 'next/navigation';
 
 interface Props {
   params: { id: string };
 }
 
-const ReschedulePage = async ({ params }: Props) => {
-  const appointment = await getAppointmentById(parseInt(params.id));
+const ReschedulePage = async ({ params: { id } }: Props) => {
+  const appointment = await getAppointmentById(parseInt(id));
 
   if (!appointment) notFound();
 

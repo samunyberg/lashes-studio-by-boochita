@@ -31,6 +31,12 @@ const RecentlyBookedItem = ({ appointment }: Props) => {
     </div>
   );
 
+  const type = () => (
+    <div className='ml-2'>
+      {appointment.rescheduledAt && <span>{`(rescheduled)`}</span>}
+    </div>
+  );
+
   return (
     <div
       key={appointment.id}
@@ -39,6 +45,7 @@ const RecentlyBookedItem = ({ appointment }: Props) => {
     >
       <div className='flex items-center'>
         {timeStamp()}
+        {type()}
         {isBookedLessThanOneHourAgo(appointment.bookedAt!) && (
           <span className='ml-auto'>
             <NewBadge />

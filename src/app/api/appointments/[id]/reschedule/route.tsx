@@ -8,11 +8,11 @@ interface Props {
   };
 }
 
-export async function PATCH(request: NextRequest, { params }: Props) {
+export async function PATCH(request: NextRequest, { params: { id } }: Props) {
   const body = await request.json();
   const currentTime = new Date();
 
-  const oldAppointmentId = parseInt(params.id);
+  const oldAppointmentId = parseInt(id);
 
   try {
     const bookedAppointment = await prisma.$transaction(
@@ -42,16 +42,16 @@ export async function PATCH(request: NextRequest, { params }: Props) {
         });
 
         if (!newAppointment) {
-          throw new Error('Invalid appointment');
+          throw new Error('Invalid appointment.');
         }
 
         if (newAppointment.status === 'BOOKED') {
-          throw new Error('This appointment is already booked');
+          throw new Error('This appointment is already booked.');
         }
 
         if (startsInLessThanOneHour(newAppointment.dateTime)) {
           throw new Error(
-            'Appointment must be booked at least one hour before start time'
+            'Appointment must be booked at least one hour before start time.'
           );
         }
 
@@ -64,6 +64,7 @@ export async function PATCH(request: NextRequest, { params }: Props) {
             servicePrice: body.servicePrice,
             status: 'BOOKED',
             bookedAt: currentTime,
+            rescheduledAt: currentTime,
           },
         });
       },
@@ -75,15 +76,15 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     let errorMessage = 'An unexpected error occurred.';
     if (error instanceof Error) {
       errorMessage = error.message;
-      if (error.message === 'Invalid appointment') {
+      if (error.message === 'Invalid appointment.') {
         return NextResponse.json({ error: errorMessage }, { status: 400 });
       }
-      if (error.message === 'This appointment is already booked') {
+      if (error.message === 'This appointment is already booked.') {
         return NextResponse.json({ error: errorMessage }, { status: 409 });
       }
       if (
         error.message ===
-        'Appointment must be booked at least one hour before start time'
+        'Appointment must be booked at least one hour before start time.'
       ) {
         return NextResponse.json({ error: errorMessage }, { status: 403 });
       }
