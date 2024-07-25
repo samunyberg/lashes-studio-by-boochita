@@ -1,10 +1,10 @@
+import Dashboard from '@/components/admin/dashboard/Dashboard';
 import {
   getMonthlyAppointmentsCount,
   getRecentlyBookedAppointments,
   getTodaysAppointments,
   getUpcomingAppointments,
-} from '@/app/lib/db/appointments';
-import Dashboard from '@/components/admin/dashboard/Dashboard';
+} from '@/lib/db/appointments';
 
 const AdminHomePage = async () => {
   const upcomingAppointments = await getUpcomingAppointments();

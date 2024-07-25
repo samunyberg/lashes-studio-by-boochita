@@ -1,6 +1,6 @@
 'use client';
 
-import { AppointmentWithData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/lib/types';
 import { Appointment } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';

@@ -1,6 +1,6 @@
-import { formatDate, formatDSTAdjustedTime } from '@/app/lib/dates';
 import BookingDataContext from '@/contexts/bookingDataContext';
-import useLanguage from '@/hooks/useLanguage';
+import useLocale from '@/hooks/useLocale';
+import { formatDate, formatDSTAdjustedTime } from '@/lib/dates';
 import { useSession } from 'next-auth/react';
 import { useContext } from 'react';
 import { FaCheck, FaRegCalendarCheck, FaRegClock } from 'react-icons/fa';
@@ -10,9 +10,8 @@ import Panel from '../common/Panel';
 
 const Step3 = () => {
   const { data: session } = useSession();
-  const { currentLanguage } = useLanguage();
   const { bookingData, bookingError } = useContext(BookingDataContext);
-  const locale = `${currentLanguage}-FI`;
+  const locale = useLocale();
 
   return (
     <>

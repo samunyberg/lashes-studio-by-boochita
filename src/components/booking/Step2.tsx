@@ -1,5 +1,5 @@
-import { BookingData, ServiceWithServiceOptions } from '@/app/lib/types';
 import BookingDataContext from '@/contexts/bookingDataContext';
+import { BookingData, ServiceWithServiceOptions } from '@/lib/types';
 import type { Service, ServiceOption } from '@prisma/client';
 import { useContext, useState } from 'react';
 import ServiceListItem from './ServiceListItem';

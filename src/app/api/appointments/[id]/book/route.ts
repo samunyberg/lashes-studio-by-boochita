@@ -1,7 +1,7 @@
-import { startsInLessThanOneHour } from '@/app/lib/dates';
+import { startsInLessThanOneHour } from '@/lib/dates';
+import prisma from '@/prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import prisma from '../../../../../prisma/client';
 
 export const appointmentSchema = z.object({
   userId: z.string(),

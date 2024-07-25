@@ -1,6 +1,6 @@
 'use client';
 
-import { BookingData, ServiceWithServiceOptions } from '@/app/lib/types';
+import { BookingData, ServiceWithServiceOptions } from '@/lib/types';
 import BookingDataContext from '@/contexts/bookingDataContext';
 import { Appointment } from '@prisma/client';
 import axios, { AxiosError } from 'axios';

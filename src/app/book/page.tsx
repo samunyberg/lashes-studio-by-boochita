@@ -1,6 +1,6 @@
 import BookingForm from '@/components/booking/BookingForm';
-import prisma from '../../prisma/client';
-import { getUpcomingAppointments } from '../lib/db/appointments';
+import { getUpcomingAppointments } from '@/lib/db/appointments';
+import prisma from '@/prisma/client';
 
 const BookingPage = async () => {
   const services = await prisma.service.findMany({

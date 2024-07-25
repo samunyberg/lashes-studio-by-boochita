@@ -1,4 +1,4 @@
-import prisma from '../../../prisma/client';
+import prisma from '@/prisma/client';
 import { ClientWithAppointments } from '../types';
 
 export async function getClientById(id: string) {

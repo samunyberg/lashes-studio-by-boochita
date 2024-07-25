@@ -1,4 +1,4 @@
-import { Step } from '@/app/lib/types';
+import { Step } from '@/lib/types';
 import { cn } from 'clsx-tailwind-merge';
 import { FaCheck } from 'react-icons/fa';
 import Label from '../common/Label';

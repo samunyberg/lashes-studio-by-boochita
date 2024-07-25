@@ -1,4 +1,4 @@
-import { Step } from '@/app/lib/types';
+import { Step } from '@/lib/types';
 import Button from '../common/Button';
 import Label from '../common/Label';
 

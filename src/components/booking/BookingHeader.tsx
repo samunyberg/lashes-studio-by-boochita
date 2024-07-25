@@ -1,4 +1,4 @@
-import { Step } from '@/app/lib/types';
+import { Step } from '@/lib/types';
 import Panel from '../common/Panel';
 import BookingTime from './BookingTime';
 import ProgressSteps from './ProgressSteps';

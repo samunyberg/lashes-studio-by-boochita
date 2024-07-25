@@ -1,5 +1,5 @@
-import { Client } from '@/app/lib/types';
-import { formatName } from '@/app/lib/utils';
+import { Client } from '@/lib/types';
+import { formatName } from '@/lib/utils';
 import { IoPerson } from 'react-icons/io5';
 
 interface Props {

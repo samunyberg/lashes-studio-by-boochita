@@ -1,4 +1,4 @@
-import { AppointmentWithData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/lib/types';
 import { format } from 'date-fns';
 
 export function formatDate(

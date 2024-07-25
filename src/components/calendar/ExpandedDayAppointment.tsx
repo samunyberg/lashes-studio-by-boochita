@@ -1,4 +1,4 @@
-import { AppointmentWithData } from '@/app/lib/types';
+import { AppointmentWithData } from '@/lib/types';
 import { Appointment } from '@prisma/client';
 import { cn } from 'clsx-tailwind-merge';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
@@ -38,7 +38,7 @@ const ExpandedDayAppointment = ({
       }}
     >
       <AppointmentPanel
-        appointment={appointment}
+        appointment={appointment as AppointmentWithData}
         showDate={false}
         showStatusBadge
       />

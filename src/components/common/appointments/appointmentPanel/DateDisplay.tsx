@@ -1,4 +1,4 @@
-import { formatDate } from '@/app/lib/dates';
+import { formatDate } from '@/lib/dates';
 import useLocale from '@/hooks/useLocale';
 import { FaRegCalendarCheck } from 'react-icons/fa';
 

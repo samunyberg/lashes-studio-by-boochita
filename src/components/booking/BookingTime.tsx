@@ -1,6 +1,6 @@
-import { formatDate, formatDSTAdjustedTime } from '@/app/lib/dates';
 import BookingDataContext from '@/contexts/bookingDataContext';
-import useLanguage from '@/hooks/useLanguage';
+import useLocale from '@/hooks/useLocale';
+import { formatDate, formatDSTAdjustedTime } from '@/lib/dates';
 import { useContext } from 'react';
 import { FaRegCalendarCheck, FaRegClock } from 'react-icons/fa';
 
@@ -8,8 +8,7 @@ const BookingTime = () => {
   const {
     bookingData: { appointment },
   } = useContext(BookingDataContext);
-  const { currentLanguage } = useLanguage();
-  const locale = `${currentLanguage}-FI`;
+  const locale = useLocale();
 
   if (!appointment) return null;
 

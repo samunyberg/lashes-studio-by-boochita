@@ -1,4 +1,4 @@
-import { ServiceWithServiceOptions } from '@/app/lib/types';
+import { ServiceWithServiceOptions } from '@/lib/types';
 import type { Service, ServiceOption } from '@prisma/client';
 import { FaCircleChevronDown, FaCircleChevronRight } from 'react-icons/fa6';
 import CheckBox from '../common/CheckBox';

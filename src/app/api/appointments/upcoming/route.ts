@@ -1,4 +1,4 @@
-import { getUpcomingAppointments } from '@/app/lib/db/appointments';
+import { getUpcomingAppointments } from '@/lib/db/appointments';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {

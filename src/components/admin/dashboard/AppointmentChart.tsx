@@ -1,7 +1,7 @@
-import { formatDate } from '@/app/lib/dates';
 import Label from '@/components/common/Label';
 import Panel from '@/components/common/Panel';
 import useLocale from '@/hooks/useLocale';
+import { formatDate } from '@/lib/dates';
 import {
   CartesianGrid,
   Line,

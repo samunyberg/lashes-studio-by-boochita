@@ -1,5 +1,5 @@
-import { formatDate } from '@/app/lib/dates';
-import useLanguage from '@/hooks/useLanguage';
+import useLocale from '@/hooks/useLocale';
+import { formatDate } from '@/lib/dates';
 import { ReactNode } from 'react';
 import { FaRegCalendarCheck } from 'react-icons/fa';
 import Modal from '../common/Modal';
@@ -17,8 +17,7 @@ const ExpandedDay = ({
   onShowExpandedDay,
   children,
 }: Props) => {
-  const { currentLanguage } = useLanguage();
-  const locale = `${currentLanguage}-FI`;
+  const locale = useLocale();
 
   const header = (
     <span className='flex items-center gap-2 text-lg font-medium'>

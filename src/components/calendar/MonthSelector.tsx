@@ -1,4 +1,4 @@
-import { formatDate } from '@/app/lib/dates';
+import { formatDate } from '@/lib/dates';
 import useLanguage from '@/hooks/useLanguage';
 import { Dispatch, SetStateAction } from 'react';
 import MonthSelectorMonth from './MonthSelectorMonth';
