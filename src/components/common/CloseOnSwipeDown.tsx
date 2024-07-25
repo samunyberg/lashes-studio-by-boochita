@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 
 interface Props {
   onClose: () => void;
+  children: ReactNode;
 }
 
-const CloseOnSwipeDown = ({ onClose }: Props) => {
+const CloseOnSwipeDown = ({ onClose, children }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const touchStartY = useRef(0);
   const touchEndY = useRef(0);
@@ -45,7 +46,9 @@ const CloseOnSwipeDown = ({ onClose }: Props) => {
   }, [onClose]);
 
   return (
-    <div ref={ref} className='h-1 w-24 rounded-full bg-black/20 md:hidden' />
+    <div ref={ref} className='touch-none'>
+      {children}
+    </div>
   );
 };
 

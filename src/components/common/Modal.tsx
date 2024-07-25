@@ -13,9 +13,9 @@ interface Props {
 
 const Modal = ({ isVisible, onClose, header, content }: Props) => {
   const head = (
-    <>
+    <CloseOnSwipeDown onClose={onClose}>
       <div className='flex items-center justify-center pt-2'>
-        <CloseOnSwipeDown onClose={onClose} />
+        <div className='h-1 w-16 rounded-md bg-black/20 md:hidden' />
       </div>
       <div className='flex items-center justify-between border-b border-gray-200 px-5 py-3'>
         <div>{header}</div>
@@ -23,10 +23,10 @@ const Modal = ({ isVisible, onClose, header, content }: Props) => {
           <IoIosClose size={35} />
         </span>
       </div>
-    </>
+    </CloseOnSwipeDown>
   );
 
-  const body = <div className='px-2 pb-12 pt-2'>{content}</div>;
+  const body = <div className='touch-none px-2 pb-12 pt-2'>{content}</div>;
 
   return (
     <Portal>
