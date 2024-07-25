@@ -2,10 +2,10 @@
 
 import MyAppointments from '@/components/account/MyAppointments';
 import Panel from '@/components/common/Panel';
-import GoBackLink from '../common/GoBackLink';
-import DeleteClientButton from './DeleteClientButton';
 import { AppointmentWithData, ClientWithAppointments } from '@/lib/types';
 import { formatName } from '@/lib/utils';
+import GoBackLink from '../common/GoBackLink';
+import DeleteClientButton from './DeleteClientButton';
 
 interface Props {
   client: ClientWithAppointments;
@@ -28,7 +28,12 @@ const ClientDetails = ({ client }: Props) => {
           clientId={client.id}
         />
       </div>
-      <DeleteClientButton clientId={client.id} clientName={client.firstName} />
+      {client.appointments.length === 0 && (
+        <DeleteClientButton
+          clientId={client.id}
+          clientName={client.firstName}
+        />
+      )}
     </div>
   );
 };
