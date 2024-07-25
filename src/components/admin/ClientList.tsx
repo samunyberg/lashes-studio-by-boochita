@@ -17,7 +17,7 @@ const config: Config<User>[] = [
     render: (user) => (
       <Link
         href={'/admin/clients/' + user.id}
-        className='underline hover:text-accent'
+        className='underline active:text-accent lg:hover:text-accent'
       >
         {`${user.firstName} ${user.lastName}`}
       </Link>
