@@ -7,40 +7,43 @@ import { useMemo, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import AppointmentStatusBadge from '../common/appointments/AppointmentStatusBadge';
 import Input from '../common/forms/Input';
-import Table, { Config } from './Table';
+import PaginatedTable from './PaginatedTable';
+import { Config } from './Table';
 
 interface Props {
   appointments: AppointmentWithData[];
 }
 
-const config: Config<AppointmentWithData>[] = [
-  {
-    label: 'Date',
-    render: (app) => formatDate(app.dateTime, 'en-FI'),
-  },
-  {
-    label: 'Time',
-    render: (app) => (
-      <Link href={`/admin/appointments/${app.id}`}>
-        {formatDSTAdjustedTime(app.dateTime, 'en-FI')}
-      </Link>
-    ),
-  },
-  {
-    label: 'Status',
-    render: (app) => <AppointmentStatusBadge status={app.status} />,
-  },
-  {
-    label: 'Client',
-    render: (app) =>
-      `${app.client?.firstName || ''} ${app.client?.lastName || ''}`,
-  },
-  {
-    label: 'Service',
-    render: (app) =>
-      `${app.service?.name || ''} ${app.serviceOption?.name || ''}`,
-  },
-];
+const config: Config<AppointmentWithData> = {
+  columns: [
+    {
+      label: 'Date',
+      render: (app) => formatDate(app.dateTime, 'en-FI'),
+    },
+    {
+      label: 'Time',
+      render: (app) => (
+        <Link href={`/admin/appointments/${app.id}`}>
+          {formatDSTAdjustedTime(app.dateTime, 'en-FI')}
+        </Link>
+      ),
+    },
+    {
+      label: 'Status',
+      render: (app) => <AppointmentStatusBadge status={app.status} />,
+    },
+    {
+      label: 'Client',
+      render: (app) =>
+        `${app.client?.firstName || ''} ${app.client?.lastName || ''}`,
+    },
+    {
+      label: 'Service',
+      render: (app) =>
+        `${app.service?.name || ''} ${app.serviceOption?.name || ''}`,
+    },
+  ],
+};
 
 const keyFn = (app: AppointmentWithData) => app.id;
 
@@ -91,7 +94,11 @@ const AppointmentList = ({ appointments }: Props) => {
       {filteredAppointments.length === 0 ? (
         <div className='p-5 font-medium'>No results with this search.</div>
       ) : (
-        <Table data={filteredAppointments} config={config} keyFn={keyFn} />
+        <PaginatedTable
+          data={filteredAppointments}
+          config={config}
+          keyFn={keyFn}
+        />
       )}
     </div>
   );

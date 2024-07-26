@@ -5,33 +5,36 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import Input from '../common/forms/Input';
-import Table, { Config } from './Table';
+import PaginatedTable from './PaginatedTable';
+import { Config } from './Table';
 
 interface Props {
   clients: User[];
 }
 
-const config: Config<User>[] = [
-  {
-    label: 'Name',
-    render: (user) => (
-      <Link
-        href={'/admin/clients/' + user.id}
-        className='underline active:text-accent lg:hover:text-accent'
-      >
-        {`${user.firstName} ${user.lastName}`}
-      </Link>
-    ),
-  },
-  {
-    label: 'Email',
-    render: (user) => user.email,
-  },
-  {
-    label: 'Phone',
-    render: (user) => user.phone,
-  },
-];
+const config: Config<User> = {
+  columns: [
+    {
+      label: 'Name',
+      render: (user) => (
+        <Link
+          href={'/admin/clients/' + user.id}
+          className='underline active:text-accent lg:hover:text-accent'
+        >
+          {`${user.firstName} ${user.lastName}`}
+        </Link>
+      ),
+    },
+    {
+      label: 'Email',
+      render: (user) => user.email,
+    },
+    {
+      label: 'Phone',
+      render: (user) => user.phone,
+    },
+  ],
+};
 
 const keyFn = (user: User) => user.id;
 
@@ -63,7 +66,7 @@ const ClientList = ({ clients }: Props) => {
       {filteredClients.length === 0 ? (
         <div className='p-5 font-medium'>No results with this search.</div>
       ) : (
-        <Table data={filteredClients} config={config} keyFn={keyFn} />
+        <PaginatedTable data={filteredClients} config={config} keyFn={keyFn} />
       )}
     </div>
   );
