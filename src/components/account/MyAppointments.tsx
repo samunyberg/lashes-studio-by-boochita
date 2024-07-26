@@ -3,7 +3,6 @@
 import { AppointmentWithData } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
-import Button from '../common/Button';
 import Label from '../common/Label';
 
 interface Props {
@@ -30,13 +29,6 @@ const MyAppointments = ({ appointments, clientId }: Props) => {
           ))}
         </div>
       )}
-      <Button
-        variant='primary'
-        className='w-full lg:float-end lg:w-fit'
-        onClick={() => router.push(`/account/${clientId}/appointment-history`)}
-      >
-        <Label labelId='show_appointment_history' />
-      </Button>
     </div>
   );
 };

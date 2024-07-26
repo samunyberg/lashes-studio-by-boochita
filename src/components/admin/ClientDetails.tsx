@@ -4,14 +4,18 @@ import MyAppointments from '@/components/account/MyAppointments';
 import Panel from '@/components/common/Panel';
 import { AppointmentWithData, ClientWithAppointments } from '@/lib/types';
 import { formatName } from '@/lib/utils';
+import Button from '../common/Button';
 import GoBackLink from '../common/GoBackLink';
 import DeleteClientButton from './DeleteClientButton';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   client: ClientWithAppointments;
 }
 
 const ClientDetails = ({ client }: Props) => {
+  const router = useRouter();
+
   return (
     <div className='mx-auto flex min-h-[calc(100vh-110px)] max-w-[750px] flex-col justify-between pb-5'>
       <div>
@@ -27,6 +31,14 @@ const ClientDetails = ({ client }: Props) => {
           appointments={client.appointments as AppointmentWithData[]}
           clientId={client.id}
         />
+        <Button
+          className='w-full'
+          onClick={() =>
+            router.push(`/admin/clients/${client.id}/appointment-history`)
+          }
+        >
+          Appointment History
+        </Button>
       </div>
       {client.appointments.length === 0 && (
         <DeleteClientButton

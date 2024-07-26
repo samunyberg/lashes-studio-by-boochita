@@ -1,9 +1,11 @@
 import MyAppointments from '@/components/account/MyAppointments';
 import MyInformation from '@/components/account/MyInformation';
+import Button from '@/components/common/Button';
 import Label from '@/components/common/Label';
 import StrikeThroughText from '@/components/common/StrikeThroughText';
 import { getClientWithUpcomingAppointments } from '@/lib/db/clients';
 import { AppointmentWithData } from '@/lib/types';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 interface Props {
@@ -29,6 +31,11 @@ const AccountPage = async ({ params: { id } }: Props) => {
             appointments={client.appointments as AppointmentWithData[]}
             clientId={id}
           />
+          <Link href={`/account/${client.id}/appointment-history`}>
+            <Button variant='primary' className='w-full lg:float-end lg:w-fit'>
+              <Label labelId='show_appointment_history' />
+            </Button>
+          </Link>
         </div>
       </div>
     </>
