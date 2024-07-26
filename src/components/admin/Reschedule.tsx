@@ -39,6 +39,7 @@ const Reschedule = ({ oldAppointment, upcomingAppointments }: Props) => {
         serviceId: oldAppointment.service?.id,
         serviceOptionId: oldAppointment.serviceOption?.id,
         servicePrice: oldAppointment.servicePrice,
+        adminNote: oldAppointment.adminNote,
       });
       router.replace('/admin/appointments/' + newAppointment?.id);
       router.refresh();

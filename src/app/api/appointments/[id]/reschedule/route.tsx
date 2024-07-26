@@ -33,6 +33,7 @@ export async function PATCH(request: NextRequest, { params: { id } }: Props) {
             serviceOptionId: null,
             servicePrice: null,
             status: 'AVAILABLE',
+            adminNote: null,
             bookedAt: null,
           },
         });
@@ -63,6 +64,7 @@ export async function PATCH(request: NextRequest, { params: { id } }: Props) {
             serviceOptionId: body.serviceOptionId,
             servicePrice: body.servicePrice,
             status: 'BOOKED',
+            adminNote: body.adminNote,
             bookedAt: currentTime,
             rescheduledAt: currentTime,
           },

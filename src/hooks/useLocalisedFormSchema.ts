@@ -77,12 +77,17 @@ const useLocalisedFormSchema = () => {
       path: ['confirmPassword'],
     });
 
+  const adminNoteSchema = z.object({
+    note: z.string().min(3).max(500),
+  });
+
   return {
     registerFormSchema,
     editAccountSchema,
     forgottenPasswordFormSchema,
     resetPasswordFormSchema,
     changePasswordFormSchema,
+    adminNoteSchema,
   };
 };
 

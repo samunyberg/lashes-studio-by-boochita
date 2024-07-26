@@ -26,7 +26,9 @@ export async function PATCH(request: NextRequest, { params }: Props) {
         serviceOptionId: null,
         servicePrice: null,
         status: 'AVAILABLE',
+        adminNote: null,
         bookedAt: null,
+        rescheduledAt: null,
       },
     });
     return NextResponse.json({ data: cancelledAppointment }, { status: 200 });
