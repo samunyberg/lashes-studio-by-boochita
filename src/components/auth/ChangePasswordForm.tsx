@@ -65,7 +65,7 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
     }
   };
 
-  const handleClose = () => {
+  const handleCancel = () => {
     setValidationErrors({});
     setError('');
     setOldPassword('');
@@ -114,7 +114,7 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
       >
         <Label labelId='change' />
       </Button>
-      <Button type='button' className='w-full' onClick={handleClose}>
+      <Button type='button' className='w-full' onClick={handleCancel}>
         <Label labelId='cancel' />
       </Button>
     </form>
