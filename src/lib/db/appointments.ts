@@ -8,8 +8,13 @@ todayStart.setHours(0, 0, 0, 0);
 const todayEnd = new Date();
 todayEnd.setHours(23, 59, 59, 999);
 
-export async function getAppointments(): Promise<AppointmentWithData[]> {
+export async function getAppointments(
+  currentPage: number,
+  pageSize: number
+): Promise<AppointmentWithData[]> {
   const appointments = await prisma.appointment.findMany({
+    take: pageSize,
+    skip: (currentPage - 1) * pageSize,
     include: {
       service: true,
       serviceOption: true,
@@ -26,6 +31,10 @@ export async function getAppointments(): Promise<AppointmentWithData[]> {
   });
 
   return appointments;
+}
+
+export async function getAppointmentsCount(): Promise<number> {
+  return await prisma.appointment.count();
 }
 
 export async function getUpcomingAppointments(): Promise<

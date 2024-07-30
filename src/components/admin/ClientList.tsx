@@ -1,6 +1,6 @@
 'use client';
 
-import { User } from '@prisma/client';
+import { Client } from '@/lib/types';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
@@ -9,36 +9,37 @@ import PaginatedTable from './PaginatedTable';
 import { Config } from './Table';
 
 interface Props {
-  clients: User[];
+  clients: Client[];
+  itemsCount: number;
 }
 
-const config: Config<User> = {
+const config: Config<Client> = {
   columns: [
     {
       label: 'Name',
-      render: (user) => (
+      render: (client) => (
         <Link
-          href={'/admin/clients/' + user.id}
+          href={'/admin/clients/' + client.id}
           className='underline active:text-accent lg:hover:text-accent'
         >
-          {`${user.firstName} ${user.lastName}`}
+          {`${client.firstName} ${client.lastName}`}
         </Link>
       ),
     },
     {
       label: 'Email',
-      render: (user) => user.email,
+      render: (client) => client.email,
     },
     {
       label: 'Phone',
-      render: (user) => user.phone,
+      render: (client) => client.phone,
     },
   ],
 };
 
-const keyFn = (user: User) => user.id;
+const keyFn = (client: Client) => client.id;
 
-const ClientList = ({ clients }: Props) => {
+const ClientList = ({ clients, itemsCount }: Props) => {
   const [search, setSearch] = useState({ term: '' });
 
   const filteredClients = useMemo(() => {
@@ -66,7 +67,12 @@ const ClientList = ({ clients }: Props) => {
       {filteredClients.length === 0 ? (
         <div className='p-5 font-medium'>No results with this search.</div>
       ) : (
-        <PaginatedTable data={filteredClients} config={config} keyFn={keyFn} />
+        <PaginatedTable
+          data={filteredClients}
+          config={config}
+          keyFn={keyFn}
+          itemsCount={itemsCount}
+        />
       )}
     </div>
   );

@@ -1,10 +1,21 @@
 import ClientList from '@/components/admin/ClientList';
-import prisma from '../../../prisma/client';
+import { getClients, getClientsCount } from '@/lib/db/clients';
 
-const AdminClientsPage = async () => {
-  const clients = await prisma.user.findMany();
+interface Props {
+  searchParams: { pageSize: string; pageNumber: string };
+}
 
-  return <ClientList clients={clients} />;
+const AdminClientsPage = async ({
+  searchParams: { pageNumber, pageSize },
+}: Props) => {
+  const currentPage = parseInt(pageNumber) || 1;
+  const itemsPerPage = parseInt(pageSize) || 10;
+
+  const paginatedClients = await getClients(currentPage, itemsPerPage);
+
+  const itemsCount = await getClientsCount();
+
+  return <ClientList clients={paginatedClients} itemsCount={itemsCount} />;
 };
 
 export const dynamic = 'force-dynamic';

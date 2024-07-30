@@ -12,6 +12,7 @@ import { Config } from './Table';
 
 interface Props {
   appointments: AppointmentWithData[];
+  itemsCount: number;
 }
 
 const config: Config<AppointmentWithData> = {
@@ -47,7 +48,7 @@ const config: Config<AppointmentWithData> = {
 
 const keyFn = (app: AppointmentWithData) => app.id;
 
-const AppointmentList = ({ appointments }: Props) => {
+const AppointmentList = ({ appointments, itemsCount }: Props) => {
   const [search, setSearch] = useState({ term: '', date: '' });
 
   const filteredAppointments = useMemo(() => {
@@ -96,6 +97,7 @@ const AppointmentList = ({ appointments }: Props) => {
       ) : (
         <PaginatedTable
           data={filteredAppointments}
+          itemsCount={itemsCount}
           config={config}
           keyFn={keyFn}
         />
