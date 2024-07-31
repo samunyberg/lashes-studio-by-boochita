@@ -78,29 +78,32 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
   return (
     <form className='mt-5 flex flex-col gap-4 px-2' onSubmit={handleSubmit}>
       <FormError className='mb-4'>{error}</FormError>
-      <FormGroup error={validationErrors.oldPassword?.at(0)}>
+      <FormGroup
+        error={validationErrors.oldPassword?.at(0)}
+        label='Current password'
+      >
         <PasswordInput
           id='currentPassword'
-          label='Current password'
           placeholder={getLabel('old_password')}
           value={oldPassword}
           onChange={(e) => setOldPassword(e.target.value)}
         />
       </FormGroup>
-      <FormGroup error={validationErrors.password?.at(0)}>
+      <FormGroup error={validationErrors.password?.at(0)} label='New password'>
         <PasswordInput
           id='newPassword'
-          label='New password'
           placeholder={getLabel('password')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </FormGroup>
       <PasswordStrength password={password} />
-      <FormGroup error={validationErrors.confirmPassword?.at(0)}>
+      <FormGroup
+        error={validationErrors.confirmPassword?.at(0)}
+        label='Confirm new password'
+      >
         <PasswordInput
           id='confirmNewPassword'
-          label='Confirm new password'
           placeholder={getLabel('confirm_password')}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}

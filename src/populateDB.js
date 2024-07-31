@@ -1,15 +1,16 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const populateAppointments = async () => {
   const today = new Date();
-  const oneMonthFromToday = new Date(
+  const threeMonthsFromToday = new Date(
     today.getTime() + 60 * 24 * 60 * 60 * 1000
-  ); // Two months from today
+  ); // Three months from today
 
   for (
     let date = new Date();
-    date <= oneMonthFromToday;
+    date <= threeMonthsFromToday;
     date.setDate(date.getDate() + 1)
   ) {
     if (date.getDay() === 0 || date.getDay() === 6) {

@@ -34,7 +34,7 @@ const ResetPasswordForm = () => {
 
   useEffect(() => {
     if (isChangeSuccessful) router.push('/auth/login');
-  }, [isChangeSuccessful]);
+  }, [isChangeSuccessful, router]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

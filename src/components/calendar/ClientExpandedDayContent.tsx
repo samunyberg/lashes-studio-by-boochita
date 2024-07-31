@@ -1,7 +1,7 @@
-import { AppointmentWithData } from '@/app/lib/types';
 import { Appointment } from '@prisma/client';
 import Label from '../common/Label';
 import ExpandedDayAppointment from './ExpandedDayAppointment';
+import { AppointmentWithData } from '@/lib/types';
 
 interface Props {
   selectedDate: Date;

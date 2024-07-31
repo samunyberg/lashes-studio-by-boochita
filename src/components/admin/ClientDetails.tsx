@@ -4,10 +4,10 @@ import MyAppointments from '@/components/account/MyAppointments';
 import Panel from '@/components/common/Panel';
 import { AppointmentWithData, ClientWithAppointments } from '@/lib/types';
 import { formatName } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 import Button from '../common/Button';
 import GoBackLink from '../common/GoBackLink';
 import DeleteClientButton from './DeleteClientButton';
-import { useRouter } from 'next/navigation';
 
 interface Props {
   client: ClientWithAppointments;
@@ -29,7 +29,6 @@ const ClientDetails = ({ client }: Props) => {
         <hr className='my-5 w-full border border-black/20' />
         <MyAppointments
           appointments={client.appointments as AppointmentWithData[]}
-          clientId={client.id}
         />
         <Button
           className='w-full'

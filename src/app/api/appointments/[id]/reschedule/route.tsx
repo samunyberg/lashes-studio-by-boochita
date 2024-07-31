@@ -8,8 +8,8 @@ interface Props {
   };
 }
 
-export async function PATCH(request: NextRequest, { params: { id } }: Props) {
-  const body = await request.json();
+export async function PATCH(req: NextRequest, { params: { id } }: Props) {
+  const body = await req.json();
   const currentTime = new Date();
 
   const oldAppointmentId = parseInt(id);

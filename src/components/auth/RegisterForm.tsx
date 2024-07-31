@@ -45,7 +45,7 @@ const RegisterForm = () => {
 
   useEffect(() => {
     if (isRegistered) router.push('/');
-  }, [isRegistered]);
+  }, [isRegistered, router]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -29,7 +29,6 @@ const AccountPage = async ({ params: { id } }: Props) => {
         <div className='mt-8 lg:my-0 lg:flex-1'>
           <MyAppointments
             appointments={client.appointments as AppointmentWithData[]}
-            clientId={id}
           />
           <Link href={`/account/${client.id}/appointment-history`}>
             <Button variant='primary' className='w-full lg:float-end lg:w-fit'>

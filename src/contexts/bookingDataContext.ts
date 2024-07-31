@@ -1,4 +1,4 @@
-import { BookingData } from '@/components/booking/BookingForm';
+import { BookingData } from '@/lib/types';
 import React, { Dispatch, SetStateAction } from 'react';
 
 interface BookingDataContextType {

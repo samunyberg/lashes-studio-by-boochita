@@ -3,7 +3,7 @@ import prisma from '@/prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
-export const appointmentSchema = z.object({
+const appointmentSchema = z.object({
   userId: z.string(),
   serviceId: z.number({ invalid_type_error: 'This field is required.' }),
   serviceOptionId: z.number({ invalid_type_error: 'This field is required.' }),

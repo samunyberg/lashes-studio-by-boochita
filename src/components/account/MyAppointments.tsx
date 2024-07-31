@@ -1,18 +1,14 @@
 'use client';
 
 import { AppointmentWithData } from '@/lib/types';
-import { useRouter } from 'next/navigation';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 import Label from '../common/Label';
 
 interface Props {
   appointments: AppointmentWithData[];
-  clientId: string;
 }
 
-const MyAppointments = ({ appointments, clientId }: Props) => {
-  const router = useRouter();
-
+const MyAppointments = ({ appointments }: Props) => {
   return (
     <div>
       <h2 className='mb-5 text-xl font-semibold'>

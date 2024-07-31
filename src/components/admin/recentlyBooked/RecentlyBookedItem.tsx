@@ -22,7 +22,7 @@ const RecentlyBookedItem = ({ appointment }: Props) => {
     }, 60000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [appointment.bookedAt]);
 
   const timeStamp = () => (
     <div className='flex items-center'>

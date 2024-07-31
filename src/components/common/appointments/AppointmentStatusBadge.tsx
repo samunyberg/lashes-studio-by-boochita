@@ -9,10 +9,10 @@ interface Props {
 const AppointmentStatusBadge = ({ status }: Props) => {
   return (
     <div
-      className={cn('w-[95px] rounded-md border-2 bg-bgSoft py-1 text-center', {
-        'border-red-400': status === 'BOOKED',
-        'border-green-400': status === 'AVAILABLE',
-        'border-orange-300': status === 'UNAVAILABLE',
+      className={cn('w-[90px] rounded-sm border-2 bg-bgSoft text-center', {
+        'border-red-400 text-red-700': status === 'BOOKED',
+        'border-green-400 text-green-700': status === 'AVAILABLE',
+        'border-orange-400 text-orange-800': status === 'UNAVAILABLE',
       })}
     >
       <p className='text-sm font-medium'>

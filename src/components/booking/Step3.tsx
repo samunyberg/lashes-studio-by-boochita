@@ -21,7 +21,7 @@ const Step3 = () => {
         <div className='mt-3 flex flex-col gap-1 px-4'>
           <span className='flex items-center gap-2'>
             <FaRegCalendarCheck className='size-4' />
-            {formatDate(new Date(bookingData.appointment?.dateTime), locale, {
+            {formatDate(new Date(bookingData.appointment!.dateTime), locale, {
               weekday: 'long',
               month: 'long',
               day: '2-digit',
@@ -30,7 +30,7 @@ const Step3 = () => {
           <span className='flex items-center gap-2'>
             <FaRegClock className='size-4' />
             {formatDSTAdjustedTime(
-              new Date(bookingData.appointment?.dateTime),
+              new Date(bookingData.appointment!.dateTime),
               locale
             )}
           </span>

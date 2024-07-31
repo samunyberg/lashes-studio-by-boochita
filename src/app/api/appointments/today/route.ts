@@ -1,7 +1,7 @@
 import { getTodaysAppointments } from '@/lib/db/appointments';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   try {
     const appointments = await getTodaysAppointments();
     return NextResponse.json(appointments, { status: 200 });
@@ -12,3 +12,5 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+export const dynamic = 'force-dynamic';

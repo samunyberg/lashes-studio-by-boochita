@@ -66,7 +66,7 @@ const DeleteClientButton = ({ clientId, clientName }: Props) => {
               </div>
               <p className='font-medium'>
                 This action cannot be undone. Deleting a client will make you
-                lose access to client's past appointments.
+                lose access to client&apos; past appointments.
               </p>
             </div>
             <FormGroup label={`Type "${clientName}" to confirm.`}>
