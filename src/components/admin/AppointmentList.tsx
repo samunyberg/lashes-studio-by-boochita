@@ -3,10 +3,9 @@
 import { formatDate, formatDSTAdjustedTime } from '@/lib/dates';
 import { AppointmentWithData } from '@/lib/types';
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
 import AppointmentStatusBadge from '../common/appointments/AppointmentStatusBadge';
-import Input from '../common/forms/Input';
+import SearchDate from '../common/forms/SearchDate';
+import SearchInput from '../common/forms/SearchInput';
 import PaginatedTable from './PaginatedTable';
 import { Config } from './Table';
 
@@ -24,7 +23,10 @@ const config: Config<AppointmentWithData> = {
     {
       label: 'Time',
       render: (app) => (
-        <Link href={`/admin/appointments/${app.id}`}>
+        <Link
+          href={`/admin/appointments/${app.id}`}
+          className='underline transition-all active:text-accent lg:hover:text-accent'
+        >
           {formatDSTAdjustedTime(app.dateTime, 'en-FI')}
         </Link>
       ),
@@ -35,13 +37,25 @@ const config: Config<AppointmentWithData> = {
     },
     {
       label: 'Client',
-      render: (app) =>
-        `${app.client?.firstName || ''} ${app.client?.lastName || ''}`,
+      render: (app) => (
+        <Link
+          href={`/admin/clients/${app.client?.id}`}
+          className='underline transition-all active:text-accent lg:hover:text-accent'
+        >
+          {`${app.client?.firstName || ''} ${app.client?.lastName || ''}`}
+        </Link>
+      ),
     },
     {
       label: 'Service',
-      render: (app) =>
-        `${app.service?.name || ''} ${app.serviceOption?.name || ''}`,
+      render: (app) => (
+        <Link
+          href={`/admin/services/${app.serviceId}`}
+          className='underline transition-all active:text-accent lg:hover:text-accent'
+        >
+          {`${app.service?.name || ''} ${app.serviceOption?.name || ''}`}
+        </Link>
+      ),
     },
   ],
 };
@@ -49,54 +63,21 @@ const config: Config<AppointmentWithData> = {
 const keyFn = (app: AppointmentWithData) => app.id;
 
 const AppointmentList = ({ appointments, itemsCount }: Props) => {
-  const [search, setSearch] = useState({ term: '', date: '' });
-
-  const filteredAppointments = useMemo(() => {
-    return appointments.filter((app) => {
-      const clientName =
-        `${app.client?.firstName || ''} ${app.client?.lastName || ''}`.toLowerCase();
-
-      const appDate = new Date(app.dateTime).toLocaleDateString('en-CA'); // 'en-CA' ensures YYYY-MM-DD format
-
-      if (search.date) {
-        return (
-          clientName.includes(search.term.toLowerCase()) &&
-          appDate === search.date
-        );
-      } else {
-        return clientName.includes(search.term.toLowerCase());
-      }
-    });
-  }, [appointments, search]);
-
   return (
     <div className='flex flex-col gap-5'>
-      <div className='flex gap-1 md:p-2 lg:w-1/2 lg:self-end'>
-        <Input
-          className='w-[33%]'
-          id='date'
-          type='date'
-          value={search.date}
-          onChange={(event) =>
-            setSearch({ ...search, date: event.target.value })
-          }
-        />
-        <Input
+      <div className='flex gap-1 md:p-2 lg:w-[45%] lg:self-end'>
+        <SearchDate id='date-input' type='date' />
+        <SearchInput
           className='flex-1'
           id='term'
-          placeholder='Search by client'
-          value={search.term}
-          icon={<FaSearch />}
-          onChange={(event) =>
-            setSearch({ ...search, term: event.target.value })
-          }
+          placeholder='Search by client name'
         />
       </div>
-      {filteredAppointments.length === 0 ? (
+      {appointments.length === 0 ? (
         <div className='p-5 font-medium'>No results with this search.</div>
       ) : (
         <PaginatedTable
-          data={filteredAppointments}
+          data={appointments}
           itemsCount={itemsCount}
           config={config}
           keyFn={keyFn}

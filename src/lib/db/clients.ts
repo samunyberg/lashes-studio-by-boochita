@@ -1,20 +1,47 @@
+import { PaginationInfo } from '@/components/Pagination';
 import prisma from '@/prisma/client';
 import { Client, ClientWithAppointments } from '../types';
 
-export async function getClients(
-  currentPage: number,
-  pageSize: number
-): Promise<Client[]> {
-  const clients = await prisma.user.findMany({
-    take: pageSize,
-    skip: (currentPage - 1) * pageSize,
-  });
+export async function getClients({
+  pageNumber,
+  pageSize,
+}: PaginationInfo): Promise<{ clients: Client[]; count: number }> {
+  const [clients, count] = await Promise.all([
+    prisma.user.findMany({
+      skip: (pageNumber - 1) * pageSize,
+      take: pageSize,
+    }),
+    prisma.user.count(),
+  ]);
 
-  return clients;
+  return { clients, count };
 }
 
-export async function getClientsCount(): Promise<number> {
-  return await prisma.user.count();
+export async function getClientsBySearchTerm(
+  term: string,
+  { pageNumber, pageSize }: PaginationInfo
+): Promise<{ clients: Client[]; count: number }> {
+  const whereClause = {
+    OR: [
+      { firstName: { contains: term } },
+      { lastName: { contains: term } },
+      { email: { contains: term } },
+      { phone: { contains: term } },
+    ],
+  };
+
+  const [clients, count] = await Promise.all([
+    prisma.user.findMany({
+      skip: (pageNumber - 1) * pageSize,
+      take: pageSize,
+      where: whereClause,
+    }),
+    prisma.user.count({
+      where: whereClause,
+    }),
+  ]);
+
+  return { clients, count };
 }
 
 export async function getClientById(id: string) {

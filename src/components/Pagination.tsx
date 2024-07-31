@@ -1,7 +1,10 @@
-import { cn } from 'clsx-tailwind-merge';
-import _ from 'lodash';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Button from './common/Button';
+
+export interface PaginationInfo {
+  pageNumber: number;
+  pageSize: number;
+}
 
 interface Props {
   className?: string;
@@ -28,22 +31,12 @@ const Pagination = ({ className, itemsCount }: Props) => {
       router.replace(`${pathName}?pageNumber=${currentPage + 1}`);
   };
 
-  const renderPages = () => (
-    <span className='hidden text-sm font-medium lg:flex'>
-      {_.range(0, totalPages).map((p, i) => (
-        <span
-          className={cn(
-            'flex min-w-8 cursor-pointer items-center justify-center border border-black/20 p-1 transition-all first:rounded-bl-sm first:rounded-tl-sm last:rounded-br-sm last:rounded-tr-sm lg:hover:bg-bgSofter',
-            {
-              'bg-bgSoft font-semibold': i === currentPage - 1,
-            }
-          )}
-          onClick={() => router.replace(`${pathName}?pageNumber=${i + 1}`)}
-        >
-          {i + 1}
-        </span>
-      ))}
-    </span>
+  const renderResults = () => (
+    <div className='flex gap-3 text-sm font-medium'>
+      <span>{`Results: ${itemsCount}`}</span>
+      <span>|</span>
+      <span>{`Page ${currentPage} of ${totalPages}`}</span>
+    </div>
   );
 
   return (
@@ -57,7 +50,7 @@ const Pagination = ({ className, itemsCount }: Props) => {
       >
         Previous
       </Button>
-      {renderPages()}
+      {renderResults()}
       <Button
         className='!h-fit !px-2 !py-1 !text-sm'
         onClick={handleNextPage}

@@ -1,10 +1,12 @@
 'use client';
 
+import { ReactNode } from 'react';
+
 export interface Config<T> {
   showHeaderRow?: boolean;
   columns: {
     label: string;
-    render: (item: T) => any;
+    render: (item: T) => ReactNode | string | number;
   }[];
 }
 
@@ -15,7 +17,7 @@ export interface Data<T> {
 interface Props<T> {
   data: T[];
   config: Config<T>;
-  keyFn: (item: T) => any;
+  keyFn: (item: T) => string | number;
 }
 
 const Table = <T,>({ data, config, keyFn }: Props<T>) => {

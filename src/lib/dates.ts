@@ -86,3 +86,9 @@ export function startsInLessThanOneHour(time: Date) {
   const oneHourInMS = 3_600_000;
   return new Date(time).getTime() - currentTime.getTime() < oneHourInMS;
 }
+
+export function getFirstAndLastDateOfMonth(year: number, month: number) {
+  const firstDate = new Date(year, month, 1);
+  const lastDate = new Date(year, month + 1, 0);
+  return { firstDate, lastDate };
+}

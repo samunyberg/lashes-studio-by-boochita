@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import Pagination from '../Pagination';
 import Table, { Config } from './Table';
 
@@ -11,14 +12,16 @@ interface Props<T> {
   data: T[];
   itemsCount: number;
   config: Config<T>;
-  keyFn: (item: T) => any;
+  keyFn: (item: T) => string | number;
 }
 
 const PaginatedTable = <T,>({ data, itemsCount, config, keyFn }: Props<T>) => {
   return (
     <div className='w-full overflow-x-auto'>
       <Table data={data} config={config} keyFn={keyFn} />
-      <Pagination className='my-5' itemsCount={itemsCount} />
+      <Suspense>
+        <Pagination className='my-5' itemsCount={itemsCount} />
+      </Suspense>
     </div>
   );
 };

@@ -1,24 +1,24 @@
 import ClientList from '@/components/admin/ClientList';
 import { PaginationInfo } from '@/components/Pagination';
-import { getClients } from '@/lib/db/clients';
+import { getClientsBySearchTerm } from '@/lib/db/clients';
 
 interface Props {
-  searchParams: { pageSize: string; pageNumber: string };
+  searchParams: { term: string; pageSize: string; pageNumber: string };
 }
 
-const AdminClientsPage = async ({
-  searchParams: { pageNumber, pageSize },
+const AdminSearchClientsPage = async ({
+  searchParams: { term, pageNumber, pageSize },
 }: Props) => {
   const pagination: PaginationInfo = {
     pageNumber: parseInt(pageNumber) || 1,
     pageSize: parseInt(pageSize) || 10,
   };
 
-  const { clients, count } = await getClients(pagination);
+  const { clients, count } = await getClientsBySearchTerm(term, pagination);
 
   return <ClientList clients={clients} itemsCount={count} />;
 };
 
 export const dynamic = 'force-dynamic';
 
-export default AdminClientsPage;
+export default AdminSearchClientsPage;
