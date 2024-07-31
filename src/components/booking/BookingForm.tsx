@@ -1,13 +1,14 @@
 'use client';
 
-import { BookingData, ServiceWithServiceOptions } from '@/lib/types';
 import BookingDataContext from '@/contexts/bookingDataContext';
+import { BookingData, ServiceWithServiceOptions } from '@/lib/types';
 import { Appointment } from '@prisma/client';
 import axios, { AxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Calendar from '../calendar/Calendar';
+import ContainedPage from '../common/ContainedPage';
 import Label from '../common/Label';
 import StrikeThroughText from '../common/StrikeThroughText';
 import BookingButtons from './BookingButtons';
@@ -105,7 +106,7 @@ const BookingForm = ({ services, appointments }: Props) => {
         bookingError,
       }}
     >
-      <div className='pb-16 md:mx-auto md:max-w-[450px] lg:max-w-[650px]'>
+      <ContainedPage>
         <StrikeThroughText className='pb-6 pt-5'>
           <Label labelId='book_appointment' />
         </StrikeThroughText>
@@ -132,7 +133,7 @@ const BookingForm = ({ services, appointments }: Props) => {
             isSubmitting={isSubmitting}
           />
         </>
-      </div>
+      </ContainedPage>
     </BookingDataContext.Provider>
   );
 };

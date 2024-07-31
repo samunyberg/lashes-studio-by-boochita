@@ -1,7 +1,7 @@
+import { AppointmentWithData } from '@/lib/types';
 import { Appointment } from '@prisma/client';
 import Label from '../common/Label';
 import ExpandedDayAppointment from './ExpandedDayAppointment';
-import { AppointmentWithData } from '@/lib/types';
 
 interface Props {
   selectedDate: Date;
@@ -23,8 +23,8 @@ const ClientExpandedDayContent = ({
 
   return (
     <>
-      <div className='px-4 py-3'>
-        <h2 className='mb-2 font-medium'>
+      <div>
+        <h2 className='mb-6 font-medium'>
           {appointmentsByDate?.length > 0 ? (
             <Label labelId='click_appointment_to_select' />
           ) : (
@@ -32,7 +32,7 @@ const ClientExpandedDayContent = ({
           )}
         </h2>
       </div>
-      <div className='flex w-full flex-col gap-4 p-2 '>
+      <div className='flex w-full flex-col gap-6'>
         {appointmentsByDate?.map((app: Appointment) => (
           <ExpandedDayAppointment
             key={app.id}

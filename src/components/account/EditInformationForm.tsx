@@ -84,7 +84,7 @@ const EditInformationForm = ({ user, onClose }: Props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className='mb-5 flex flex-col gap-4 px-2 py-4'>
+      <div className='flex flex-col gap-4'>
         <FormError>{serverError}</FormError>
         <FormGroup
           error={errors.firstName?.at(0)}
@@ -127,21 +127,11 @@ const EditInformationForm = ({ user, onClose }: Props) => {
           />
         </FormGroup>
       </div>
-      <div className='flex flex-col gap-4 lg:flex-row'>
-        <Button
-          type='submit'
-          variant='accent'
-          className='w-full lg:w-fit'
-          isLoading={isSubmitting}
-        >
+      <div className='mt-8 flex flex-col gap-4'>
+        <Button type='submit' variant='accent' isLoading={isSubmitting}>
           <Label labelId='edit' />
         </Button>
-        <Button
-          type='button'
-          variant='primary'
-          className='w-full lg:w-fit'
-          onClick={handleCancel}
-        >
+        <Button type='button' variant='primary' onClick={handleCancel}>
           <Label labelId='cancel' />
         </Button>
       </div>

@@ -76,7 +76,7 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
   };
 
   return (
-    <form className='mt-5 flex flex-col gap-4 px-2' onSubmit={handleSubmit}>
+    <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
       <FormError className='mb-4'>{error}</FormError>
       <FormGroup
         error={validationErrors.oldPassword?.at(0)}
@@ -109,17 +109,14 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </FormGroup>
-      <Button
-        className='mt-5'
-        type='submit'
-        variant='accent'
-        isLoading={isSubmitting}
-      >
-        <Label labelId='change' />
-      </Button>
-      <Button type='button' className='w-full' onClick={handleCancel}>
-        <Label labelId='cancel' />
-      </Button>
+      <div className='mt-8 flex flex-col gap-4'>
+        <Button type='submit' variant='accent' isLoading={isSubmitting}>
+          <Label labelId='change' />
+        </Button>
+        <Button type='button' onClick={handleCancel}>
+          <Label labelId='cancel' />
+        </Button>
+      </div>
     </form>
   );
 };

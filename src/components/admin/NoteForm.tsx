@@ -57,11 +57,11 @@ const NoteForm = ({ appointmentId, initialNote, onClose }: Props) => {
   };
 
   return (
-    <form className='my-5 flex flex-col gap-2' onSubmit={handleSubmit}>
+    <form className='flex flex-col gap-2' onSubmit={handleSubmit}>
       <FormError>{error}</FormError>
       <FormGroup error={validationEror}>
         <textarea
-          className='h-36 rounded-sm border border-black/30 p-2 font-medium shadow transition-all focus:outline-accent'
+          className='h-36 resize-none rounded-sm border border-black/30 p-2 font-medium shadow transition-all focus:outline-accent'
           value={note}
           placeholder='Write a note here...'
           onChange={(e) => setNote(e.target.value)}

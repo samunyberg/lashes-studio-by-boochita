@@ -55,7 +55,7 @@ const AppointmentDetails = ({ appointment }: Props) => {
       <span>{formatDSTAdjustedTime(appointment.dateTime, 'en-FI')}</span>
       <FaEdit
         size={22}
-        className='ml-auto mr-2'
+        className='ml-auto mr-2 cursor-pointer'
         onClick={() => setShowAddNote(true)}
       />
     </div>

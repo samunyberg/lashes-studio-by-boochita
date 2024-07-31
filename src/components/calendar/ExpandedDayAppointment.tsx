@@ -29,7 +29,7 @@ const ExpandedDayAppointment = ({
     <div
       key={appointment.id}
       className={cn({
-        'pointer-events-none cursor-not-allowed opacity-70': !isBookable(),
+        'pointer-events-none !cursor-not-allowed': !isBookable(),
       })}
       onClick={() => {
         if (!isBookable()) return;

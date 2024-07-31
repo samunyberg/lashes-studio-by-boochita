@@ -22,20 +22,16 @@ const AccountPage = async ({ params: { id } }: Props) => {
       <StrikeThroughText className='my-6 w-full'>
         <Label labelId='my_account' />
       </StrikeThroughText>
-      <div className='flex flex-col pb-16 lg:w-full lg:flex-row lg:gap-20'>
-        <div className='lg:flex-1'>
-          <MyInformation user={client} />
-        </div>
-        <div className='mt-8 lg:my-0 lg:flex-1'>
-          <MyAppointments
-            appointments={client.appointments as AppointmentWithData[]}
-          />
-          <Link href={`/account/${client.id}/appointment-history`}>
-            <Button variant='primary' className='w-full lg:float-end lg:w-fit'>
-              <Label labelId='show_appointment_history' />
-            </Button>
-          </Link>
-        </div>
+      <div className='flex flex-col pb-16'>
+        <MyInformation user={client} />
+        <MyAppointments
+          appointments={client.appointments as AppointmentWithData[]}
+        />
+        <Link href={`/account/${client.id}/appointment-history`}>
+          <Button variant='primary' className='w-full lg:float-end lg:w-fit'>
+            <Label labelId='show_appointment_history' />
+          </Button>
+        </Link>
       </div>
     </>
   );
