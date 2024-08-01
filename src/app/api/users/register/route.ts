@@ -23,7 +23,16 @@ const registerFormSchema = z
 export async function POST(req: NextRequest) {
   const body = await req.json();
 
-  const validationResult = registerFormSchema.safeParse(body);
+  const trimmedData = {
+    email: body.email.trim(),
+    password: body.password,
+    confirmPassword: body.confirmPassword,
+    firstName: body.firstName.trim(),
+    lastName: body.lastName.trim(),
+    phone: body.phone.trim(),
+  };
+
+  const validationResult = registerFormSchema.safeParse(trimmedData);
   if (!validationResult.success)
     return NextResponse.json({ error: 'Invalid input.' }, { status: 400 });
 
@@ -34,7 +43,7 @@ export async function POST(req: NextRequest) {
     );
 
   const existingUser = await prisma.user.findFirst({
-    where: { email: body.email },
+    where: { email: trimmedData.email },
   });
   if (existingUser)
     return NextResponse.json(
@@ -49,11 +58,11 @@ export async function POST(req: NextRequest) {
   try {
     const newUser = await prisma.user.create({
       data: {
-        email: body.email,
-        hashedPassword,
-        firstName: body.firstName,
-        lastName: body.lastName,
-        phone: body.phone,
+        email: trimmedData.email,
+        hashedPassword: hashedPassword,
+        firstName: trimmedData.firstName,
+        lastName: trimmedData.lastName,
+        phone: trimmedData.phone,
       },
     });
     return NextResponse.json(newUser.id, { status: 201 });

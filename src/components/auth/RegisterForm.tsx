@@ -81,6 +81,13 @@ const RegisterForm = () => {
     }
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = event.target;
+    if (id === 'password' || id === 'confirmPassword')
+      setFormData({ ...formData, [id]: value });
+    else setFormData({ ...formData, [id]: value.trim() });
+  };
+
   return (
     <AuthFormContainer>
       <AuthFormHeader subtitle={<Label labelId='register' />} />
@@ -92,9 +99,7 @@ const RegisterForm = () => {
             value={formData.firstName}
             type='text'
             placeholder={getLabel('first_name')}
-            onChange={(event) =>
-              setFormData({ ...formData, firstName: event.target.value })
-            }
+            onChange={handleInputChange}
           />
         </FormGroup>
         <FormGroup error={validationErrors.lastName?.at(0)}>
@@ -103,9 +108,7 @@ const RegisterForm = () => {
             value={formData.lastName}
             type='text'
             placeholder={getLabel('last_name')}
-            onChange={(event) =>
-              setFormData({ ...formData, lastName: event.target.value })
-            }
+            onChange={handleInputChange}
           />
         </FormGroup>
         <FormGroup error={validationErrors.email?.at(0)}>
@@ -115,9 +118,7 @@ const RegisterForm = () => {
             type='text'
             value={formData.email}
             placeholder={getLabel('email')}
-            onChange={(event) =>
-              setFormData({ ...formData, email: event.target.value })
-            }
+            onChange={handleInputChange}
           />
         </FormGroup>
         <FormGroup error={validationErrors.password?.at(0)}>
@@ -125,9 +126,7 @@ const RegisterForm = () => {
             id='password'
             value={formData.password}
             placeholder={getLabel('password')}
-            onChange={(event) =>
-              setFormData({ ...formData, password: event.target.value })
-            }
+            onChange={handleInputChange}
           />
         </FormGroup>
         <PasswordStrength password={formData.password} />
@@ -136,9 +135,7 @@ const RegisterForm = () => {
             id='confirmPassword'
             value={formData.confirmPassword}
             placeholder={getLabel('confirm_password')}
-            onChange={(event) =>
-              setFormData({ ...formData, confirmPassword: event.target.value })
-            }
+            onChange={handleInputChange}
           />
         </FormGroup>
         <FormGroup error={validationErrors.phone?.at(0)}>
@@ -147,9 +144,7 @@ const RegisterForm = () => {
             value={formData.phone}
             type='text'
             placeholder={getLabel('phone')}
-            onChange={(event) =>
-              setFormData({ ...formData, phone: event.target.value })
-            }
+            onChange={handleInputChange}
           />
         </FormGroup>
         <Button variant='accent' isLoading={isSubmitting}>
