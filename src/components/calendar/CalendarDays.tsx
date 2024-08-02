@@ -1,7 +1,6 @@
 import { AppointmentWithData } from '@/lib/types';
 import { Appointment } from '@prisma/client';
 import { useState } from 'react';
-import Panel from '../common/Panel';
 import AdminExpandedDayContent from './AdminExpandedDayContent';
 import CalendarDay from './CalendarDay';
 import ClientExpandedDayContent from './ClientExpandedDayContent';
@@ -52,7 +51,7 @@ const CalendarDays = ({
 
   return (
     <>
-      <Panel className='grid h-full grid-cols-7 !shadow-none'>
+      <div className='grid h-full grid-cols-7 gap-1'>
         {lastMonthDays.map((day) => (
           <div key={day} />
         ))}
@@ -67,7 +66,7 @@ const CalendarDays = ({
             onShowExpandedDay={() => setShowExpandedDay(!showExpandedDay)}
           />
         ))}
-      </Panel>
+      </div>
       <ExpandedDay
         selectedDate={selectedDate}
         showExpandedDay={showExpandedDay}
