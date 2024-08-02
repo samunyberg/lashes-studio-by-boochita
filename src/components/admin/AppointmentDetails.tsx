@@ -1,14 +1,19 @@
 'use client';
 
-import { formatDate, formatDSTAdjustedTime } from '@/lib/dates';
 import { AppointmentWithData } from '@/lib/types';
+import {
+  formatDate,
+  formatDSTAdjustedTime,
+} from '@/lib/utils/dateAndTimeUtils';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 import Button from '../common/Button';
+import Container from '../common/Container';
 import GoBackLink from '../common/GoBackLink';
 import Modal from '../common/Modal';
+import Panel from '../common/Panel';
 import CancelButton from './CancelButton';
 import NoteForm from './NoteForm';
 
@@ -26,38 +31,32 @@ const AppointmentDetails = ({ appointment }: Props) => {
 
   const handleCloseNoteform = () => setShowAddNote(false);
 
-  const noteForm = () => {
-    return (
-      <Modal
-        isVisible={showAddNote}
-        header={
-          <h1 className='text-lg font-semibold'>
-            {appointment.adminNote ? 'Edit Note' : 'Add Note'}
-          </h1>
-        }
-        content={
-          <NoteForm
-            appointmentId={appointment.id}
-            initialNote={appointment.adminNote}
-            onClose={handleCloseNoteform}
-          />
-        }
-        onClose={() => setShowAddNote(false)}
-      />
-    );
-  };
+  const admiNoteModal = (
+    <Modal
+      isVisible={showAddNote}
+      header={
+        <h1 className='text-lg font-semibold'>
+          {appointment.adminNote ? 'Edit Note' : 'Add Note'}
+        </h1>
+      }
+      content={
+        <NoteForm
+          appointmentId={appointment.id}
+          initialNote={appointment.adminNote}
+          onClose={handleCloseNoteform}
+        />
+      }
+      onClose={() => setShowAddNote(false)}
+    />
+  );
 
-  const renderHeader = () => (
-    <div className='flex items-center gap-2 text-xl font-semibold'>
+  const renderHeader = (
+    <div className='flex gap-3 text-xl font-semibold'>
       <span>
         {formatDate(appointment.dateTime, 'en-FI', { dateStyle: 'full' })}
       </span>
+      <span>|</span>
       <span>{formatDSTAdjustedTime(appointment.dateTime, 'en-FI')}</span>
-      <FaEdit
-        size={22}
-        className='ml-auto mr-2 cursor-pointer'
-        onClick={() => setShowAddNote(true)}
-      />
     </div>
   );
 
@@ -71,17 +70,16 @@ const AppointmentDetails = ({ appointment }: Props) => {
             showService
             showDate={false}
             showTime={false}
+            showPrice
           />
         );
       case 'AVAILABLE':
-        return (
-          <div className='font-medium'>This appointment is available.</div>
-        );
+        return <Panel className='p-4'>This appointment is available.</Panel>;
       case 'UNAVAILABLE':
         return (
-          <div className='font-medium'>
+          <Panel className='p-4'>
             This appointment has been marked unavailable.
-          </div>
+          </Panel>
         );
       default:
         return null;
@@ -92,17 +90,27 @@ const AppointmentDetails = ({ appointment }: Props) => {
     switch (appointment.status) {
       case 'BOOKED':
         return (
-          <div className='flex flex-col gap-4 md:flex-row'>
-            <CancelButton appointmentId={appointment.id} />
+          <div className='flex flex-col gap-4 md:flex-row md:items-center'>
+            <Button>
+              <span
+                className='flex items-center gap-2'
+                onClick={() => setShowAddNote(true)}
+              >
+                <FaEdit size={22} className='cursor-pointer' />
+                <p>{appointment.adminNote ? 'Edit Note' : 'Add Note'}</p>
+              </span>
+            </Button>
             <Button
+              variant='accent'
               onClick={() =>
                 router.replace(
-                  '/admin/appointments/' + appointment.id + '/reschedule'
+                  `/admin/appointments/${appointment.id}/reschedule`
                 )
               }
             >
               Reschedule
             </Button>
+            <CancelButton appointmentId={appointment.id} />
           </div>
         );
       case 'AVAILABLE':
@@ -114,22 +122,27 @@ const AppointmentDetails = ({ appointment }: Props) => {
     }
   };
 
-  const renderNote = () => (
-    <div className='flex flex-col gap-1 p-2 font-medium'>
+  const renderNote = (
+    <Panel className='flex flex-col gap-1 p-4 font-medium'>
       <span className='font-semibold'>Note:</span>
       <p>{appointment.adminNote}</p>
-    </div>
+    </Panel>
   );
 
   return (
-    <div className='mx-auto flex max-w-[750px] flex-col gap-6 pt-2'>
+    <Container className='flex flex-col gap-6'>
       <GoBackLink />
-      {renderHeader()}
+      {renderHeader}
       {renderAppointment()}
-      {appointment.adminNote && renderNote()}
-      {!isPassedAppointment() && renderActionButtons()}
-      {noteForm()}
-    </div>
+      {appointment.adminNote && renderNote}
+      {!isPassedAppointment() && (
+        <>
+          <hr className='w-full border-black/20' />
+          {renderActionButtons()}
+        </>
+      )}
+      {admiNoteModal}
+    </Container>
   );
 };
 

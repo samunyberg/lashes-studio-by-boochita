@@ -1,5 +1,5 @@
-import { formatDate } from '@/lib/dates';
 import useLocale from '@/hooks/useLocale';
+import { formatDate } from '@/lib/utils/dateAndTimeUtils';
 import { FaRegCalendarCheck } from 'react-icons/fa';
 
 interface Props {

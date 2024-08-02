@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ServiceInfo = ({ service, serviceOption }: Props) => (
-  <span className='flex items-center gap-2 text-sm'>
+  <span className='flex items-center gap-2'>
     <FaCheck size={12} />
     {service?.name}, {serviceOption?.name}
   </span>

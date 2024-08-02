@@ -81,9 +81,15 @@ const useLocalisedFormSchema = () => {
     note: z.string().min(3).max(500),
   });
 
-  const newServiceSchema = z.object({
+  const serviceSchema = z.object({
     name: z.string().min(3).max(50),
     description: z.string().min(3).max(255),
+  });
+
+  const serviceOptionSchema = z.object({
+    name: z.string().min(3).max(50),
+    description: z.string().min(3).max(255),
+    price: z.number().min(1).max(500),
   });
 
   return {
@@ -93,7 +99,8 @@ const useLocalisedFormSchema = () => {
     resetPasswordFormSchema,
     changePasswordFormSchema,
     adminNoteSchema,
-    newServiceSchema,
+    serviceSchema,
+    serviceOptionSchema,
   };
 };
 

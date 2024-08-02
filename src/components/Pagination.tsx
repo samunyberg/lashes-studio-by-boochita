@@ -32,7 +32,7 @@ const Pagination = ({ className, itemsCount }: Props) => {
   };
 
   const renderResults = () => (
-    <div className='flex gap-3 text-sm font-medium'>
+    <div className='flex gap-2 text-sm font-medium'>
       <span>{`Results: ${itemsCount}`}</span>
       <span>|</span>
       <span>{`Page ${currentPage} of ${totalPages}`}</span>

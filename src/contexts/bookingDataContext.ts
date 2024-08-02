@@ -5,6 +5,8 @@ interface BookingDataContextType {
   bookingData: BookingData;
   setBookingData: Dispatch<SetStateAction<BookingData>>;
   bookingError: string;
+  termsAccepted: boolean;
+  setTermsAccepted: Dispatch<SetStateAction<boolean>>;
 }
 
 const BookingDataContext = React.createContext<BookingDataContextType>(

@@ -1,5 +1,5 @@
+import LanguageContext from '@/contexts/languageContext';
 import { ReactNode, useState } from 'react';
-import LanguageContext from '@/contexts/LanguageContext';
 
 import en from './data/en.json';
 import fi from './data/fi.json';

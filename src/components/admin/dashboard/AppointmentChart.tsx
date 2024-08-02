@@ -1,7 +1,7 @@
 import Label from '@/components/common/Label';
 import Panel from '@/components/common/Panel';
 import useLocale from '@/hooks/useLocale';
-import { formatDate } from '@/lib/dates';
+import { formatDate } from '@/lib/utils/dateAndTimeUtils';
 import {
   CartesianGrid,
   Line,
@@ -21,7 +21,7 @@ const AppointmentLineChart = ({ data }: Props) => {
   const locale = useLocale();
 
   return (
-    <div className='h-full'>
+    <div className='h-full overflow-hidden'>
       <DashboardHeader>
         <Label labelId='booked' />{' '}
         {formatDate(new Date(), locale, { year: 'numeric' })}
@@ -30,7 +30,7 @@ const AppointmentLineChart = ({ data }: Props) => {
         <ResponsiveContainer width='100%' height='100%'>
           <LineChart
             data={data}
-            margin={{ top: 20, right: 30, bottom: 5, left: 0 }}
+            margin={{ top: 20, right: 50, bottom: 50, left: 0 }}
           >
             <CartesianGrid strokeDasharray='3 3' stroke='rgba(0, 0, 0, 0.2)' />
             <XAxis dataKey='month' stroke='#524237' />

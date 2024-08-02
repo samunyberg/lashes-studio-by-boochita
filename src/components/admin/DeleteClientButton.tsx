@@ -49,7 +49,7 @@ const DeleteClientButton = ({ clientId, clientName }: Props) => {
   return (
     <>
       <Button
-        className='mt-6 !bg-red-400 !text-white'
+        className='!bg-red-400 !text-white'
         onClick={() => setShowConfirmation(true)}
       >
         Delete Client
@@ -58,7 +58,7 @@ const DeleteClientButton = ({ clientId, clientName }: Props) => {
         isVisible={showConfirmation}
         header={<h1 className='text-lg font-semibold'>Delete Client</h1>}
         content={
-          <div className='flex flex-col gap-5 pt-5'>
+          <div className='flex flex-col gap-5'>
             <div className='flex flex-col gap-4 rounded-sm border-2 border-red-400 px-4 py-5'>
               <div className='flex items-center gap-1'>
                 <RiErrorWarningLine size={25} />
@@ -79,7 +79,7 @@ const DeleteClientButton = ({ clientId, clientName }: Props) => {
               />
             </FormGroup>
             <FormError>{error}</FormError>
-            <div className='mt-5 flex flex-col gap-2'>
+            <div className='mt-5 flex flex-col gap-4'>
               <Button
                 variant='accent'
                 onClick={handleDelete}

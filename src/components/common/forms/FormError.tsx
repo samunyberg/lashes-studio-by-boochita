@@ -5,12 +5,12 @@ interface Props {
   className?: string;
 }
 
-const FormError = ({ children, className }: Props) => {
+const FormError = ({ children, className = '' }: Props) => {
   if (!children) return null;
 
   return (
     <div
-      className={`rounded-sm border border-red-400 bg-bgSoft px-2 py-2 text-center text-red-400 ${className && className}`}
+      className={`rounded-sm bg-red-200 px-2 py-2 text-center text-red-500 ${className}`}
     >
       {children}
     </div>

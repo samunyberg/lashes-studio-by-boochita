@@ -11,6 +11,7 @@ import Calendar from '../calendar/Calendar';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 import Button from '../common/Button';
 import CheckBox from '../common/CheckBox';
+import Container from '../common/Container';
 import FormError from '../common/forms/FormError';
 import Modal from '../common/Modal';
 import StrikeThroughText from '../common/StrikeThroughText';
@@ -58,57 +59,61 @@ const Reschedule = ({ oldAppointment, upcomingAppointments }: Props) => {
     setShowConfirmation(true);
   };
 
+  const confirmationModal = (
+    <Modal
+      isVisible={showConfirmation}
+      header={<h1 className='text-lg font-semibold'>Reschedule appointment</h1>}
+      content={
+        <div className='flex flex-col gap-4'>
+          <h2 className='mt-5 font-medium'>Reschedule this appointment?</h2>
+          <div className='mb-5 flex flex-col  gap-4'>
+            <AppointmentPanel appointment={oldAppointment} />
+            <FaArrowDown className='self-center' size={15} />
+            {newAppointment && (
+              <AppointmentPanel
+                appointment={newAppointment as AppointmentWithData}
+              />
+            )}
+          </div>
+          <div className='mb-8 flex items-center gap-2'>
+            <CheckBox isChecked={true} />
+            <p>Send notification email to client</p>
+          </div>
+          <FormError className='mb-4'>{error}</FormError>
+          <div className='flex flex-col gap-4 lg:flex-row-reverse lg:justify-between'>
+            <Button
+              variant='accent'
+              onClick={handleReschedule}
+              isLoading={isSubmitting}
+            >
+              Confirm
+            </Button>
+            <Button onClick={() => setShowConfirmation(false)}>Go back</Button>
+          </div>
+        </div>
+      }
+      onClose={() => setShowConfirmation(false)}
+    />
+  );
+
   return (
-    <>
-      <div className='flex flex-col gap-5 pb-12'>
-        <StrikeThroughText>Reschedule appointment</StrikeThroughText>
+    <Container>
+      <div className='flex flex-col gap-5 pb-8'>
+        <StrikeThroughText className='my-5'>
+          Reschedule appointment
+        </StrikeThroughText>
         <AppointmentPanel appointment={oldAppointment} showClient showService />
-        <h2 className='font-medium'>Select new appointment time:</h2>
+        <h2 className='font-semibold'>Select new appointment time:</h2>
         <Calendar
           initialData={upcomingAppointments}
           onAppointmentSelect={handleAppointmentSelect}
         />
-        <Button onClick={() => router.back()}>Cancel</Button>
+        <Button className='lg:w-fit' onClick={() => router.back()}>
+          Cancel
+        </Button>
       </div>
-      <Modal
-        isVisible={showConfirmation}
-        header={
-          <h1 className='text-lg font-semibold'>Reschedule appointment</h1>
-        }
-        content={
-          <div className='flex flex-col gap-4 px-2'>
-            <h2 className='mt-5 font-medium'>Reschedule this appointment?</h2>
-            <div className='mb-5 flex flex-col  gap-4'>
-              <AppointmentPanel appointment={oldAppointment} />
-              <FaArrowDown className='self-center' size={15} />
-              {newAppointment && (
-                <AppointmentPanel
-                  appointment={newAppointment as AppointmentWithData}
-                />
-              )}
-            </div>
-            <div className='mb-8 flex items-center gap-2'>
-              <CheckBox isChecked={true} />
-              <p>Send notification email to client</p>
-            </div>
-            <FormError className='mb-4'>{error}</FormError>
-            <div className='flex flex-col gap-5 lg:flex-row-reverse lg:justify-between'>
-              <Button
-                variant='accent'
-                onClick={handleReschedule}
-                isLoading={isSubmitting}
-              >
-                Confirm
-              </Button>
-              <Button onClick={() => setShowConfirmation(false)}>
-                Go back
-              </Button>
-            </div>
-          </div>
-        }
-        onClose={() => setShowConfirmation(false)}
-      />
-    </>
+      {confirmationModal}
+    </Container>
   );
 };
 

@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Calendar from '../calendar/Calendar';
-import ContainedPage from '../common/ContainedPage';
+import Container from '../common/Container';
 import Label from '../common/Label';
 import StrikeThroughText from '../common/StrikeThroughText';
 import BookingButtons from './BookingButtons';
@@ -42,6 +42,7 @@ const BookingForm = ({ services, appointments }: Props) => {
 
   const [currentStep, setCurrentStep] = useState(1);
   const [bookingData, setBookingData] = useState({} as BookingData);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [bookingError, setBookingError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -95,7 +96,7 @@ const BookingForm = ({ services, appointments }: Props) => {
     if (currentStep === 1) return !!bookingData.appointment;
     if (currentStep === 2)
       return !!bookingData.service && !!bookingData.serviceOption;
-    if (currentStep === steps.length) return true;
+    if (currentStep === steps.length) return termsAccepted;
   };
 
   return (
@@ -104,10 +105,12 @@ const BookingForm = ({ services, appointments }: Props) => {
         bookingData,
         setBookingData,
         bookingError,
+        termsAccepted,
+        setTermsAccepted,
       }}
     >
-      <ContainedPage>
-        <StrikeThroughText className='pb-6 pt-5'>
+      <Container className='pb-8'>
+        <StrikeThroughText className='mb-8'>
           <Label labelId='book_appointment' />
         </StrikeThroughText>
         <BookingHeader steps={steps} currentStep={currentStep} />
@@ -133,7 +136,7 @@ const BookingForm = ({ services, appointments }: Props) => {
             isSubmitting={isSubmitting}
           />
         </>
-      </ContainedPage>
+      </Container>
     </BookingDataContext.Provider>
   );
 };

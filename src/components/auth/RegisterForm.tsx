@@ -7,6 +7,7 @@ import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import Button from '../common/Button';
 import FormError from '../common/forms/FormError';
 import FormGroup from '../common/forms/FormGroup';
@@ -26,6 +27,15 @@ interface FieldErrors {
   phone?: string[];
 }
 
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  phone: string;
+}
+
 const RegisterForm = () => {
   const { getLabel } = useLanguage();
   const router = useRouter();
@@ -34,18 +44,15 @@ const RegisterForm = () => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [validationErrors, setValidationErrors] = useState({} as FieldErrors);
   const [error, setError] = useState('');
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phone: '',
-  });
+  const [formData, setFormData] = useState({} as FormData);
 
   useEffect(() => {
-    if (isRegistered) router.push('/');
-  }, [isRegistered, router]);
+    if (isRegistered) {
+      router.push('/');
+      toast.success(`Welcome, ${formData.firstName}!`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRegistered]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -70,12 +77,10 @@ const RegisterForm = () => {
           password: formData.password,
           redirect: false,
         });
-      if (signinResponse?.ok) {
-        setIsRegistered(true);
-      }
+      if (signinResponse?.ok) setIsRegistered(true);
     } catch (error: unknown) {
       if (error instanceof AxiosError) setError(error.response?.data.error);
-      else setError('Whoops! Something went wrong. Please try again later.');
+      else setError('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

@@ -1,7 +1,11 @@
-import React from 'react';
+import Container from '@/components/common/Container';
 
 const ServicesPage = () => {
-  return <div>ServicesPage</div>;
+  return (
+    <Container>
+      <div>ServicesPage</div>;
+    </Container>
+  );
 };
 
 export default ServicesPage;

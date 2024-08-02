@@ -33,17 +33,22 @@ const LoginForm = () => {
         redirect: false,
       });
       if (signInResult?.error) {
-        setError('Invalid email or password');
+        setError('Invalid email or password.');
       }
       if (signInResult?.ok) {
         toast.success(`Signed in as ${credentials.email}`);
         router.push(searchParams.get('callbackUrl') || '/');
       }
     } catch (error) {
-      setError('Something went wrong. Please try again');
+      setError('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = event.target;
+    setCredentials({ ...credentials, [id]: value });
   };
 
   return (
@@ -55,16 +60,12 @@ const LoginForm = () => {
           id='email'
           type='text'
           placeholder={getLabel('email')}
-          onChange={(e) =>
-            setCredentials({ ...credentials, email: e.target.value })
-          }
+          onChange={handleInputChange}
         />
         <PasswordInput
           id='password'
           placeholder={getLabel('password')}
-          onChange={(e) =>
-            setCredentials({ ...credentials, password: e.target.value })
-          }
+          onChange={handleInputChange}
         />
         <Button variant='accent' isLoading={isSubmitting}>
           <Label labelId='login' />

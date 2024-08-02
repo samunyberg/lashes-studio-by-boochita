@@ -27,7 +27,7 @@ const Intro = () => {
           transition={{ duration: 0.3, ease: 'easeIn' }}
         >
           <Link href='/book'>
-            <Button variant='accent' className='!px-5 !py-3 !text-lg'>
+            <Button variant='accent' className='!px-5 !py-3 !text-[17px]'>
               <Label labelId='book_appointment' />
             </Button>
           </Link>

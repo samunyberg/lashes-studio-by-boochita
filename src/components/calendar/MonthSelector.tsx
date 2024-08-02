@@ -1,5 +1,5 @@
-import { formatDate } from '@/lib/dates';
 import useLanguage from '@/hooks/useLanguage';
+import { formatDate } from '@/lib/utils/dateAndTimeUtils';
 import { Dispatch, SetStateAction } from 'react';
 import MonthSelectorMonth from './MonthSelectorMonth';
 

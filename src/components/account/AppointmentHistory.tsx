@@ -1,12 +1,14 @@
 'use client';
 
 import useLocale from '@/hooks/useLocale';
-import { formatDate, groupAppointmentsByMonth } from '@/lib/dates';
 import { AppointmentWithData } from '@/lib/types';
+import {
+  formatDate,
+  groupAppointmentsByMonth,
+} from '@/lib/utils/dateAndTimeUtils';
 import { useRouter } from 'next/navigation';
 import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
 import Button from '../common/Button';
-import GoBackLink from '../common/GoBackLink';
 import Label from '../common/Label';
 
 interface Props {
@@ -22,7 +24,7 @@ const AppointmentHistory = ({ appointments, onAppointmentClick }: Props) => {
     return (
       <div>
         <p className='mb-8 font-medium'>Ei menneitä varauksia.</p>
-        <Button className='w-full' onClick={() => router.back()}>
+        <Button className='w-full lg:w-fit' onClick={() => router.back()}>
           <Label labelId='back' />
         </Button>
       </div>
@@ -31,10 +33,7 @@ const AppointmentHistory = ({ appointments, onAppointmentClick }: Props) => {
   const groupedAppointments = groupAppointmentsByMonth(appointments);
 
   return (
-    <>
-      <div className='mb-5'>
-        <GoBackLink />
-      </div>
+    <div className='w-full'>
       {Object.keys(groupedAppointments).map((month, index) => {
         return (
           <div key={index}>
@@ -57,7 +56,7 @@ const AppointmentHistory = ({ appointments, onAppointmentClick }: Props) => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 

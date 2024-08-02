@@ -1,4 +1,4 @@
-import { startsInLessThanOneHour } from '@/lib/dates';
+import { startsInLessThanOneHour } from '@/lib/utils/dateAndTimeUtils';
 import prisma from '@/prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';

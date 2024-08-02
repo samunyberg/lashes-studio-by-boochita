@@ -9,28 +9,28 @@ import NavLinks from './NavLinks';
 
 interface Props {
   isOpen: boolean;
-  onToggleSidebar: () => void;
+  onClose: () => void;
 }
 
-const Sidebar = ({ isOpen, onToggleSidebar }: Props) => {
+const Sidebar = ({ isOpen, onClose }: Props) => {
   const sidebarRef = useRef(null);
-  useClickOutside(sidebarRef, () => onToggleSidebar());
+  useClickOutside(sidebarRef, () => onClose());
 
   return (
     <aside
       ref={sidebarRef}
       className={cn(
-        'fixed inset-y-0 -left-[45%] z-[999] w-[45%] bg-bgSoft px-5 py-4 shadow-md backdrop-blur-lg transition-all',
+        'fixed -left-[45%] z-[999] h-screen w-[45%] bg-bgSoft px-5 py-4 shadow-md backdrop-blur-lg transition-all',
         {
           'left-0': isOpen,
         }
       )}
     >
       <div className='flex justify-between'>
-        <MdClose size={30} onClick={() => onToggleSidebar()} />
+        <MdClose size={30} onClick={() => onClose()} />
         <LanguageSwitcher />
       </div>
-      <NavLinks onLinkClick={onToggleSidebar} />
+      <NavLinks onLinkClick={() => onClose()} />
     </aside>
   );
 };

@@ -1,5 +1,5 @@
-import { formatDSTAdjustedTime } from '@/lib/dates';
 import useLocale from '@/hooks/useLocale';
+import { formatDSTAdjustedTime } from '@/lib/utils/dateAndTimeUtils';
 import { FaRegClock } from 'react-icons/fa';
 
 interface Props {

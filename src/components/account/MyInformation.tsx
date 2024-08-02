@@ -57,20 +57,22 @@ const MyInformation = ({ user }: Props) => {
           <span className='pl-2'>{user.phone}</span>
         </div>
       </Panel>
-      <Button
-        variant='primary'
-        className='w-full lg:w-fit'
-        onClick={() => setShowEditInformationForm(true)}
-      >
-        <Label labelId='edit' />
-      </Button>
-      <Button
-        variant='accent'
-        className='mt-5 w-full lg:w-fit'
-        onClick={() => setShowChangePasswordForm(true)}
-      >
-        <Label labelId='change_password' />
-      </Button>
+      <div className='flex flex-col gap-4 md:flex-row'>
+        <Button
+          variant='primary'
+          className='w-full lg:w-fit'
+          onClick={() => setShowEditInformationForm(true)}
+        >
+          <Label labelId='edit' />
+        </Button>
+        <Button
+          variant='accent'
+          className='w-full lg:w-fit'
+          onClick={() => setShowChangePasswordForm(true)}
+        >
+          <Label labelId='change_password' />
+        </Button>
+      </div>
       <Modal
         isVisible={showEditInformationForm}
         header={

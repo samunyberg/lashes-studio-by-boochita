@@ -1,5 +1,5 @@
 import { Client } from '@/lib/types';
-import { formatName } from '@/lib/utils';
+import { formatName } from '@/lib/utils/stringUtils';
 import { IoPerson } from 'react-icons/io5';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ClientInfo = ({ client }: Props) => (
-  <span className='flex items-center gap-2 text-sm'>
+  <span className='flex items-center gap-2'>
     <IoPerson size={12} />
     {formatName(client!)}
   </span>

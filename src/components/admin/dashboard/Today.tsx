@@ -1,6 +1,6 @@
 import useLocale from '@/hooks/useLocale';
-import { formatDate } from '@/lib/dates';
 import { AppointmentWithData } from '@/lib/types';
+import { formatDate } from '@/lib/utils/dateAndTimeUtils';
 import { useRouter } from 'next/navigation';
 import AppointmentPanel from '../../common/appointments/appointmentPanel/AppointmentPanel';
 import Button from '../../common/Button';

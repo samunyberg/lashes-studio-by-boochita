@@ -42,7 +42,7 @@ const CancelButton = ({ appointmentId }: Props) => {
         className='!bg-red-400 text-white'
         onClick={() => setShowConfirmation(true)}
       >
-        Cancel this appointment
+        Cancel
       </Button>
       <Modal
         isVisible={showConfirmation}
@@ -53,7 +53,7 @@ const CancelButton = ({ appointmentId }: Props) => {
               Are you sure you want to cancel this appointment?
             </h2>
             <FormError className='mb-4'>{error}</FormError>
-            <div className='flex flex-col gap-5 lg:flex-row-reverse lg:justify-between'>
+            <div className='flex flex-col gap-4 lg:flex-row-reverse lg:justify-between'>
               <Button
                 className='!bg-red-400 text-white'
                 onClick={handleCancel}

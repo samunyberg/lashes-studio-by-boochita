@@ -49,7 +49,6 @@ const NoteForm = ({ appointmentId, initialNote, onClose }: Props) => {
   };
 
   const handleCancel = () => {
-    setNote('');
     setValidationError('');
     setError('');
 
@@ -67,7 +66,7 @@ const NoteForm = ({ appointmentId, initialNote, onClose }: Props) => {
           onChange={(e) => setNote(e.target.value)}
         />
       </FormGroup>
-      <div className='mt-5 flex flex-col gap-2'>
+      <div className='mt-5 flex flex-col gap-4'>
         <Button type='submit' variant='accent' isLoading={isSubmitting}>
           {initialNote ? 'Edit' : 'Add'}
         </Button>

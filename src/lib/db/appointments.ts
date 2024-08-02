@@ -1,8 +1,11 @@
 import { AppointmentSearchQuery } from '@/app/admin/appointments/search/page';
 import { PaginationInfo } from '@/components/Pagination';
 import prisma from '@/prisma/client';
-import { formatDate, getFirstAndLastDateOfMonth } from '../dates';
 import { AppointmentWithData } from '../types';
+import {
+  formatDate,
+  getFirstAndLastDateOfMonth,
+} from '../utils/dateAndTimeUtils';
 
 const clientSelectClause = {
   id: true,

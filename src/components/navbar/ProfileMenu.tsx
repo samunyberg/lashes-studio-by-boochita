@@ -14,7 +14,6 @@ interface Props {
 
 const ProfileMenu = ({ user, onClose }: Props) => {
   const menuRef = useRef<HTMLDivElement>(null);
-
   useClickOutside(menuRef, () => onClose());
 
   const handleSignOut = () => {

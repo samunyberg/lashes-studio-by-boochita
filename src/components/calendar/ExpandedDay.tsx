@@ -1,5 +1,5 @@
 import useLocale from '@/hooks/useLocale';
-import { formatDate } from '@/lib/dates';
+import { formatDate } from '@/lib/utils/dateAndTimeUtils';
 import { ReactNode } from 'react';
 import { FaRegCalendarCheck } from 'react-icons/fa';
 import Modal from '../common/Modal';
