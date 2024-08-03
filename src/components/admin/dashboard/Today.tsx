@@ -28,7 +28,7 @@ const Today = ({ appointments }: Props) => {
       <div className='flex flex-col gap-5'>
         {appointments.length === 0 ? (
           <Panel className='px-4 py-3'>
-            <Label labelId='now_appointments_today' />
+            <Label labelId='no_appointments_today' />
           </Panel>
         ) : (
           <div className='flex flex-col gap-2'>
