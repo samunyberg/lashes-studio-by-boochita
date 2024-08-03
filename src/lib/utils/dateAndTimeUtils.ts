@@ -69,12 +69,7 @@ export function formatTimeAgo(date: Date) {
   if (interval >= 1) {
     return interval === 1 ? '1 minute ago' : `${interval} minutes ago`;
   }
-  if (seconds < 5) {
-    return 'just now';
-  }
-  return Math.floor(seconds) === 1
-    ? '1 second ago'
-    : `${Math.floor(seconds)} seconds ago`;
+  return 'just now';
 }
 
 export function isBookedLessThanOneHourAgo(time: Date) {
