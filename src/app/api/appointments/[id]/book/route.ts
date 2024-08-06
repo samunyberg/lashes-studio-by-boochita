@@ -5,8 +5,11 @@ import { z } from 'zod';
 
 const appointmentSchema = z.object({
   userId: z.string(),
+  clientName: z.string(),
   serviceId: z.number({ invalid_type_error: 'This field is required.' }),
   serviceOptionId: z.number({ invalid_type_error: 'This field is required.' }),
+  serviceName: z.string(),
+  serviceOptionName: z.string(),
   servicePrice: z.number({ invalid_type_error: 'This field is required.' }),
 });
 
@@ -51,8 +54,11 @@ export async function PATCH(request: NextRequest, { params }: Props) {
           where: { id: appointmentId },
           data: {
             userId: body.userId,
+            clientName: body.clientName,
             serviceId: body.serviceId,
             serviceOptionId: body.serviceOptionId,
+            serviceName: body.serviceName,
+            serviceOptionName: body.serviceOptionName,
             servicePrice: body.servicePrice,
             status: 'BOOKED',
             bookedAt: currentTime,

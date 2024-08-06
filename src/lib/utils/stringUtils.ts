@@ -5,5 +5,7 @@ export function formatName(client: Client) {
 }
 
 export const clipText = (text: string, maxLength: number) => {
+  if (!text) return '';
+
   return text.length <= maxLength ? text : text.slice(0, maxLength) + '...';
 };

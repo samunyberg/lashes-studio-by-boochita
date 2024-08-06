@@ -50,7 +50,7 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
       setIsSubmitting(true);
       setValidationErrors({});
       setError('');
-      await axios.patch(`/api/users/${userId}/change-password`, {
+      await axios.patch(`/api/auth/change-password`, {
         oldPassword,
         password,
         confirmPassword,

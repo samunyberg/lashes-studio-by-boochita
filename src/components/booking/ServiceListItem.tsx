@@ -56,14 +56,14 @@ const ServiceListItem = ({
               <div className='flex w-full flex-col gap-1 px-1'>
                 <div className='flex items-center justify-between'>
                   <span className='w-fit rounded-sm bg-accent px-2 font-medium tracking-wide text-white shadow'>
-                    {option.name}
+                    {option.name_en}
                   </span>
                   <CheckBox
                     className='size-4'
                     isChecked={selectedServiceOption?.id === option.id}
                   />
                 </div>
-                <span className='text-sm'>{option.description}</span>
+                <span className='text-sm'>{option.description_en}</span>
               </div>
             </div>
           ))}

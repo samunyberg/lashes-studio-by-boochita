@@ -69,7 +69,7 @@ const RegisterForm = () => {
 
     try {
       setIsSubmitting(true);
-      const response = await axios.post('/api/users/register', formData);
+      const response = await axios.post('/api/auth/register', formData);
       let signinResponse;
       if (response.status === 201)
         signinResponse = await signIn('credentials', {

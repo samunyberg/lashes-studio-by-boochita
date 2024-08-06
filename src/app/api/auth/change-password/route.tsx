@@ -1,18 +1,20 @@
+import { authOptions } from '@/lib/auth';
 import prisma from '@/prisma/client';
 import bcrypt from 'bcrypt';
+import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 
-interface Props {
-  params: {
-    id: string;
-  };
-}
-
-export async function PATCH(req: NextRequest, { params }: Props) {
+export async function PATCH(req: NextRequest) {
   const body = await req.json();
+  const session = await getServerSession(authOptions);
+
+  if (!session)
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+  const id = session.user.id;
 
   const user = await prisma.user.findFirst({
-    where: { id: params.id },
+    where: { id },
   });
 
   if (!user)
@@ -39,12 +41,8 @@ export async function PATCH(req: NextRequest, { params }: Props) {
 
   try {
     await prisma.user.update({
-      where: {
-        id: user!.id,
-      },
-      data: {
-        hashedPassword,
-      },
+      where: { id },
+      data: { hashedPassword },
     });
     return NextResponse.json(
       {

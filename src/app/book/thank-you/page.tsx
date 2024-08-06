@@ -4,16 +4,11 @@ import Button from '@/components/common/Button';
 import CheckMark from '@/components/common/checkmark/CheckMark';
 import Label from '@/components/common/Label';
 import Panel from '@/components/common/Panel';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-interface Props {
-  searchParams: {
-    email: string;
-  };
-}
-
-const ThankYouPage = ({ searchParams: { email } }: Props) => {
+const ThankYouPage = () => {
+  const { data: session } = useSession();
   const router = useRouter();
 
   return (
@@ -22,7 +17,7 @@ const ThankYouPage = ({ searchParams: { email } }: Props) => {
         <CheckMark text={<Label labelId='thank_you' />} />
         <p className='mb-5 text-center font-medium'>
           <Label labelId='booking_confirmed' />{' '}
-          <span className='font-semibold'>{email}</span>.
+          <span className='font-semibold'>{session?.user.email}</span>.
         </p>
         <div className='flex w-full flex-col gap-4'>
           <Button variant='accent' onClick={() => router.push('/')}>

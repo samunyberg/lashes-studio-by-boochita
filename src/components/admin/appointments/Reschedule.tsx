@@ -1,5 +1,13 @@
 'use client';
 
+import Calendar from '@/components/calendar/Calendar';
+import AppointmentPanel from '@/components/common/appointments/appointmentPanel/AppointmentPanel';
+import Button from '@/components/common/Button';
+import CheckBox from '@/components/common/CheckBox';
+import Container from '@/components/common/Container';
+import FormError from '@/components/common/forms/FormError';
+import Modal from '@/components/common/Modal';
+import StrikeThroughText from '@/components/common/StrikeThroughText';
 import { AppointmentWithData } from '@/lib/types';
 import { Appointment } from '@prisma/client';
 import axios, { AxiosError } from 'axios';
@@ -7,14 +15,6 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaArrowDown } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import Calendar from '../calendar/Calendar';
-import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
-import Button from '../common/Button';
-import CheckBox from '../common/CheckBox';
-import Container from '../common/Container';
-import FormError from '../common/forms/FormError';
-import Modal from '../common/Modal';
-import StrikeThroughText from '../common/StrikeThroughText';
 
 interface Props {
   oldAppointment: AppointmentWithData;
@@ -39,6 +39,9 @@ const Reschedule = ({ oldAppointment, upcomingAppointments }: Props) => {
         userId: oldAppointment.userId,
         serviceId: oldAppointment.service?.id,
         serviceOptionId: oldAppointment.serviceOption?.id,
+        clientName: oldAppointment.clientName,
+        serviceName: oldAppointment.serviceName,
+        serviceOptionName: oldAppointment.serviceOptionName,
         servicePrice: oldAppointment.servicePrice,
         adminNote: oldAppointment.adminNote,
       });

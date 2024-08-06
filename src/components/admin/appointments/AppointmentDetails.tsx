@@ -1,5 +1,9 @@
 'use client';
 
+import AppointmentPanel from '@/components/common/appointments/appointmentPanel/AppointmentPanel';
+import Button from '@/components/common/Button';
+import Modal from '@/components/common/Modal';
+import Panel from '@/components/common/Panel';
 import { AppointmentWithData } from '@/lib/types';
 import {
   formatDate,
@@ -8,12 +12,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
-import AppointmentPanel from '../common/appointments/appointmentPanel/AppointmentPanel';
-import Button from '../common/Button';
-import Container from '../common/Container';
-import GoBackLink from '../common/GoBackLink';
-import Modal from '../common/Modal';
-import Panel from '../common/Panel';
+import DetailsPage from '../DetailsPage';
 import CancelButton from './CancelButton';
 import NoteForm from './NoteForm';
 
@@ -51,7 +50,7 @@ const AppointmentDetails = ({ appointment }: Props) => {
   );
 
   const renderHeader = (
-    <div className='flex gap-3 text-xl font-semibold'>
+    <div className='flex gap-3'>
       <span>
         {formatDate(appointment.dateTime, 'en-FI', { dateStyle: 'full' })}
       </span>
@@ -65,6 +64,7 @@ const AppointmentDetails = ({ appointment }: Props) => {
       case 'BOOKED':
         return (
           <AppointmentPanel
+            className='cursor-default'
             appointment={appointment}
             showClient
             showService
@@ -130,9 +130,7 @@ const AppointmentDetails = ({ appointment }: Props) => {
   );
 
   return (
-    <Container className='flex flex-col gap-6'>
-      <GoBackLink />
-      {renderHeader}
+    <DetailsPage heading={renderHeader}>
       {renderAppointment()}
       {appointment.adminNote && renderNote}
       {!isPassedAppointment() && (
@@ -142,7 +140,7 @@ const AppointmentDetails = ({ appointment }: Props) => {
         </>
       )}
       {admiNoteModal}
-    </Container>
+    </DetailsPage>
   );
 };
 

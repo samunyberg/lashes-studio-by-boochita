@@ -1,4 +1,4 @@
-import AppointmentDetails from '@/components/admin/AppointmentDetails';
+import AppointmentDetails from '@/components/admin/appointments/AppointmentDetails';
 import { getAppointmentById } from '@/lib/db/appointments';
 import { notFound } from 'next/navigation';
 

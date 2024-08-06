@@ -1,12 +1,12 @@
 'use client';
 
+import Button from '@/components/common/Button';
+import FormError from '@/components/common/forms/FormError';
+import Modal from '@/components/common/Modal';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import Button from '../common/Button';
-import Modal from '../common/Modal';
-import FormError from '../common/forms/FormError';
 
 interface Props {
   appointmentId: number;
@@ -49,7 +49,7 @@ const CancelButton = ({ appointmentId }: Props) => {
         header={<h1 className='font-semibold'>Cancel appointment</h1>}
         content={
           <div>
-            <h2 className='my-5 mb-8 font-medium'>
+            <h2 className='mb-8 font-medium'>
               Are you sure you want to cancel this appointment?
             </h2>
             <FormError className='mb-4'>{error}</FormError>

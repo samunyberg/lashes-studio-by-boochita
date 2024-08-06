@@ -1,4 +1,4 @@
-import AppointmentList from '@/components/admin/AppointmentList';
+import AppointmentList from '@/components/admin/appointments/AppointmentList';
 import { PaginationInfo } from '@/components/Pagination';
 import { getAppointmentsBySearchTerm } from '@/lib/db/appointments';
 

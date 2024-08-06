@@ -1,18 +1,10 @@
-import ServiceList from '@/components/admin/services/ServiceList';
-import { ServiceWithServiceOptions } from '@/lib/types';
-import prisma from '@/prisma/client';
+import ServiceTable from '@/components/admin/services/ServiceTable';
+import { getServices } from '@/lib/db/services';
 
 const AdminServicesPage = async () => {
-  const services = await prisma.service.findMany({
-    include: { serviceOptions: true },
-  });
+  const { services, count } = await getServices();
 
-  return (
-    <div>
-      <h1 className='mb-5 text-xl font-semibold'>Services</h1>
-      <ServiceList services={services as ServiceWithServiceOptions[]} />
-    </div>
-  );
+  return <ServiceTable services={services} itemsCount={count} />;
 };
 
 export const dynamic = 'force-dynamic';

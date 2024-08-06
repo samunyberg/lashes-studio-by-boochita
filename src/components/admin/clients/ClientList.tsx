@@ -1,10 +1,10 @@
 'use client';
 
+import SearchInput from '@/components/common/forms/SearchInput';
 import { Client } from '@/lib/types';
 import Link from 'next/link';
-import SearchInput from '../common/forms/SearchInput';
-import PaginatedTable from './PaginatedTable';
-import { Config } from './Table';
+import PaginatedTable from '../PaginatedTable';
+import { Config } from '../Table';
 
 interface Props {
   clients: Client[];
@@ -43,16 +43,12 @@ const ClientList = ({ clients, itemsCount }: Props) => {
       <div className='flex md:w-[50%] md:self-end md:p-2 lg:w-[35%]'>
         <SearchInput id='client-search' placeholder='Search clients' />
       </div>
-      {clients.length === 0 ? (
-        <div className='p-5 font-medium'>No results with this search.</div>
-      ) : (
-        <PaginatedTable
-          data={clients}
-          config={config}
-          keyFn={keyFn}
-          itemsCount={itemsCount}
-        />
-      )}
+      <PaginatedTable
+        data={clients}
+        config={config}
+        keyFn={keyFn}
+        itemsCount={itemsCount}
+      />
     </div>
   );
 };

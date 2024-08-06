@@ -36,7 +36,7 @@ const SearchInput = ({ placeholder, ...rest }: Props) => {
         value={term}
         icon={
           <button type='submit'>
-            <FaSearch size={18} />
+            <FaSearch size={15} />
           </button>
         }
         onChange={(e) => setTerm(e.target.value)}

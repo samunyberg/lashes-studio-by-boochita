@@ -1,41 +1,40 @@
+import Button from '@/components/common/Button';
+import FormError from '@/components/common/forms/FormError';
+import FormGroup from '@/components/common/forms/FormGroup';
+import Input from '@/components/common/forms/Input';
+import Modal from '@/components/common/Modal';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
-import Button from '../common/Button';
-import Modal from '../common/Modal';
-import FormError from '../common/forms/FormError';
-import FormGroup from '../common/forms/FormGroup';
-import Input from '../common/forms/Input';
 
 interface Props {
-  clientId: string;
-  clientName: string;
+  endpoint: string;
+  callbackUrl: string;
 }
 
-const DeleteClientButton = ({ clientId, clientName }: Props) => {
+const DeleteButton = ({ endpoint, callbackUrl }: Props) => {
   const router = useRouter();
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const [text, setText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [text, setText] = useState('');
 
-  const textsMatch = () => clientName === text;
+  const textsMatch = () => text === 'Delete';
 
   const handleClose = () => {
-    setText('');
     setShowConfirmation(false);
   };
 
   const handleDelete = async () => {
     try {
-      setError('');
       setIsSubmitting(true);
-      await axios.delete(`/api/users/${clientId}/delete`);
-      router.push('/admin/clients');
+      setError('');
+      await axios.delete(endpoint);
+      router.push(callbackUrl);
       router.refresh();
-      toast.success('Client deleted successfully');
+      toast.success('Deletion successful');
     } catch (error: unknown) {
       if (error instanceof AxiosError) setError(error.response?.data.error);
       else {
@@ -49,27 +48,24 @@ const DeleteClientButton = ({ clientId, clientName }: Props) => {
   return (
     <>
       <Button
-        className='!bg-red-400 !text-white'
+        className='!bg-red-400 !text-white lg:w-fit'
         onClick={() => setShowConfirmation(true)}
       >
-        Delete Client
+        Delete
       </Button>
       <Modal
         isVisible={showConfirmation}
-        header={<h1 className='text-lg font-semibold'>Delete Client</h1>}
+        header={<h1 className='text-lg font-semibold'>Delete Option</h1>}
         content={
           <div className='flex flex-col gap-5'>
-            <div className='flex flex-col gap-4 rounded-sm border-2 border-red-400 px-4 py-5'>
+            <div className='flex flex-col gap-4 rounded-sm border-2 border-red-400 px-4 py-3'>
               <div className='flex items-center gap-1'>
                 <RiErrorWarningLine size={25} />
                 <p className='text-lg font-semibold'>Warning!</p>
               </div>
-              <p className='font-medium'>
-                This action cannot be undone. Deleting a client will make you
-                lose access to client&apos; past appointments.
-              </p>
+              <p className='font-medium'>Are you sure?</p>
             </div>
-            <FormGroup label={`Type "${clientName}" to confirm.`}>
+            <FormGroup label={`Type "Delete" to confirm.`}>
               <Input
                 id='name'
                 type='text'
@@ -98,4 +94,4 @@ const DeleteClientButton = ({ clientId, clientName }: Props) => {
   );
 };
 
-export default DeleteClientButton;
+export default DeleteButton;

@@ -1,4 +1,4 @@
-import Reschedule from '@/components/admin/Reschedule';
+import Reschedule from '@/components/admin/appointments/Reschedule';
 import {
   getAppointmentById,
   getUpcomingAppointments,

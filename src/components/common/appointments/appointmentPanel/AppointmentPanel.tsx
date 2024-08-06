@@ -10,6 +10,7 @@ import ServiceInfo from './ServiceInfo';
 import TimeDisplay from './TimeDisplay';
 
 interface Props {
+  className?: string;
   appointment: AppointmentWithData;
   showDate?: boolean;
   showTime?: boolean;
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const AppointmentPanel = ({
+  className = '',
   appointment,
   showDate = true,
   showTime = true,
@@ -31,7 +33,7 @@ const AppointmentPanel = ({
   return (
     <Panel
       border
-      className='flex cursor-pointer flex-col gap-2 px-4 py-3 transition-all active:bg-bgSofter lg:py-2 lg:hover:bg-bgSofter'
+      className={`flex cursor-pointer flex-col gap-2 px-4 py-3 transition-all active:bg-bgSofter lg:py-2 lg:hover:bg-bgSofter ${className}`}
     >
       <div className='flex gap-6'>
         {showDate && <DateDisplay date={appointment.dateTime} />}
@@ -43,14 +45,14 @@ const AppointmentPanel = ({
         )}
       </div>
       <div className='flex flex-col'>
-        {showClient && <ClientInfo client={appointment.client} />}
+        {showClient && <ClientInfo clientName={appointment.clientName!} />}
         {showService && (
           <ServiceInfo
-            service={appointment.service}
-            serviceOption={appointment.serviceOption}
+            serviceName={appointment.serviceName!}
+            serviceOptionName={appointment.serviceOptionName!}
           />
         )}
-        {showPrice && <PriceInfo price={appointment.servicePrice} />}
+        {showPrice && <PriceInfo price={appointment.servicePrice!} />}
       </div>
     </Panel>
   );

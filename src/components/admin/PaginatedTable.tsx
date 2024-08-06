@@ -16,6 +16,9 @@ interface Props<T> {
 }
 
 const PaginatedTable = <T,>({ data, itemsCount, config, keyFn }: Props<T>) => {
+  if (data.length === 0)
+    return <div className='font-medium'>No data to display</div>;
+
   return (
     <div className='w-full overflow-x-auto'>
       <Table data={data} config={config} keyFn={keyFn} />

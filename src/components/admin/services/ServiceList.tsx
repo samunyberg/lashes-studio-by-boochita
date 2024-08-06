@@ -1,11 +1,12 @@
 'use client';
 
 import Button from '@/components/common/Button';
+import Container from '@/components/common/Container';
 import Modal from '@/components/common/Modal';
 import { ServiceWithServiceOptions } from '@/lib/types';
 import { useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import NewServiceForm from './NewServiceForm';
+import ServiceForm from './ServiceForm';
 import ServiceListItem from './ServiceListItem';
 
 interface Props {
@@ -21,14 +22,15 @@ const ServiceList = ({ services }: Props) => {
     <Modal
       isVisible={showAddServiceForm}
       header={<h1 className='text-lg font-semibold'>Add Service</h1>}
-      content={<NewServiceForm onClose={handleClose} />}
+      content={<ServiceForm onClose={handleClose} />}
       onClose={handleClose}
     />
   );
 
   return (
-    <div className='flex flex-col gap-4'>
-      <Button onClick={() => setShowAddServiceForm(true)}>
+    <Container className='flex flex-col gap-5 pb-8'>
+      <h1 className='text-xl font-semibold'>Services</h1>
+      <Button className='lg:w-fit' onClick={() => setShowAddServiceForm(true)}>
         <span className='flex items-center gap-1'>
           <IoIosAddCircleOutline size={22} />
           <span>Add Service</span>
@@ -44,7 +46,7 @@ const ServiceList = ({ services }: Props) => {
         </>
       )}
       {serviceFormModal}
-    </div>
+    </Container>
   );
 };
 

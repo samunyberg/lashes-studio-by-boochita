@@ -37,7 +37,7 @@ const ForgottenPasswordForm = () => {
       setValidationError('');
       setError('');
       setIsSubmitting(true);
-      await axios.post('/api/users/forgotten-password', { email });
+      await axios.post('/api/auth/forgotten-password', { email });
       setEmail('');
       toast.success('Email sent successfully');
     } catch (error: unknown) {

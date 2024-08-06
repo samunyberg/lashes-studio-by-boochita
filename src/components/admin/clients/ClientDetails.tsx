@@ -1,14 +1,13 @@
 'use client';
 
 import MyAppointments from '@/components/account/MyAppointments';
+import Button from '@/components/common/Button';
 import Panel from '@/components/common/Panel';
 import { AppointmentWithData, ClientWithAppointments } from '@/lib/types';
 import { formatName } from '@/lib/utils/stringUtils';
 import { useRouter } from 'next/navigation';
-import Button from '../common/Button';
-import Container from '../common/Container';
-import GoBackLink from '../common/GoBackLink';
-import DeleteClientButton from './DeleteClientButton';
+import DeleteButton from '../DeleteButton';
+import DetailsPage from '../DetailsPage';
 
 interface Props {
   client: ClientWithAppointments;
@@ -28,18 +27,16 @@ const ClientDetails = ({ client }: Props) => {
         Appointment History
       </Button>
       {client.appointments.length === 0 && (
-        <DeleteClientButton
-          clientId={client.id}
-          clientName={client.firstName}
+        <DeleteButton
+          endpoint={`/api/users/${client.id}`}
+          callbackUrl='/admin/clients'
         />
       )}
     </div>
   );
 
   return (
-    <Container className='flex flex-col gap-6 pb-8'>
-      <GoBackLink />
-      <h1 className='text-xl font-semibold'>Client Details</h1>
+    <DetailsPage heading='Client Details'>
       <Panel className='flex flex-col gap-3 p-4'>
         <div>{`Name: ${formatName(client)}`}</div>
         <div>{`Email: ${client.email}`}</div>
@@ -51,7 +48,7 @@ const ClientDetails = ({ client }: Props) => {
       />
       <hr className='w-full border-black/20' />
       {actionButtons}
-    </Container>
+    </DetailsPage>
   );
 };
 

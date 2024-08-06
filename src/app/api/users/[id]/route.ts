@@ -1,17 +1,16 @@
 import prisma from '@/prisma/client';
+import _ from 'lodash';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface Props {
-  params: {
-    id: string;
-  };
+  params: { id: string };
 }
 
-export async function PATCH(req: NextRequest, { params }: Props) {
+export async function PATCH(req: NextRequest, { params: { id } }: Props) {
   const body = await req.json();
 
   const user = await prisma.user.findFirst({
-    where: { id: params.id },
+    where: { id },
   });
 
   if (!user)
@@ -33,10 +32,8 @@ export async function PATCH(req: NextRequest, { params }: Props) {
   }
 
   try {
-    await prisma.user.update({
-      where: {
-        id: user!.id,
-      },
+    const updatedUser = await prisma.user.update({
+      where: { id },
       data: {
         firstName: body.firstName,
         lastName: body.lastName,
@@ -46,13 +43,36 @@ export async function PATCH(req: NextRequest, { params }: Props) {
     });
     return NextResponse.json(
       {
-        firstName: body.firstName,
-        lastName: body.lastName,
-        email: body.email,
-        phone: body.phone,
+        data: _.pick(updatedUser, ['email', 'firstName', 'lastName', 'phone']),
       },
+
       { status: 200 }
     );
+  } catch (error: unknown) {
+    if (error instanceof Error)
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: 'An unexpected error occured.' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req: NextRequest, { params: { id } }: Props) {
+  const user = await prisma.user.findFirst({ where: { id } });
+
+  if (!user)
+    return NextResponse.json({ error: 'Invalid user.' }, { status: 400 });
+
+  if (user.isAdmin)
+    return NextResponse.json(
+      { error: 'Admin user cannot be deleted.' },
+      { status: 400 }
+    );
+
+  try {
+    const deletedUser = await prisma.user.delete({ where: { id } });
+    return NextResponse.json({ id: deletedUser.id }, { status: 200 });
   } catch (error: unknown) {
     if (error instanceof Error)
       return NextResponse.json({ error: error.message }, { status: 500 });

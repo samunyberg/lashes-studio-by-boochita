@@ -2,16 +2,16 @@ import prisma from '@/prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface Props {
-  params: { id: string };
+  params: { serviceId: string };
 }
 
-export async function POST(req: NextRequest, { params: { id } }: Props) {
+export async function POST(req: NextRequest, { params: { serviceId } }: Props) {
   const body = await req.json();
 
-  const serviceId = parseInt(id);
+  const id = parseInt(serviceId);
 
   const existingServiceOption = await prisma.serviceOption.findFirst({
-    where: { serviceId, name: body.name },
+    where: { serviceId: id, name_en: body.name_en },
   });
 
   if (existingServiceOption)
@@ -23,9 +23,11 @@ export async function POST(req: NextRequest, { params: { id } }: Props) {
   try {
     const service = await prisma.serviceOption.create({
       data: {
-        serviceId,
-        name: body.name,
-        description: body.description,
+        serviceId: id,
+        name_en: body.name_en,
+        name_fi: body.name_fi,
+        description_en: body.description_en,
+        description_fi: body.description_fi,
         price: body.price,
       },
     });

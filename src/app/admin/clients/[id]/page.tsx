@@ -1,4 +1,4 @@
-import ClientDetails from '@/components/admin/ClientDetails';
+import ClientDetails from '@/components/admin/clients/ClientDetails';
 import { getClientWithUpcomingAppointments } from '@/lib/db/clients';
 import { notFound } from 'next/navigation';
 

@@ -1,5 +1,5 @@
 interface Props {
-  price: number | null;
+  price: number;
 }
 
 const PriceInfo = ({ price }: Props) => (

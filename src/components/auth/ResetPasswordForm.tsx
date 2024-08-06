@@ -52,7 +52,7 @@ const ResetPasswordForm = () => {
       setInputErrors({});
       setError('');
       setIsSubmitting(true);
-      await axios.post('/api/users/reset-password', {
+      await axios.post('/api/auth/reset-password', {
         password,
         confirmPassword,
         token,

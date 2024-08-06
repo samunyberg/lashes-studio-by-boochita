@@ -64,7 +64,7 @@ const EditInformationForm = ({ user, onClose }: Props) => {
 
     try {
       setIsSubmitting(true);
-      await axios.patch(`api/users/${user.id}/edit`, {
+      await axios.patch(`/api/users/${user.id}`, {
         firstName,
         lastName,
         email,

@@ -23,6 +23,9 @@ interface Props<T> {
 const Table = <T,>({ data, config, keyFn }: Props<T>) => {
   const showHeader = config.showHeaderRow ?? true;
 
+  if (data.length === 0)
+    return <div className='font-medium'>No data to display.</div>;
+
   return (
     <div className='w-full overflow-x-auto'>
       <table className='min-w-full table-auto'>
@@ -42,7 +45,10 @@ const Table = <T,>({ data, config, keyFn }: Props<T>) => {
         )}
         <tbody>
           {data.map((rowData) => (
-            <tr key={keyFn(rowData)} className='border-b border-black/10'>
+            <tr
+              key={keyFn(rowData)}
+              className='border-b border-black/10 last:border-none'
+            >
               {config.columns.map((column) => (
                 <td
                   key={column.label}

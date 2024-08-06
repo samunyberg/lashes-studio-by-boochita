@@ -77,7 +77,7 @@ const Step3 = () => {
           </span>
           <span className='flex items-center gap-2'>
             <FaCheck className='size-3' />
-            {bookingData.serviceOption?.name}
+            {bookingData.serviceOption?.name_en}
           </span>
         </div>
       </Panel>

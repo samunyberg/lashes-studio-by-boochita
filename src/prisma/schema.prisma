@@ -14,16 +14,19 @@ datasource db {
 }
 
 model Appointment {
-  id              Int       @id @default(autoincrement())
-  dateTime        DateTime
-  userId          String?
-  serviceId       Int?
-  serviceOptionId Int?
-  status          Status    @default(AVAILABLE)
-  bookedAt        DateTime?
-  rescheduledAt   DateTime?
-  servicePrice    Float?
-  adminNote       String?   @db.VarChar(500)
+  id                Int       @id @default(autoincrement())
+  dateTime          DateTime
+  userId            String?
+  clientName        String?
+  serviceId         Int?
+  serviceOptionId   Int?
+  serviceName       String?   @db.VarChar(255)
+  serviceOptionName String?   @db.VarChar(255)
+  status            Status    @default(AVAILABLE)
+  bookedAt          DateTime?
+  rescheduledAt     DateTime?
+  servicePrice      Float?
+  adminNote         String?   @db.VarChar(500)
 
   client        User?          @relation(fields: [userId], references: [id])
   service       Service?       @relation(fields: [serviceId], references: [id])
@@ -39,19 +42,22 @@ enum Status {
 model Service {
   id             Int             @id @default(autoincrement())
   name           String          @db.VarChar(255)
-  description    String?
-  imageUrl       String?
+  description_en String
+  description_fi String
+  imageUrl       String
   serviceOptions ServiceOption[]
   appointments   Appointment[]
 }
 
 model ServiceOption {
-  id           Int           @id @default(autoincrement())
-  name         String        @db.VarChar(255)
-  price        Float
-  description  String?
-  serviceId    Int
-  appointments Appointment[]
+  id             Int           @id @default(autoincrement())
+  name_en        String        @db.VarChar(255)
+  name_fi        String        @db.VarChar(255)
+  price          Float
+  description_en String
+  description_fi String
+  serviceId      Int
+  appointments   Appointment[]
 
   service Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 }

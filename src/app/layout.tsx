@@ -30,6 +30,8 @@ export default function RootLayout({
         <ToastContainer
           toastClassName='customToast'
           className='toastContainer'
+          hideProgressBar
+          pauseOnFocusLoss={false}
         />
       </body>
     </html>

@@ -1,11 +1,11 @@
+import Button from '@/components/common/Button';
+import FormError from '@/components/common/forms/FormError';
+import FormGroup from '@/components/common/forms/FormGroup';
 import useLocalisedFormSchema from '@/hooks/useLocalisedFormSchema';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import Button from '../common/Button';
-import FormError from '../common/forms/FormError';
-import FormGroup from '../common/forms/FormGroup';
 
 interface Props {
   appointmentId: number;

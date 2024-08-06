@@ -1,4 +1,4 @@
-import ClientList from '@/components/admin/ClientList';
+import ClientList from '@/components/admin/clients/ClientList';
 import { PaginationInfo } from '@/components/Pagination';
 import { getClientsBySearchTerm } from '@/lib/db/clients';
 

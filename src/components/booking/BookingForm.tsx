@@ -57,10 +57,13 @@ const BookingForm = ({ services, appointments }: Props) => {
           userId: session?.user.id,
           serviceId: bookingData.service!.id,
           serviceOptionId: bookingData.serviceOption!.id,
+          clientName: `${session?.user.firstName} ${session?.user.lastName}`,
+          serviceName: bookingData.service?.name,
+          serviceOptionName: bookingData.serviceOption?.name_en,
           servicePrice: bookingData.serviceOption?.price,
         }
       );
-      router.push('/book/thank-you/?email=' + session?.user.email);
+      router.push('/book/thank-you');
     } catch (error) {
       let errorMessage = '';
       const err = error as AxiosError;
