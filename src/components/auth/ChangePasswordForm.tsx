@@ -3,6 +3,7 @@
 import useLanguage from '@/hooks/useLanguage';
 import useLocalisedFormSchema from '@/hooks/useLocalisedFormSchema';
 import axios, { AxiosError } from 'axios';
+import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Button from '../common/Button';
@@ -14,21 +15,24 @@ import PasswordStrength from './PasswordStrength';
 
 interface FieldErrors {
   oldPassword?: string[];
-  password?: string[];
-  confirmPassword?: string[];
+  newPassword?: string[];
+  confirmNewPassword?: string[];
+}
+
+interface FormData {
+  oldPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
 }
 
 interface Props {
-  userId: string;
   onClose: () => void;
 }
 
-const ChangePasswordForm = ({ userId, onClose }: Props) => {
+const ChangePasswordForm = ({ onClose }: Props) => {
   const { getLabel } = useLanguage();
   const { changePasswordFormSchema } = useLocalisedFormSchema();
-  const [oldPassword, setOldPassword] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [formData, setFormData] = useState({} as FormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationErrors, setValidationErrors] = useState({} as FieldErrors);
   const [error, setError] = useState('');
@@ -36,11 +40,7 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const validation = changePasswordFormSchema.safeParse({
-      oldPassword,
-      password,
-      confirmPassword,
-    });
+    const validation = changePasswordFormSchema.safeParse(formData);
     if (!validation.success) {
       setValidationErrors(validation.error.flatten().fieldErrors);
       return;
@@ -48,15 +48,9 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
 
     try {
       setIsSubmitting(true);
-      setValidationErrors({});
-      setError('');
-      await axios.patch(`/api/auth/change-password`, {
-        oldPassword,
-        password,
-        confirmPassword,
-      });
-      toast.success('Password changed successfully');
-      onClose();
+      clearErrors();
+      await axios.patch(`/api/auth/change-password`, formData);
+      handleSubmitSuccess();
     } catch (error: unknown) {
       if (error instanceof AxiosError) setError(error.response?.data.error);
       else setError('Something went wrong. Please try again.');
@@ -65,14 +59,28 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
     }
   };
 
-  const handleCancel = () => {
-    setValidationErrors({});
-    setError('');
-    setOldPassword('');
-    setPassword('');
-    setConfirmPassword('');
-
+  const handleSubmitSuccess = async () => {
     onClose();
+    await signOut({ redirect: true, callbackUrl: '/auth/login' });
+    toast.success(
+      'Password changed successfully. Please login with your new password.'
+    );
+  };
+
+  const handleCancel = () => {
+    clearErrors();
+    setFormData({} as FormData);
+    onClose();
+  };
+
+  const clearErrors = () => {
+    setError('');
+    setValidationErrors({});
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = event.target;
+    setFormData({ ...formData, [id]: value });
   };
 
   return (
@@ -83,30 +91,33 @@ const ChangePasswordForm = ({ userId, onClose }: Props) => {
         label='Current password'
       >
         <PasswordInput
-          id='currentPassword'
+          id='oldPassword'
           placeholder={getLabel('old_password')}
-          value={oldPassword}
-          onChange={(e) => setOldPassword(e.target.value)}
+          value={formData.oldPassword}
+          onChange={handleInputChange}
         />
       </FormGroup>
-      <FormGroup error={validationErrors.password?.at(0)} label='New password'>
+      <FormGroup
+        error={validationErrors.newPassword?.at(0)}
+        label='New password'
+      >
         <PasswordInput
           id='newPassword'
           placeholder={getLabel('password')}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.newPassword}
+          onChange={handleInputChange}
         />
       </FormGroup>
-      <PasswordStrength password={password} />
+      <PasswordStrength password={formData.newPassword} />
       <FormGroup
-        error={validationErrors.confirmPassword?.at(0)}
+        error={validationErrors.confirmNewPassword?.at(0)}
         label='Confirm new password'
       >
         <PasswordInput
           id='confirmNewPassword'
           placeholder={getLabel('confirm_password')}
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          value={formData.confirmNewPassword}
+          onChange={handleInputChange}
         />
       </FormGroup>
       <div className='mt-8 flex flex-col gap-4'>

@@ -1,11 +1,11 @@
-import { PaginationInfo } from '@/components/Pagination';
+import { PaginationData } from '@/components/Pagination';
 import prisma from '@/prisma/client';
 import { Client, ClientWithAppointments } from '../types';
 
 export async function getClients({
   pageNumber,
   pageSize,
-}: PaginationInfo): Promise<{ clients: Client[]; count: number }> {
+}: PaginationData): Promise<{ clients: Client[]; count: number }> {
   const [clients, count] = await Promise.all([
     prisma.user.findMany({
       skip: (pageNumber - 1) * pageSize,
@@ -19,7 +19,7 @@ export async function getClients({
 
 export async function getClientsBySearchTerm(
   term: string,
-  { pageNumber, pageSize }: PaginationInfo
+  { pageNumber, pageSize }: PaginationData
 ): Promise<{ clients: Client[]; count: number }> {
   const whereClause = {
     OR: [

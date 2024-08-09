@@ -31,13 +31,13 @@ export async function PATCH(req: NextRequest) {
   if (!isValidPassword)
     return NextResponse.json({ error: 'Invalid password' }, { status: 400 });
 
-  if (body.password !== body.confirmPassword)
+  if (body.newPassword !== body.confirmNewPassword)
     return NextResponse.json(
       { error: 'Passwords no not match' },
       { status: 400 }
     );
 
-  const hashedPassword = await bcrypt.hash(body.password, 10);
+  const hashedPassword = await bcrypt.hash(body.newPassword, 10);
 
   try {
     await prisma.user.update({

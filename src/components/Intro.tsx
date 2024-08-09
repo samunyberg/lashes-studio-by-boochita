@@ -18,20 +18,22 @@ const Intro = () => {
           height={300}
           className='object-contain'
         />
-        <div className='flex flex-col items-center gap-2 text-center text-4xl uppercase tracking-wide md:text-6xl lg:flex-row'>
-          <h1>Lashes Studio by Boochita</h1>
+        <div className='flex flex-col items-center gap-12 text-center'>
+          <h1 className='text-4xl uppercase tracking-wide md:text-6xl'>
+            Lashes Studio by Boochita
+          </h1>
+          <MotionContainer
+            initial={{ y: '-50%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, ease: 'easeIn' }}
+          >
+            <Link href='/book'>
+              <Button variant='accent' className='!px-5 !py-3 !text-[17px]'>
+                <Label labelId='book_appointment' />
+              </Button>
+            </Link>
+          </MotionContainer>
         </div>
-        <MotionContainer
-          initial={{ y: '-50%', opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.3, ease: 'easeIn' }}
-        >
-          <Link href='/book'>
-            <Button variant='accent' className='!px-5 !py-3 !text-[17px]'>
-              <Label labelId='book_appointment' />
-            </Button>
-          </Link>
-        </MotionContainer>
       </div>
     </div>
   );

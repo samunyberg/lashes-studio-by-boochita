@@ -67,7 +67,7 @@ const LoginForm = () => {
           placeholder={getLabel('password')}
           onChange={handleInputChange}
         />
-        <Button variant='accent' isLoading={isSubmitting}>
+        <Button variant='accent' className='!w-full' isLoading={isSubmitting}>
           <Label labelId='login' />
         </Button>
       </form>

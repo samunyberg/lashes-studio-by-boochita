@@ -1,5 +1,5 @@
 import AppointmentList from '@/components/admin/appointments/AppointmentList';
-import { PaginationInfo } from '@/components/Pagination';
+import { PaginationData } from '@/components/Pagination';
 import { getAppointmentsBySearchTerm } from '@/lib/db/appointments';
 
 export interface AppointmentSearchQuery {
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const AdminSearchAppointmentsPage = async ({ searchParams }: Props) => {
-  const pagination: PaginationInfo = {
+  const pagination: PaginationData = {
     pageNumber: parseInt(searchParams.pageNumber) || 1,
     pageSize: parseInt(searchParams.pageSize) || 10,
   };

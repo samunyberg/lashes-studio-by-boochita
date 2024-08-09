@@ -65,20 +65,20 @@ const useLocalisedFormSchema = () => {
   const changePasswordFormSchema = z
     .object({
       oldPassword: z.string(),
-      password: z
+      newPassword: z
         .string()
         .min(8, getLabel('password_min_length'))
         .max(50, getLabel('password_max_length'))
         .regex(validPassword, getLabel('password_requirements')),
-      confirmPassword: z.string(),
+      confirmNewPassword: z.string(),
     })
-    .refine((data) => data.password === data.confirmPassword, {
+    .refine((data) => data.newPassword === data.confirmNewPassword, {
       message: getLabel('passwords_do_not_match'),
-      path: ['confirmPassword'],
+      path: ['confirmNewPassword'],
     });
 
   const adminNoteSchema = z.object({
-    note: z.string().min(3).max(500),
+    adminNote: z.string().min(3).max(500),
   });
 
   const serviceSchema = z.object({

@@ -34,8 +34,8 @@ const ForgottenPasswordForm = () => {
     }
 
     try {
-      setValidationError('');
       setError('');
+      setValidationError('');
       setIsSubmitting(true);
       await axios.post('/api/auth/forgotten-password', { email });
       setEmail('');
@@ -63,7 +63,7 @@ const ForgottenPasswordForm = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </FormGroup>
-        <Button variant='accent' isLoading={isSubmitting}>
+        <Button variant='accent' className='!w-full' isLoading={isSubmitting}>
           <Label labelId='send' />
         </Button>
       </form>

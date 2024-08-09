@@ -152,7 +152,7 @@ const RegisterForm = () => {
             onChange={handleInputChange}
           />
         </FormGroup>
-        <Button variant='accent' isLoading={isSubmitting}>
+        <Button variant='accent' className='!w-full' isLoading={isSubmitting}>
           <Label labelId='register' />
         </Button>
       </form>

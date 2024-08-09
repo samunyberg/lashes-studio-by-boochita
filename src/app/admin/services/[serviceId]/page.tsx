@@ -1,14 +1,14 @@
-import ServiceDetails from '@/components/admin/services/ServiceDetails';
+import ServiceOverview from '@/components/admin/services/ServiceOverview';
 import { getServiceById } from '@/lib/db/services';
 
 interface Props {
   params: { serviceId: string };
 }
 
-const ServiceDetailsPage = async ({ params: { serviceId } }: Props) => {
+const AdminServicePage = async ({ params: { serviceId } }: Props) => {
   const service = await getServiceById(parseInt(serviceId));
 
-  return <ServiceDetails service={service} />;
+  return <ServiceOverview service={service} />;
 };
 
-export default ServiceDetailsPage;
+export default AdminServicePage;

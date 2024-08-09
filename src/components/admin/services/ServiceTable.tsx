@@ -2,6 +2,7 @@
 
 import Button from '@/components/common/Button';
 import Modal from '@/components/common/Modal';
+import { useServiceForm } from '@/hooks/useServiceForm';
 import { clipText } from '@/lib/utils/stringUtils';
 import { Service } from '@prisma/client';
 import Link from 'next/link';
@@ -38,25 +39,34 @@ const config: Config<Service> = {
 const keyFn = (service: Service) => service.id;
 
 const ServiceTable = ({ services, itemsCount }: Props) => {
-  const [showServiceForm, setShowServiceForm] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const {
+    formData,
+    handleSubmit,
+    handleCancel,
+    handleInputChange,
+    handleImageSelect,
+    error,
+    validationErrors,
+    isSubmitting,
+  } = useServiceForm(() => setModalVisible(false));
 
-  const serviceFormModal = (
-    <Modal
-      isVisible={showServiceForm}
-      header={<h1 className='text-lg font-semibold'>Create New Service</h1>}
-      content={<ServiceForm onClose={() => setShowServiceForm(false)} />}
-      onClose={() => setShowServiceForm(false)}
-    />
-  );
+  const openServiceForm = () => {
+    setModalVisible(true);
+  };
+
+  const closeServiceForm = () => {
+    setModalVisible(false);
+  };
 
   return (
-    <>
+    <div className='flex flex-col gap-5'>
       <Button
         variant='accent'
-        className='mb-5 !h-fit !w-fit !px-3 !text-sm'
-        onClick={() => setShowServiceForm(true)}
+        className='my-3 lg:w-fit'
+        onClick={openServiceForm}
       >
-        New
+        Add Service
       </Button>
       <PaginatedTable
         data={services}
@@ -64,8 +74,24 @@ const ServiceTable = ({ services, itemsCount }: Props) => {
         keyFn={keyFn}
         itemsCount={itemsCount}
       />
-      {serviceFormModal}
-    </>
+      <Modal
+        isVisible={modalVisible}
+        header={<h1 className='text-lg font-semibold'>Add Service</h1>}
+        onClose={closeServiceForm}
+        content={
+          <ServiceForm
+            formData={formData}
+            error={error}
+            validationErrors={validationErrors}
+            onInputChange={handleInputChange}
+            onImageSelect={handleImageSelect}
+            onSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
+            onCancel={handleCancel}
+          />
+        }
+      />
+    </div>
   );
 };
 

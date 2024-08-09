@@ -1,76 +1,46 @@
 import Button from '@/components/common/Button';
 import FormError from '@/components/common/forms/FormError';
 import FormGroup from '@/components/common/forms/FormGroup';
-import useLocalisedFormSchema from '@/hooks/useLocalisedFormSchema';
-import axios, { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { FormData } from './AdminNote';
 
 interface Props {
-  appointmentId: number;
-  initialNote?: string | null;
-  onClose: () => void;
+  isEditing: boolean;
+  formData: FormData;
+  onInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  onCancel: () => void;
+  error: string;
+  validationError?: string;
+  isSubmitting: boolean;
 }
 
-const NoteForm = ({ appointmentId, initialNote, onClose }: Props) => {
-  const router = useRouter();
-  const { adminNoteSchema } = useLocalisedFormSchema();
-  const [note, setNote] = useState(initialNote || '');
-  const [validationEror, setValidationError] = useState<string | undefined>('');
-  const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const validationResult = adminNoteSchema.safeParse({ note });
-    if (!validationResult.success) {
-      setValidationError(
-        validationResult.error.flatten().fieldErrors.note?.at(0)
-      );
-      return;
-    }
-
-    try {
-      setIsSubmitting(true);
-      await axios.patch(`/api/appointments/${appointmentId}/update`, {
-        adminNote: note,
-      });
-      onClose();
-      toast.success(initialNote ? 'Note edited' : 'Note added');
-      router.refresh();
-    } catch (error: unknown) {
-      if (error instanceof AxiosError) setError(error.response?.data.error);
-      else setError('Whoops! Something went wrong.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleCancel = () => {
-    setValidationError('');
-    setError('');
-
-    onClose();
-  };
-
+const NoteForm = ({
+  isEditing,
+  formData,
+  onInputChange,
+  onSubmit,
+  onCancel,
+  error,
+  validationError,
+  isSubmitting,
+}: Props) => {
   return (
-    <form className='flex flex-col gap-2' onSubmit={handleSubmit}>
+    <form className='flex flex-col gap-2' onSubmit={onSubmit}>
       <FormError>{error}</FormError>
-      <FormGroup error={validationEror}>
+      <FormGroup error={validationError}>
         <textarea
-          className='h-36 resize-none rounded-sm border border-black/30 p-2 font-medium shadow transition-all focus:outline-accent'
-          value={note}
+          id='adminNote'
+          className='h-36 resize-none rounded-sm border border-black/20 p-2 font-medium shadow transition-all focus:outline-accent'
+          value={formData.adminNote}
           placeholder='Write a note here...'
-          onChange={(e) => setNote(e.target.value)}
+          onChange={onInputChange}
         />
       </FormGroup>
       <div className='mt-5 flex flex-col gap-4'>
         <Button type='submit' variant='accent' isLoading={isSubmitting}>
-          {initialNote ? 'Edit' : 'Add'}
+          {isEditing ? 'Edit' : 'Add'}
         </Button>
-        <Button type='button' onClick={handleCancel}>
+        <Button type='button' onClick={onCancel}>
           Cancel
         </Button>
       </div>

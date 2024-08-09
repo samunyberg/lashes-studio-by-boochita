@@ -20,11 +20,16 @@ const ThankYouPage = () => {
           <span className='font-semibold'>{session?.user.email}</span>.
         </p>
         <div className='flex w-full flex-col gap-4'>
-          <Button variant='accent' onClick={() => router.push('/')}>
+          <Button
+            variant='accent'
+            className='!w-full'
+            onClick={() => router.push('/')}
+          >
             <Label labelId='home' />
           </Button>
           <Button
             variant='primary'
+            className='!w-full'
             onClick={() => signOut({ redirect: true, callbackUrl: '/' })}
           >
             <Label labelId='logout' />

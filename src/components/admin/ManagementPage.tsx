@@ -9,7 +9,7 @@ interface Props {
   heading: string | ReactNode;
 }
 
-const DetailsPage = ({ children, heading }: Props) => {
+const ManagementPage = ({ children, heading }: Props) => {
   return (
     <Container className='pb-8'>
       <GoBackLink />
@@ -19,4 +19,4 @@ const DetailsPage = ({ children, heading }: Props) => {
   );
 };
 
-export default DetailsPage;
+export default ManagementPage;

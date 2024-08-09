@@ -55,7 +55,7 @@ const DeleteButton = ({ endpoint, callbackUrl }: Props) => {
       </Button>
       <Modal
         isVisible={showConfirmation}
-        header={<h1 className='text-lg font-semibold'>Delete Option</h1>}
+        header={<h1 className='text-lg font-semibold'>Delete</h1>}
         content={
           <div className='flex flex-col gap-5'>
             <div className='flex flex-col gap-4 rounded-sm border-2 border-red-400 px-4 py-3'>

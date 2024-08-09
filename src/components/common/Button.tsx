@@ -21,7 +21,7 @@ const Button = ({
   return (
     <button
       className={cn(
-        `${className ? className : ''} flex h-10 min-w-[80px] items-center justify-center rounded-sm border-2 border-primary px-4 text-base font-medium tracking-wide transition-all disabled:cursor-not-allowed disabled:text-opacity-50 lg:text-sm`,
+        `${className ? className : ''} flex h-10 w-full min-w-[80px] items-center justify-center rounded-sm border-2 border-primary px-4 text-base font-medium tracking-wide transition-all disabled:cursor-not-allowed disabled:text-opacity-50 lg:w-fit lg:text-sm`,
         {
           'bg-transparent active:bg-primaryButtonHover disabled:border-opacity-50 lg:hover:bg-primaryButtonHover':
             variant === 'primary',

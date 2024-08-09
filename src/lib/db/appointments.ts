@@ -1,5 +1,5 @@
 import { AppointmentSearchQuery } from '@/app/admin/appointments/search/page';
-import { PaginationInfo } from '@/components/Pagination';
+import { PaginationData } from '@/components/Pagination';
 import prisma from '@/prisma/client';
 import { AppointmentWithData } from '../types';
 import {
@@ -30,7 +30,7 @@ todayEnd.setHours(23, 59, 59, 999);
 export async function getAppointments({
   pageNumber,
   pageSize,
-}: PaginationInfo): Promise<{
+}: PaginationData): Promise<{
   appointments: AppointmentWithData[];
   count: number;
 }> {
@@ -48,7 +48,7 @@ export async function getAppointments({
 
 export async function getAppointmentsBySearchTerm(
   { term, date }: AppointmentSearchQuery,
-  { pageNumber, pageSize }: PaginationInfo
+  { pageNumber, pageSize }: PaginationData
 ): Promise<{ appointments: AppointmentWithData[]; count: number }> {
   const startOfDay = date ? new Date(date + 'T00:00:00Z') : undefined;
   const endOfDay = date ? new Date(date + 'T23:59:59Z') : undefined;

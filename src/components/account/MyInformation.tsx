@@ -95,12 +95,7 @@ const MyInformation = ({ user }: Props) => {
             <Label labelId='change_password' />
           </span>
         }
-        content={
-          <ChangePasswordForm
-            userId={user.id}
-            onClose={handleClosePasswordForm}
-          />
-        }
+        content={<ChangePasswordForm onClose={handleClosePasswordForm} />}
         onClose={handleClosePasswordForm}
       />
     </div>

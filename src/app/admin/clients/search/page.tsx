@@ -1,5 +1,5 @@
 import ClientList from '@/components/admin/clients/ClientList';
-import { PaginationInfo } from '@/components/Pagination';
+import { PaginationData } from '@/components/Pagination';
 import { getClientsBySearchTerm } from '@/lib/db/clients';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 const AdminSearchClientsPage = async ({
   searchParams: { term, pageNumber, pageSize },
 }: Props) => {
-  const pagination: PaginationInfo = {
+  const pagination: PaginationData = {
     pageNumber: parseInt(pageNumber) || 1,
     pageSize: parseInt(pageSize) || 10,
   };

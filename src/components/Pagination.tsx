@@ -1,7 +1,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Button from './common/Button';
 
-export interface PaginationInfo {
+export interface PaginationData {
   pageNumber: number;
   pageSize: number;
 }
@@ -11,7 +11,7 @@ interface Props {
   itemsCount: number;
 }
 
-const Pagination = ({ className, itemsCount }: Props) => {
+const Pagination = ({ className = '', itemsCount }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathName = usePathname();
@@ -31,28 +31,22 @@ const Pagination = ({ className, itemsCount }: Props) => {
       router.replace(`${pathName}?pageNumber=${currentPage + 1}`);
   };
 
-  const renderResults = () => (
-    <div className='flex gap-2 text-sm font-medium'>
-      <span>{`Results: ${itemsCount}`}</span>
-      <span>|</span>
-      <span>{`Page ${currentPage} of ${totalPages}`}</span>
-    </div>
-  );
-
   return (
-    <div
-      className={`flex items-center justify-between ${className && className}`}
-    >
+    <div className={`flex items-center justify-between ${className}`}>
       <Button
-        className='!h-fit !px-2 !py-1 !text-sm'
+        className='!h-fit !w-fit !px-2 !py-1 !text-xs'
         onClick={handlePreviousPage}
         disabled={currentPage === 1}
       >
         Previous
       </Button>
-      {renderResults()}
+      <div className='flex gap-2 text-xs font-medium'>
+        <span>{`Results: ${itemsCount}`}</span>
+        <span>|</span>
+        <span>{`Page ${currentPage} of ${totalPages}`}</span>
+      </div>
       <Button
-        className='!h-fit !px-2 !py-1 !text-sm'
+        className='!h-fit !w-fit !px-2 !py-1 !text-xs'
         onClick={handleNextPage}
         disabled={currentPage === totalPages}
       >

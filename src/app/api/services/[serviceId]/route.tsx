@@ -27,7 +27,7 @@ export async function PATCH(
         name: body.name,
         description_en: body.description_en,
         description_fi: body.description_fi,
-        imageUrl: body.imageUrl,
+        imageUrl: body.imageId,
       },
     });
     return NextResponse.json({ data: updatedService }, { status: 200 });

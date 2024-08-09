@@ -23,26 +23,17 @@ interface Props {
 }
 
 const EditInformationForm = ({ user, onClose }: Props) => {
-  const [firstName, setFirstName] = useState(user.firstName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [email, setEmail] = useState(user.email);
-  const [phone, setPhone] = useState(user.phone);
+  const [formData, setFormData] = useState({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    phone: user.phone,
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({} as FieldErrors);
   const [serverError, setServerError] = useState('');
   const { editAccountSchema } = useLocalisedFormSchema();
   const router = useRouter();
-
-  const handleCancel = () => {
-    setFirstName(user.firstName);
-    setLastName(user.lastName);
-    setEmail(user.email);
-    setPhone(user.phone);
-    setServerError('');
-    setErrors({});
-
-    onClose();
-  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -50,12 +41,7 @@ const EditInformationForm = ({ user, onClose }: Props) => {
     setErrors({});
     setServerError('');
 
-    const validationResult = editAccountSchema.safeParse({
-      firstName,
-      lastName,
-      email,
-      phone,
-    });
+    const validationResult = editAccountSchema.safeParse(formData);
     if (!validationResult.success) {
       const fieldErrors = validationResult.error.flatten().fieldErrors;
       setErrors(fieldErrors);
@@ -64,15 +50,8 @@ const EditInformationForm = ({ user, onClose }: Props) => {
 
     try {
       setIsSubmitting(true);
-      await axios.patch(`/api/users/${user.id}`, {
-        firstName,
-        lastName,
-        email,
-        phone,
-      });
-      router.refresh();
-      onClose();
-      toast.success('Information updated');
+      await axios.patch(`/api/users/${user.id}`, formData);
+      handleSubmitSuccess();
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         setServerError(error.response?.data.error);
@@ -80,6 +59,33 @@ const EditInformationForm = ({ user, onClose }: Props) => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleSubmitSuccess = () => {
+    onClose();
+    toast.success('Information updated');
+    router.refresh();
+  };
+
+  const clearErrors = () => {
+    setServerError('');
+    setErrors({});
+  };
+
+  const handleCancel = () => {
+    clearErrors();
+    setFormData({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phone: user.phone,
+    });
+    onClose();
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = event.target;
+    setFormData({ ...formData, [id]: value });
   };
 
   return (
@@ -92,8 +98,8 @@ const EditInformationForm = ({ user, onClose }: Props) => {
         >
           <Input
             id='firstName'
-            value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
+            value={formData.firstName}
+            onChange={handleInputChange}
           />
         </FormGroup>
         <FormGroup
@@ -102,8 +108,8 @@ const EditInformationForm = ({ user, onClose }: Props) => {
         >
           <Input
             id='lastName'
-            value={lastName}
-            onChange={(event) => setLastName(event.target.value)}
+            value={formData.lastName}
+            onChange={handleInputChange}
           />
         </FormGroup>
         <FormGroup
@@ -112,8 +118,8 @@ const EditInformationForm = ({ user, onClose }: Props) => {
         >
           <Input
             id='email'
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            value={formData.email}
+            onChange={handleInputChange}
           />
         </FormGroup>
         <FormGroup
@@ -122,8 +128,8 @@ const EditInformationForm = ({ user, onClose }: Props) => {
         >
           <Input
             id='phone'
-            value={phone}
-            onChange={(event) => setPhone(event.target.value)}
+            value={formData.phone}
+            onChange={handleInputChange}
           />
         </FormGroup>
       </div>

@@ -1,5 +1,5 @@
 import { cn } from 'clsx-tailwind-merge';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { IoIosClose } from 'react-icons/io';
 import CloseOnSwipeDown from './CloseOnSwipeDown';
 import Portal from './Portal';
@@ -12,6 +12,17 @@ interface Props {
 }
 
 const Modal = ({ isVisible, onClose, header, content }: Props) => {
+  useEffect(() => {
+    if (isVisible) {
+      const handleEscape = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') onClose();
+      };
+
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+  }, [isVisible, onClose]);
+
   const head = (
     <CloseOnSwipeDown onClose={onClose}>
       <div className='flex items-center justify-center pt-2'>
@@ -19,11 +30,7 @@ const Modal = ({ isVisible, onClose, header, content }: Props) => {
       </div>
       <div className='flex items-center justify-between border-b border-gray-200 px-5 py-3'>
         <div>{header}</div>
-        <IoIosClose
-          size={35}
-          className='cursor-pointer'
-          onClick={() => onClose()}
-        />
+        <IoIosClose size={35} className='cursor-pointer' onClick={onClose} />
       </div>
     </CloseOnSwipeDown>
   );

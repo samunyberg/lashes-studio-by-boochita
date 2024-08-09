@@ -1,5 +1,8 @@
-import ServiceOptionDetails from '@/components/admin/services/ServiceOptionDetails';
-import prisma from '@/prisma/client';
+import ServiceOptionOverview from '@/components/admin/services/ServiceOptionOverview';
+import {
+  getServiceById,
+  getServiceOptionByServiceIdAndOptionId,
+} from '@/lib/db/services';
 import { notFound } from 'next/navigation';
 
 interface Props {
@@ -9,16 +12,24 @@ interface Props {
   };
 }
 
-const ServiceOptionDetailsPage = async ({
+const AdminServiceOptionPage = async ({
   params: { serviceId, serviceOptionId },
 }: Props) => {
-  const serviceOption = await prisma.serviceOption.findFirst({
-    where: { serviceId: parseInt(serviceId), id: parseInt(serviceOptionId) },
-  });
+  const serviceOption = await getServiceOptionByServiceIdAndOptionId(
+    parseInt(serviceId),
+    parseInt(serviceOptionId)
+  );
+
+  const associatedService = await getServiceById(parseInt(serviceId));
 
   if (!serviceOption) return notFound();
 
-  return <ServiceOptionDetails serviceOption={serviceOption} />;
+  return (
+    <ServiceOptionOverview
+      serviceOption={serviceOption}
+      associatedServiceName={associatedService.name}
+    />
+  );
 };
 
-export default ServiceOptionDetailsPage;
+export default AdminServiceOptionPage;

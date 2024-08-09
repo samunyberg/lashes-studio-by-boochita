@@ -11,7 +11,7 @@ interface CloudinaryResult {
 }
 
 interface Props {
-  onImageSelect: (id: string) => void;
+  onImageSelect: (imageId: string) => void;
 }
 
 const UploadImage = ({ onImageSelect }: Props) => {

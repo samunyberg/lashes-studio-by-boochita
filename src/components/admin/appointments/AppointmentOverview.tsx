@@ -2,52 +2,24 @@
 
 import AppointmentPanel from '@/components/common/appointments/appointmentPanel/AppointmentPanel';
 import Button from '@/components/common/Button';
-import Modal from '@/components/common/Modal';
 import Panel from '@/components/common/Panel';
+import Spacer from '@/components/common/Spacer';
 import { AppointmentWithData } from '@/lib/types';
 import {
   formatDate,
   formatDSTAdjustedTime,
 } from '@/lib/utils/dateAndTimeUtils';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { FaEdit } from 'react-icons/fa';
-import DetailsPage from '../DetailsPage';
+import ManagementPage from '../ManagementPage';
+import AdminNote from './AdminNote';
 import CancelButton from './CancelButton';
-import NoteForm from './NoteForm';
 
 interface Props {
   appointment: AppointmentWithData;
 }
 
-const AppointmentDetails = ({ appointment }: Props) => {
+const AppointmentOverview = ({ appointment }: Props) => {
   const router = useRouter();
-  const [showAddNote, setShowAddNote] = useState(false);
-
-  const isPassedAppointment = () => {
-    return new Date() >= new Date(appointment.dateTime);
-  };
-
-  const handleCloseNoteform = () => setShowAddNote(false);
-
-  const admiNoteModal = (
-    <Modal
-      isVisible={showAddNote}
-      header={
-        <h1 className='text-lg font-semibold'>
-          {appointment.adminNote ? 'Edit Note' : 'Add Note'}
-        </h1>
-      }
-      content={
-        <NoteForm
-          appointmentId={appointment.id}
-          initialNote={appointment.adminNote}
-          onClose={handleCloseNoteform}
-        />
-      }
-      onClose={() => setShowAddNote(false)}
-    />
-  );
 
   const renderHeader = (
     <div className='flex gap-3'>
@@ -58,6 +30,26 @@ const AppointmentDetails = ({ appointment }: Props) => {
       <span>{formatDSTAdjustedTime(appointment.dateTime, 'en-FI')}</span>
     </div>
   );
+
+  const renderBookedAt = () => {
+    return appointment.rescheduledAt ? (
+      <p className='font-medium'>
+        <span>Rescheduled at:</span>{' '}
+        {appointment.rescheduledAt?.toLocaleString('en-FI', {
+          dateStyle: 'short',
+          timeStyle: 'short',
+        })}
+      </p>
+    ) : (
+      <p className='font-medium'>
+        <span>Booked at:</span>{' '}
+        {appointment.bookedAt?.toLocaleString('en-FI', {
+          dateStyle: 'short',
+          timeStyle: 'short',
+        })}
+      </p>
+    );
+  };
 
   const renderAppointment = () => {
     switch (appointment.status) {
@@ -91,15 +83,7 @@ const AppointmentDetails = ({ appointment }: Props) => {
       case 'BOOKED':
         return (
           <div className='flex flex-col gap-4 md:flex-row md:items-center'>
-            <Button>
-              <span
-                className='flex items-center gap-2'
-                onClick={() => setShowAddNote(true)}
-              >
-                <FaEdit size={22} className='cursor-pointer' />
-                <p>{appointment.adminNote ? 'Edit Note' : 'Add Note'}</p>
-              </span>
-            </Button>
+            <AdminNote appointment={appointment} />
             <Button
               variant='accent'
               onClick={() =>
@@ -129,19 +113,21 @@ const AppointmentDetails = ({ appointment }: Props) => {
     </Panel>
   );
 
+  const isPassedAppointment = () => appointment.dateTime < new Date();
+
   return (
-    <DetailsPage heading={renderHeader}>
+    <ManagementPage heading={renderHeader}>
+      {renderBookedAt()}
       {renderAppointment()}
       {appointment.adminNote && renderNote}
       {!isPassedAppointment() && (
         <>
-          <hr className='w-full border-black/20' />
+          <Spacer />
           {renderActionButtons()}
         </>
       )}
-      {admiNoteModal}
-    </DetailsPage>
+    </ManagementPage>
   );
 };
 
-export default AppointmentDetails;
+export default AppointmentOverview;

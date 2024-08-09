@@ -30,7 +30,7 @@ const AccountPage = async ({ params: { id } }: Props) => {
           appointments={client.appointments as AppointmentWithData[]}
         />
         <Link href={`/account/${client.id}/appointment-history`}>
-          <Button variant='primary' className='w-full lg:w-fit'>
+          <Button variant='primary' className='mt-2 w-full lg:w-fit'>
             <Label labelId='show_appointment_history' />
           </Button>
         </Link>

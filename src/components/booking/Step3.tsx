@@ -21,8 +21,19 @@ const Step3 = () => {
   const locale = useLocale();
   const [showTerms, setShowTerms] = useState(false);
 
+  const handleTermsLinkClick = (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.stopPropagation();
+    setShowTerms(true);
+  };
+
+  const handleTermsModalOKClick = () => {
+    setTermsAccepted(true);
+    setShowTerms(false);
+  };
+
   const termsModal = (
     <Modal
+      isVisible={showTerms}
       header={<h1 className='text-lg font-semibold'>Terms of Service</h1>}
       content={
         <div className='flex flex-col gap-8 px-2 font-medium'>
@@ -34,18 +45,11 @@ const Step3 = () => {
             vero repellendus odio veritatis quasi iure iusto, nihil quibusdam
             debitis quod. Praesentium, non dicta!
           </p>
-          <Button
-            variant='accent'
-            onClick={() => {
-              setTermsAccepted(true);
-              setShowTerms(false);
-            }}
-          >
+          <Button variant='accent' onClick={handleTermsModalOKClick}>
             OK
           </Button>
         </div>
       }
-      isVisible={showTerms}
       onClose={() => setShowTerms(false)}
     />
   );
@@ -55,7 +59,7 @@ const Step3 = () => {
       <Panel className='p-4'>
         <Label labelId='please_check_information' />
         <span className='font-semibold'> {session?.user.email}.</span>
-        <div className='mt-3 flex flex-col gap-1 px-4'>
+        <div className='mt-3 flex flex-col gap-2 px-4'>
           <span className='flex items-center gap-2'>
             <FaRegCalendarCheck className='size-4' />
             {formatDate(new Date(bookingData.appointment!.dateTime), locale, {
@@ -64,6 +68,7 @@ const Step3 = () => {
               day: '2-digit',
             })}
           </span>
+          <hr className='w-full border-black/20' />
           <span className='flex items-center gap-2'>
             <FaRegClock className='size-4' />
             {formatDSTAdjustedTime(
@@ -71,10 +76,12 @@ const Step3 = () => {
               locale
             )}
           </span>
+          <hr className='w-full border-black/20' />
           <span className='flex items-center gap-2'>
             <FaCheck className='size-3' />
             {bookingData.service?.name}
           </span>
+          <hr className='w-full border-black/20' />
           <span className='flex items-center gap-2'>
             <FaCheck className='size-3' />
             {bookingData.serviceOption?.name_en}
@@ -90,7 +97,7 @@ const Step3 = () => {
           I accept the{' '}
           <span
             className='cursor-pointer underline'
-            onClick={() => setShowTerms(true)}
+            onClick={handleTermsLinkClick}
           >
             terms of service.
           </span>

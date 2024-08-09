@@ -118,7 +118,7 @@ const BookingForm = ({ services, appointments }: Props) => {
         </StrikeThroughText>
         <BookingHeader steps={steps} currentStep={currentStep} />
         <>
-          <div className='mb-8 mt-6'>
+          <div className='my-6'>
             {currentStep === 1 && (
               <Calendar
                 initialData={appointments}
